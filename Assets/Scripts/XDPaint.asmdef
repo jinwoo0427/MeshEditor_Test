@@ -1,0 +1,23 @@
+{
+    "name": "XDPaint",
+    "rootNamespace": "",
+    "references": [
+        "GUID:2665a8d13d1b3f18800f46e256720795",
+        "GUID:75469ad4d38634e559750d17036d5f7c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.burst",
+            "expression": "",
+            "define": "BURST"
+        }
+    ],
+    "noEngineReferences": false
+}

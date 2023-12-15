@@ -1,0 +1,25 @@
+{
+    "name": "XDPaint.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:67996ca52dd364b60917f0aa1db1be50",
+        "GUID:2665a8d13d1b3f18800f46e256720795"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.burst",
+            "expression": "",
+            "define": "BURST"
+        }
+    ],
+    "noEngineReferences": false
+}

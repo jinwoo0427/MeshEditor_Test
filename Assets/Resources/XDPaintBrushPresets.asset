@@ -1,0 +1,585 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65f0188d9468d4ad9901f09ee5b325b1, type: 3}
+  m_Name: XDPaintBrushPresets
+  m_EditorClassIdentifier: 
+  Presets:
+  - name: Brush_1
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: f844f3eb6e0d04d6885cdf68f2e57b4c, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 0.99
+    preview: 1
+  - name: Brush_2
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: 196ba22aa235e4ee19190b3d76048616, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 0.99
+    preview: 1
+  - name: Brush_3
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: 1527dc41fc1174f6f8b97b4514cfb786, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 0.99
+    preview: 1
+  - name: Brush_4
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: 23a90b375b8d74c4bba0cd36146e4c39, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 0.99
+    preview: 1
+  - name: Brush_5
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: e32607df0608947d29668f498409396e, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 0.99
+    preview: 1
+  - name: Brush_6
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: 42a6166ea412b4612b03963e121d061d, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 0.99
+    preview: 1
+  - name: Brush_7
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: b4d9c47e91fc04c81a0b15275f4ec2dc, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 0.99
+    preview: 1
+  - name: Brush_8
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: 5112db4aaff724d0481cccbac70d0dfd, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 0.99
+    preview: 1
+  - name: Brush_9
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: c7bb9af4d555c45099a84158f970011d, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 0.99
+    preview: 1
+  - name: Brush_10
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: 9851771aa3b5d43a4a150b7ba909b947, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 5
+    preview: 1
+  - name: Brush_11
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: d7e90b7e5a8924c40a9c2c0398955a07, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 5
+    preview: 1
+  - name: Brush_12
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: 97e13a6cf2c354ad39cf9ae478e4359a, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 5
+    preview: 1
+  - name: Brush_13
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: 5496bf3192da2451da1b3c1761c91d8c, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 5
+    preview: 1
+  - name: Brush_14
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: 695d1bc3d933a48a38d79d992dc74de4, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 5
+    preview: 1
+  - name: Brush_15
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: b1a0fac490d4f4e5e88cb6783938e893, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 5
+    preview: 1
+  - name: Brush_16
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: bcd9a253ccb8b400c9e2351c76170421, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 5
+    preview: 1
+  - name: Brush_17
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: 22c92c7fcb6f84bae8d887ce9b6c5b50, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 5
+    preview: 1
+  - name: Brush_18
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: ad494aa387b264fc2b57229fed088835, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 5
+    preview: 1
+  - name: Brush_19
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: 44b3465c521fe4dc3a5267deb7449910, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 5
+    preview: 1
+  - name: Brush_20
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: 81a32e8030f7146daaf0de9c993b1c56, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 5
+    preview: 1
+  - name: Brush_21
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: 0688a249e4bcd43d98de4286ff7dc921, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 5
+    preview: 1
+  - name: Brush_22
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: 02da5ddad0afb4dec8d22a0013f42e55, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 5
+    preview: 1
+  - name: Brush_23
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: a5b08edae6885477da81398521da69bc, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 5
+    preview: 1
+  - name: Brush_24
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: 1549ff3f64b0945ec8218444ce44aaf4, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 5
+    preview: 1
+  - name: Brush_25
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: ab7ac37d8d8f84778a26648e55a56495, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 5
+    preview: 1
+  - name: Brush_26
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: 57e9938226d55497d9e0cccdaca2179b, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 5
+    preview: 1
+  - name: Brush_27
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: d74394a9159834d738cc0738cb71c742, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 5
+    preview: 1
+  - name: Brush_28
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: 43beac87b2f344bfc88c9a19120a899a, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 5
+    preview: 1
+  - name: Brush_29
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: 3197cd3007eb64e099f7c0f8442fa341, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 5
+    preview: 1
+  - name: Brush_30
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: 6599ae876f1a8426589b87343463499b, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 5
+    preview: 1
+  - name: Brush_31
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: cdaa447bd4fa64af4b1a7c9a954309d7, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 5
+    preview: 1
+  - name: Brush_32
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: 27b1cc09c90ec4eb288b8485a1a3d352, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 5
+    preview: 1
+  - name: Brush_33
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: 25a73f4573c94434fb6a4def8226d9ee, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 5
+    preview: 1
+  - name: Brush_34
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: bbd3b0c63563749f3b770477b6371a5f, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 5
+    preview: 1
+  - name: Brush_35
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: 980eda37b4dad407d9f882820ad563c6, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 5
+    preview: 1
+  - name: Brush_36
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: 236c2da2398814d2e8b3b52f6b1a7d5e, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 5
+    preview: 1
+  - name: Brush_37
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: b0923caf9cabc416d9c137d2d0dc7e24, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 5
+    preview: 1
+  - name: Brush_38
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: 3b368ef0cf9bb4f77a7b8042b76b1a89, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 5
+    preview: 1
+  - name: Brush_39
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: a79b7f4e8e64346ef95d54661662cf7e, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 5
+    preview: 1
+  - name: Brush_40
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: 6e6fb553df04e4e278b4ccd01faf7c79, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 5
+    preview: 1
+  - name: Brush_41
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: d1328dfd0292d4e928565940c8941e28, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 5
+    preview: 1
+  - name: Brush_42
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: f922363b7e06f463e80dbd0fd1df62e2, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 5
+    preview: 1
+  - name: Brush_43
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: 1d6e91c5579c14a93b2a0dc67b73461a, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 5
+    preview: 1
+  - name: Brush_44
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: d03ab5dce9d3b4458ac345a1100d3697, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 5
+    preview: 1
+  - name: Brush_45
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: c64dab10fef6247539e21d374456cdb1, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 5
+    preview: 1
+  - name: Brush_46
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: 0e9e9fa50cf5549ef895cbe156fa5e61, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 5
+    preview: 1
+  - name: Brush_Circle
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: 0fba41bd85477476ea663cce9c159e48, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 5
+    preview: 1
+  - name: Brush_Number_0
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: 70037b9054bb8410db5383ebd4ae3df5, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 5
+    preview: 1
+  - name: Brush_Number_1
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: 01d9367b05a454ba3836146b13e406c5, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 5
+    preview: 1
+  - name: Brush_Number_2
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: ca0320183948e411995b1a3d76029f00, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 5
+    preview: 1
+  - name: Brush_Number_3
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: 3763f5e2826b447acbbfaee4dcbd3e3e, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 5
+    preview: 1
+  - name: Brush_Number_4
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: e38df11e5d1fc497dab5e115c6a5e250, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 5
+    preview: 1
+  - name: Brush_Number_5
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: 42187ab5930e847ce8737b5ad0197bf2, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 5
+    preview: 1
+  - name: Brush_Number_6
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: 3141397434c2e4d56a5f9f03a436c9eb, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 5
+    preview: 1
+  - name: Brush_Number_7
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: 7fa24830f3a57435fb73b47ea494fabf, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 5
+    preview: 1
+  - name: Brush_Number_8
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: 7e91e236f321d44799c3178d8043e5ee, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 5
+    preview: 1
+  - name: Brush_Number_9
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 2800000, guid: c9287b6298fdf43909b5263b1e7d3b0d, type: 3}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 5
+    preview: 1

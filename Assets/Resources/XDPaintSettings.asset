@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5533a478ee820473d94d24091997fbbb, type: 3}
+  m_Name: XDPaintSettings
+  m_EditorClassIdentifier: 
+  brushShader: {fileID: 4800000, guid: 8669f7723c50948618cdb955cc1b9514, type: 3}
+  brushRenderShader: {fileID: 4800000, guid: ab9a911b7a5994400b14606d502cfdd9, type: 3}
+  eyedropperShader: {fileID: 4800000, guid: 054a72482e50843bbbee93934cb0e2b8, type: 3}
+  brushSamplerShader: {fileID: 4800000, guid: ee033d8558100495f87a3ab33cd5b6e6, type: 3}
+  brushCloneShader: {fileID: 4800000, guid: 9b38983fdfa3b4965ad01a31f6e0d15d, type: 3}
+  blurShader: {fileID: 4800000, guid: 6b1fdcc19a1df4b8fa972e7526c78c9d, type: 3}
+  gaussianBlurShader: {fileID: 4800000, guid: d5aabd84396de4fd2beffd3532426edc, type: 3}
+  grayscaleShader: {fileID: 4800000, guid: e1cb3741c3ed942fb848a22282a6a3b4, type: 3}
+  brushBlurShader: {fileID: 4800000, guid: 9a5407af9e5aa4c919ddfdeaa954df1c, type: 3}
+  paintShader: {fileID: 4800000, guid: 52c8edff095d947d9b9b0981e148e2bf, type: 3}
+  averageColorShader: {fileID: 4800000, guid: 35ab43ceb1f754c3bafd626b7caa2676, type: 3}
+  spriteMaskShader: {fileID: 4800000, guid: 0e32ba1775f344e7880319750c287a62, type: 3}
+  depthToWorldPositionShader: {fileID: 4800000, guid: ca00a443f9dd94365b3b4ef4716bde57,
+    type: 3}
+  raycastMethod: {fileID: 0}
+  DefaultBrush: {fileID: 2800000, guid: f844f3eb6e0d04d6885cdf68f2e57b4c, type: 3}
+  DefaultCircleBrush: {fileID: 2800000, guid: 0fba41bd85477476ea663cce9c159e48, type: 3}
+  DefaultPatternTexture: {fileID: 2800000, guid: 1f2815cfc3e9e4006af495419a0e5b06,
+    type: 3}
+  IsVRMode: 0
+  PressureEnabled: 0
+  CheckCanvasRaycasts: 1
+  RaycastsMethod: 1
+  BrushDuplicatePartWidth: 16
+  PixelPerUnit: 100
+  ContainerGameObjectName: '[XDPaintContainer]'

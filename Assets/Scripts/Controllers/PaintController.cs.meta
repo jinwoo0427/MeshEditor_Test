@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: a650099f7807e46c5b124f2f634d67b8
+timeCreated: 1586027217
+licenseType: Store
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - BrushTexture: {fileID: 2800000, guid: f844f3eb6e0d04d6885cdf68f2e57b4c, type: 3}
+  executionOrder: -98
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
