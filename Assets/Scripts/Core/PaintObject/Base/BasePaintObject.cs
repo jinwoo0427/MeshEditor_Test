@@ -780,7 +780,7 @@ namespace XDPaint.Core.PaintObject.Base
                             OnDrawLineExtended.Invoke(data);
                         }
 
-
+                        //Debug.Log("DrawLineTest");
                         RenderLine(linePositions, RenderOffset, Brush.RenderTexture, Brush.Size, brushes, Tool.RandomizeLinesQuadsAngle);
                     }
                 }
@@ -830,6 +830,7 @@ namespace XDPaint.Core.PaintObject.Base
                         var pressureEnd = pressureStart + (endPressure - pressureStart) * t;
                         if (linePositions.Count > 0)
                         {
+                            
                             RenderLine(linePositions, RenderOffset, Brush.RenderTexture, Brush.Size, new[] { pressureStart, pressureEnd }, Tool.RandomizeLinesQuadsAngle);
                         }
 

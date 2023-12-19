@@ -210,7 +210,7 @@ namespace XDPaint
         private const string MaskFilenameFormat = "_{0}_Mask.png";
         
         #endregion
-        
+
         private void Start()
         {
             if (initialized)

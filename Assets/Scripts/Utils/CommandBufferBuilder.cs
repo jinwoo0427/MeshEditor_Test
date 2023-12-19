@@ -84,6 +84,7 @@ namespace XDPaint.Utils
 
         public CommandBufferBuilder DrawMesh(Mesh mesh, Material material, PaintPass pass = 0)
         {
+            //Debug.Log("DrawMesh2");
             if ((int)pass == -1)
             {
                 for (var i = 0; i < material.passCount; i++)

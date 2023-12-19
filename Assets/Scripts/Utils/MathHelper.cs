@@ -124,10 +124,15 @@ namespace XDPaint.Utils
             return IntersectionsEdges[indexEdge].Value;
         }
 
+        //Cubic Bezier 곡선의 수식 사용 ( 걍 공식임. 외우자...;;; )
         public static Vector2 Interpolate(Vector2 p0, Vector2 p1, Vector2 p2, Vector2 p3, float t)
         {
+            // t의 제곱 및 세제곱 값을 미리 계산
             var t2 = t * t;
             var t3 = t2 * t;
+
+            // Cubic Bezier Curve의 x 및 y 좌표 계산
+            //
             var x = 0.5f * (2 * p1.x + (-p0.x + p2.x) * t + (2 * p0.x - 5 * p1.x + 4 * p2.x - p3.x) * t2 +
                             (-p0.x + 3 * p1.x - 3 * p2.x + p3.x) * t3);
             var y = 0.5f * (2 * p1.y + (-p0.y + p2.y) * t + (2 * p0.y - 5 * p1.y + 4 * p2.y - p3.y) * t2 +

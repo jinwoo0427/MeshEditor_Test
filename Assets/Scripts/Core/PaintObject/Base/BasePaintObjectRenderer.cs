@@ -226,7 +226,14 @@ namespace XDPaint.Core.PaintObject.Base
                 }
             }
         }
-
+        /// <summary>
+        /// 메쉬에 정보 등록해서 나타냄
+        /// BaseLineDrawer.RenderLine
+        /// </summary>
+        /// <param name="positions"></param>
+        /// <param name="uv"></param>
+        /// <param name="indices"></param>
+        /// <param name="colors"></param>
         private void RenderLine(List<Vector3> positions, List<Vector2> uv, List<int> indices, List<Color> colors)
         {
             if (mesh != null)
