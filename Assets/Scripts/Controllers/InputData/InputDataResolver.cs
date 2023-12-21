@@ -6,8 +6,12 @@ namespace XDPaint.Controllers.InputData
 {
     public class InputDataResolver
     {
-        public BaseInputData Resolve(ObjectComponentType objectComponentType)
+        public BaseInputData Resolve(ObjectComponentType objectComponentType, bool isModify = false)
         {
+            if (isModify)
+            {
+                return new InputDataMeshModify();
+            }
             if (objectComponentType == ObjectComponentType.MeshFilter || objectComponentType == ObjectComponentType.SkinnedMeshRenderer)
             {
                 return new InputDataMesh();

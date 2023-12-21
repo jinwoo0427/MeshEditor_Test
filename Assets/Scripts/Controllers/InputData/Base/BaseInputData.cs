@@ -23,11 +23,44 @@ namespace XDPaint.Controllers.InputData.Base
 
         protected Camera Camera;
         protected PaintManager PaintManager;
+        protected MeshModifyManager MeshManager;
         private List<CanvasGraphicRaycaster> raycasters;
         private Dictionary<int, Dictionary<CanvasGraphicRaycaster, List<RaycastResult>>> raycastResults;
         private bool canHover = true;
         private bool isOnDownSuccess;
-        
+        public virtual void Init(MeshModifyManager meshManagerInstance, Camera camera)
+        {
+            Camera = camera;
+            raycasters = new List<CanvasGraphicRaycaster>();
+            MeshManager = meshManagerInstance;
+            raycastResults = new Dictionary<int, Dictionary<CanvasGraphicRaycaster, List<RaycastResult>>>();
+            for (var i = 0; i < InputController.Instance.MaxTouchesCount; i++)
+            {
+                raycastResults.Add(i, new Dictionary<CanvasGraphicRaycaster, List<RaycastResult>>());
+            }
+            if (Settings.Instance.CheckCanvasRaycasts)
+            {
+                foreach (var canvas in InputController.Instance.Canvases)
+                {
+                    if (canvas == null)
+                        continue;
+
+                    if (canvas != null)
+                    {
+                        if (!canvas.TryGetComponent<CanvasGraphicRaycaster>(out var graphicRaycaster))
+                        {
+                            graphicRaycaster = canvas.gameObject.AddComponent<CanvasGraphicRaycaster>();
+                        }
+
+                        if (!raycasters.Contains(graphicRaycaster))
+                        {
+                            raycasters.Add(graphicRaycaster);
+                        }
+                    }
+                }
+            }
+
+        }
         public virtual void Init(PaintManager paintManagerInstance, Camera camera)
         {
             Camera = camera;
@@ -86,11 +119,15 @@ namespace XDPaint.Controllers.InputData.Base
 
         public void OnHover(int fingerId, Vector3 position)
         {
-            if (!CanProcess())
+            if (PaintManager != null)
             {
-                OnHoverFailed(fingerId);
-                return;
+                if (!CanProcess())
+                {
+                    OnHoverFailed(fingerId);
+                    return;
+                }
             }
+            
             
             if (Settings.Instance.CheckCanvasRaycasts && raycasters.Count > 0)
             {
@@ -136,10 +173,13 @@ namespace XDPaint.Controllers.InputData.Base
 
         public void OnDown(int fingerId, Vector3 position, float pressure = 1.0f)
         {
-            if (!CanProcess(true))
+            if (PaintManager != null)
             {
-                OnDownFailed(fingerId, position, pressure);
-                return;
+                if (!CanProcess())
+                {
+                    OnDownFailed(fingerId, position, pressure);
+                    return;
+                }
             }
 
             if (Settings.Instance.CheckCanvasRaycasts && raycasters.Count > 0)
@@ -190,11 +230,15 @@ namespace XDPaint.Controllers.InputData.Base
 
         public void OnPress(int fingerId, Vector3 position, float pressure = 1.0f)
         {
-            if (!CanProcess())
+            if(PaintManager != null)
             {
-                OnPressFailed(fingerId, position, pressure);
-                return;
+                if (!CanProcess())
+                {
+                    OnPressFailed(fingerId, position, pressure);
+                    return;
+                }
             }
+            
 
             if (Settings.Instance.CheckCanvasRaycasts && InputController.Instance.BlockRaycastsOnPress && raycasters.Count > 0)
             {
@@ -240,8 +284,12 @@ namespace XDPaint.Controllers.InputData.Base
 
         public void OnUp(int fingerId, Vector3 position)
         {
-            if (!CanProcess())
-                return;
+            if (PaintManager != null)
+            {
+                if (!CanProcess() )
+                    return;
+            }
+            
 
             if (isOnDownSuccess)
             {
@@ -266,10 +314,21 @@ namespace XDPaint.Controllers.InputData.Base
                     if (raycastResults[fingerId][raycaster].Count > 0)
                     {
                         var raycast = raycastResults[fingerId][raycaster][0];
-                        if (raycast.gameObject == PaintManager.ObjectForPainting && PaintManager.Initialized)
+                        if (PaintManager != null)
                         {
-                            continue;
+                            if (raycast.gameObject == PaintManager.ObjectForPainting && PaintManager.Initialized)
+                            {
+                                continue;
+                            }
                         }
+                        else
+                        {
+                            if (raycast.gameObject == MeshManager.ObjectForModifying&& MeshManager.Initialized)
+                            {
+                                continue;
+                            }
+                        }
+                        
 
                         if (!ignoreRaycasts.Contains(raycast.gameObject))
                         {

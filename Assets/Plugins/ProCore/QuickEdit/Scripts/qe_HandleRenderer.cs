@@ -29,7 +29,6 @@ namespace QuickEdit
 			// game view camera isn't going to have hideflags set.
 			if( (Camera.current.gameObject.hideFlags & SceneCameraHideFlags) != SceneCameraHideFlags || Camera.current.name != "SceneCamera" )
 				return;
-
 			Mesh msh = mesh;
 			Material mat = material;
 

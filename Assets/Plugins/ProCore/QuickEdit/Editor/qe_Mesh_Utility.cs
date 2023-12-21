@@ -699,7 +699,7 @@ namespace QuickEdit
 			int sl = selected.Length;
 
 			Vector3[] v = new Vector3[vl + sl];
-			System.Array.Copy(vertices, 0, v, 0, vl);
+			System.Array.Copy(vertices, 0, v, 0, vl); //v배열에 카피
 			System.Array.Copy(selected, 0, v, vl, sl);
 
 			Vector3[] 	t_billboards 		= new Vector3[v.Length*4];

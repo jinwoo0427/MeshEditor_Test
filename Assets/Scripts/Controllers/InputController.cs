@@ -91,7 +91,7 @@ namespace XDPaint.Controllers
 
                 var mousePosition = Mouse.current.position.ReadValue();
                 OnMouseHover?.Invoke(0, mousePosition);
-
+                
                 if (Mouse.current.leftButton.wasPressedThisFrame)
                 {
                     OnMouseDown?.Invoke(0, mousePosition, 1f);

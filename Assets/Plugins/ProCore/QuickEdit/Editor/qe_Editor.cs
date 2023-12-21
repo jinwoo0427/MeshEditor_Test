@@ -141,9 +141,9 @@ namespace QuickEdit
 		 */
 		void LoadIcons()
 		{
-			Texture2D VertexIcon = (Texture2D)(AssetDatabase.LoadAssetAtPath(EditorGUIUtility.isProSkin ? "Assets/ProCore/QuickEdit/Gizmos/VertexIcon_Pro.png" : "Assets/ProCore/QuickEdit/Gizmos/VertexIcon.png", typeof(Texture2D)));
-			Texture2D EdgeIcon = (Texture2D)(AssetDatabase.LoadAssetAtPath(EditorGUIUtility.isProSkin ? "Assets/ProCore/QuickEdit/Gizmos/EdgeIcon_Pro.png" : "Assets/ProCore/QuickEdit/Gizmos/EdgeIcon.png", typeof(Texture2D)));
-			Texture2D FaceIcon = (Texture2D)(AssetDatabase.LoadAssetAtPath(EditorGUIUtility.isProSkin ? "Assets/ProCore/QuickEdit/Gizmos/FaceIcon_Pro.png" : "Assets/ProCore/QuickEdit/Gizmos/FaceIcon.png", typeof(Texture2D)));
+			Texture2D VertexIcon = (Texture2D)(AssetDatabase.LoadAssetAtPath(EditorGUIUtility.isProSkin ? "Assets/Plugins/ProCore/QuickEdit/Gizmos/VertexIcon_Pro.png" : "Assets/Plugins/ProCore/QuickEdit/Gizmos/VertexIcon.png", typeof(Texture2D)));
+			Texture2D EdgeIcon = (Texture2D)(AssetDatabase.LoadAssetAtPath(EditorGUIUtility.isProSkin ? "Assets/Plugins/ProCore/QuickEdit/Gizmos/EdgeIcon_Pro.png" : "Assets/Plugins/ProCore/QuickEdit/Gizmos/EdgeIcon.png", typeof(Texture2D)));
+			Texture2D FaceIcon = (Texture2D)(AssetDatabase.LoadAssetAtPath(EditorGUIUtility.isProSkin ? "Assets/Plugins/ProCore/QuickEdit/Gizmos/FaceIcon_Pro.png" : "Assets/Plugins/ProCore/QuickEdit/Gizmos/FaceIcon.png", typeof(Texture2D)));
 
 			if( VertexIcon != null && EdgeIcon != null && FaceIcon != null)
 			{
@@ -285,7 +285,7 @@ namespace QuickEdit
 			windowBounds.width = Screen.width; 
 			windowBounds.height = Screen.height;
 
-			windowRect = qe_Math.ClampRect( GUI.Window(0, windowRect, DrawWindow, "QuickEdit"), windowBounds );
+			windowRect = qe_Math.ClampRect( GUI.Window(0, new Rect(0,0,100,200), DrawWindow, "QuickEdit"), windowBounds);
 
 			Tools.hidden = selection.mesh != null && selection.selectedUserVertexCount > 0;
 
@@ -417,7 +417,7 @@ namespace QuickEdit
 			}
 
 			//GUILayout.Space(24); //Related to height of the uppermost row of boxes
-			GUILayout.Space(10);
+			GUILayout.Space(24);
 
 			GUILayout.BeginHorizontal();
 				if( GUILayout.Button(gc_RebuildNormals, EditorStyles.miniButtonLeft) )
@@ -1034,7 +1034,6 @@ namespace QuickEdit
 
 		void OnBeginVertexMovement()
 		{
-			qe_Lightmapping.PushGIWorkflowMode();
 			
 			int vertexCount = selection.mesh.cloneMesh.vertexCount;
 			vertexCache = new Vector3[vertexCount];
@@ -1045,7 +1044,6 @@ namespace QuickEdit
 
 		void OnFinishVertexMovement()
 		{		
-			qe_Lightmapping.PopGIWorkflowMode();
 
 			ResetHandles();
 			movingVertices = false;

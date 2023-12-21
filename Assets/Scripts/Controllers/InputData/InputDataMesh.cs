@@ -62,6 +62,7 @@ namespace XDPaint.Controllers.InputData
 
         protected override void OnDownSuccess(int fingerId, Vector3 position, float pressure = 1.0f)
         {
+            //Debug.Log("Ondownsucces");
             var data = InputData[fingerId];
             data.Position = position;
             if (data.Ray == null)
