@@ -641,33 +641,7 @@ namespace QuickEdit
 
 							//Handles.DotCap(-1, vertices[0], Quaternion.identity, HandleUtility.GetHandleSize(vertices[0]) * .06f);
 							Handles.DotHandleCap(-1, vertices[0], Quaternion.identity, HandleUtility.GetHandleSize(vertices[0]) * .06f, EventType.Repaint);
-
-							/*
-							Transform transform = ((DotExample)target).transform;
-							Handles.color = Handles.xAxisColor;
-							Handles.DotHandleCap(
-								0,
-								transform.position + new Vector3(3f, 0f, 0f),
-								transform.rotation * Quaternion.LookRotation(Vector3.right),
-								HandleUtility.GetHandleSize(vertices[0]) * .06f,
-								EventType.Repaint
-							);
-							Handles.color = Handles.yAxisColor;
-							Handles.DotHandleCap(
-								0,
-								transform.position + new Vector3(0f, 3f, 0f),
-								transform.rotation * Quaternion.LookRotation(Vector3.up),
-								HandleUtility.GetHandleSize(vertices[0]) * .06f,
-								EventType.Repaint
-							);
-							Handles.color = Handles.zAxisColor;
-							Handles.DotHandleCap(
-								0,
-								transform.position + new Vector3(0f, 0f, 3f),
-								transform.rotation * Quaternion.LookRotation(Vector3.forward),
-								HandleUtility.GetHandleSize(vertices[0]) * .06f,
-								EventType.Repaint
-							);*/
+							
 
 						}
 					break;

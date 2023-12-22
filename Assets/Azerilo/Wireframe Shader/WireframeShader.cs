@@ -14,7 +14,7 @@ public class WireframeShader : MonoBehaviour
 	{
         if (wireframeMaterial == null)
         {
-			Debug.LogError("와이어프레임 머테리얼이 없음!");
+			Debug.LogError("The Wireframe Material field is empty. You must assign the wireframe material!");
 
 		}
 
@@ -55,15 +55,14 @@ public class WireframeShader : MonoBehaviour
 		}
 		else
         {
-			Debug.LogError(name + " 매쉬 없음 ");
+			Debug.LogError(name + " does not have a mesh!");
         }
 	}
 
 	private Mesh BakeMesh(Mesh originalMesh)
 	{
 		var maxVerts = 2147483647;
-        // 원본 메시의 속성들을 가져오기
-        var meshNor = originalMesh.normals;
+		var meshNor = originalMesh.normals;
 		var meshTris = originalMesh.triangles;
 		var meshVerts = originalMesh.vertices;		
 		var boneW = originalMesh.boneWeights;		
@@ -71,22 +70,20 @@ public class WireframeShader : MonoBehaviour
 
 		if (vertsNeeded > maxVerts)
 		{	
-			Debug.LogError("메쉬 정점이 너무 많아요 ;;");
+			Debug.LogError("The mesh has so many vertices that Unity could not create it!");
 			return null;
 		}
-        // 결과 메시 생성 및 UInt32 형식의 인덱스 사용 설정
-        var resultMesh = new Mesh();
-		resultMesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
-        // 결과 메시의 정점, UV, 삼각형, 법선, 본 가중치 등을 저장할 배열들 초기화
-        var resultVerts = new Vector3[vertsNeeded];
+
+		var resultMesh = new Mesh();
+		resultMesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;		
+		var resultVerts = new Vector3[vertsNeeded];
 		var resultUVs = new Vector2[vertsNeeded];
 		var resultTris = new int[meshTris.Length];
 		var resultNor = new Vector3[vertsNeeded];
 		var boneWLen = (boneW.Length > 0) ? vertsNeeded : 0;
-		var resultBW = new BoneWeight[boneWLen];
-
-        // 삼각형을 가진 메시에서 각각의 삼각형을 분해하여 결과 메시에 새로운 정점, UV, 삼각형, 법선, 본 가중치 정보를 설정
-        for (var i = 0; i < meshTris.Length; i+=3)
+		var resultBW = new BoneWeight[boneWLen]; 
+		
+		for (var i = 0; i < meshTris.Length; i+=3)
 		{
 			resultVerts[i] = meshVerts[meshTris[i]];
 			resultVerts[i+1] = meshVerts[meshTris[i+1]];
@@ -109,8 +106,7 @@ public class WireframeShader : MonoBehaviour
 			}
 		}
 
-        // 결과 메시의 속성들 설정
-        resultMesh.vertices = resultVerts;
+		resultMesh.vertices = resultVerts;
 		resultMesh.uv = resultUVs;
 		resultMesh.triangles = resultTris;
 		resultMesh.normals = resultNor;
