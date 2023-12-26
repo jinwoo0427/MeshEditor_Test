@@ -73,7 +73,7 @@ public abstract class BaseMeshModifyObject : BaseMeshModifyObjectRenderer
 
     private void OnMouse(bool isDown, int fingerId, Vector3 position, float pressure = 1f, RaycastData raycast = null)
     {
-        
+
     }
 
     public void OnMouseFailed(int fingerId, Vector3 position, float pressure = 1f, RaycastData raycast = null)
@@ -83,6 +83,7 @@ public abstract class BaseMeshModifyObject : BaseMeshModifyObjectRenderer
 
     public void OnMouseUp(int fingerId, Vector3 position)
     {
+
     }
 
     public Vector3? GetPaintPosition(int fingerId, Vector3 position, RaycastData raycast = null)

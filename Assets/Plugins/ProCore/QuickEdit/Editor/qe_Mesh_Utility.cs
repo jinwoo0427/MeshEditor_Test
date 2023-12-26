@@ -20,10 +20,7 @@ namespace QuickEdit
 			destMesh.vertices = src.vertices;
 			destMesh.uv = src.uv;
 			destMesh.uv2 = src.uv2;
-#if UNITY_5
-			destMesh.uv3 = src.uv3;
-			destMesh.uv4 = src.uv4;
-#endif
+
 			destMesh.normals = src.normals;
 			destMesh.tangents = src.tangents;
 			destMesh.boneWeights = src.boneWeights;
@@ -136,10 +133,7 @@ namespace QuickEdit
 			List<Vector4[]>		tangents 		= new List<Vector4[]>();
 			List<Vector2[]>		uv 				= new List<Vector2[]>();
 			List<Vector2[]>		uv2 			= new List<Vector2[]>();
-#if UNITY_5
-			List<Vector2[]>		uv3 			= new List<Vector2[]>();
-			List<Vector2[]>		uv4 			= new List<Vector2[]>();
-#endif
+
 
 			List<int[]> indices = new List<int[]>();
 			List<MeshTopology> topology = new List<MeshTopology>();
@@ -169,10 +163,6 @@ namespace QuickEdit
 				tangents.Add( m.tangents == null || m.tangents.Length < 1 ? Fill<Vector4>(vc) : m.tangents);
 				uv.Add( m.uv == null || m.uv.Length < 1 ? Fill<Vector2>(vc) : m.uv);
 				uv2.Add( m.uv2 == null || m.uv2.Length < 1 ? Fill<Vector2>(vc) : m.uv2);
-#if UNITY_5
-				uv3.Add(uv3 == null || m.uv3.Length < 1 ? Fill<Vector2>(vc) : m.uv3); 				
-				uv4.Add(uv3 == null || m.uv4.Length < 1 ? Fill<Vector2>(vc) : m.uv4); 				
-#endif
 
 				for(int i = 0; i < m.subMeshCount; i++)
 				{
@@ -308,10 +298,7 @@ namespace QuickEdit
 			bool tangents_isNull 		= mesh.tangents.NullOrEmpty();
 			bool uv_isNull 				= mesh.uv.NullOrEmpty();
 			bool uv2_isNull 			= mesh.uv2.NullOrEmpty();
-#if UNITY_5
-			bool uv3_isNull 			= mesh.uv3.NullOrEmpty();
-			bool uv4_isNull 			= mesh.uv4.NullOrEmpty();
-#endif
+
 			bool vertices_isNull 		= mesh.vertices.NullOrEmpty();
 
 			BoneWeight[] boneWeights 	= boneWeights_isNull ? null : new BoneWeight[triangleCount];
@@ -321,10 +308,7 @@ namespace QuickEdit
 			Vector4[] tangents 			= tangents_isNull ? null : new Vector4[triangleCount];
 			Vector2[] uv 				= uv_isNull ? null : new Vector2[triangleCount];
 			Vector2[] uv2 				= uv2_isNull ? null : new Vector2[triangleCount];
-#if UNITY_5
-			Vector2[] uv3 				= uv3_isNull ? null : new Vector2[triangleCount];
-			Vector2[] uv4 				= uv4_isNull ? null : new Vector2[triangleCount];
-#endif
+
 			Vector3[] vertices 			= new Vector3[triangleCount];
 
 			// cache mesh arrays because accessing them through the reference is slooooow
@@ -336,10 +320,6 @@ namespace QuickEdit
 			Vector4[] 		mTangents 		= mesh.tangents;
 			Vector2[] 		mUv 			= mesh.uv;
 			Vector2[] 		mUv2 			= mesh.uv2;
-#if UNITY_5
-			Vector2[] 		mUv3 			= mesh.uv3;
-			Vector2[] 		mUv4 			= mesh.uv4;
-#endif
 
 			int index = 0;
 			int[][] triangles = new int[mesh.subMeshCount][];
@@ -373,14 +353,7 @@ namespace QuickEdit
 					if( !uv2_isNull)
 						uv2[index] = mUv2[n];
 
-#if UNITY_5
-					if( !uv3_isNull)
-						uv3[index] = mUv3[n];
 
-					if( !uv4_isNull)
-						uv4[index] = mUv4[n];
-
-#endif
 					if( !vertices_isNull)
 						vertices[index] = mVertices[n];
 
@@ -399,10 +372,7 @@ namespace QuickEdit
 			mesh.tangents		= tangents;
 			mesh.uv				= uv;
 			mesh.uv2			= uv2;
-#if UNITY_5
-			mesh.uv3			= uv3;
-			mesh.uv4			= uv4;
-#endif
+
 	
 			for(int i = 0; i < mesh.subMeshCount; i++)
 				qmesh.SetIndices(i, triangles[i]);
@@ -570,10 +540,6 @@ namespace QuickEdit
 			Vector4[] 		mTangents 		= mesh.tangents;
 			Vector2[] 		mUv 			= mesh.uv;
 			Vector2[] 		mUv2 			= mesh.uv2;
-#if UNITY_5
-			Vector2[] 		mUv3 			= mesh.uv3;
-			Vector2[] 		mUv4 			= mesh.uv4;
-#endif
 
 			bool bVertices 					= !mVertices.NullOrEmpty();
 			bool bBoneWeights 				= !mBoneWeights.NullOrEmpty();
@@ -583,10 +549,7 @@ namespace QuickEdit
 			bool bTangents 					= !mTangents.NullOrEmpty();
 			bool bUv 						= !mUv.NullOrEmpty();
 			bool bUv2 						= !mUv2.NullOrEmpty();
-#if UNITY_5
-			bool bUv3 						= !mUv3.NullOrEmpty();
-			bool bUv4 						= !mUv4.NullOrEmpty();
-#endif
+
 
 			Vector3[] 		vertices 		= bVertices ? new Vector3[ vertexCount - removedCount] 			: null;
 			BoneWeight[] 	boneWeights 	= bBoneWeights ? new BoneWeight[ vertexCount - removedCount] 	: null;
@@ -596,10 +559,6 @@ namespace QuickEdit
 			Vector4[] 		tangents 		= bTangents ? new Vector4[ vertexCount - removedCount] 			: null;
 			Vector2[] 		uv 				= bUv ? new Vector2[ vertexCount - removedCount] 				: null;
 			Vector2[] 		uv2 			= bUv2 ? new Vector2[ vertexCount - removedCount] 				: null;
-#if UNITY_5
-			Vector2[] 		uv3 			= bUv3 ? new Vector2[ vertexCount - removedCount] 				: null;
-			Vector2[] 		uv4 			= bUv4 ? new Vector2[ vertexCount - removedCount] 				: null;
-#endif
 
 			int index = 0;
 			int removeIndex = 0;
@@ -620,10 +579,7 @@ namespace QuickEdit
 				if( bTangents ) 	tangents[index] 	= mTangents[i];
 				if( bUv ) 			uv[index] 			= mUv[i];
 				if( bUv2 ) 			uv2[index] 			= mUv2[i];
-#if UNITY_5
-				if( bUv3 ) 			uv3[index] 			= mUv3[i];
-				if( bUv4 ) 			uv4[index] 			= mUv4[i];
-#endif
+
 
 				index++;
 			}
@@ -636,10 +592,7 @@ namespace QuickEdit
 			mesh.tangents 		= tangents;
 			mesh.uv 			= uv;
 			mesh.uv2 			= uv2;
-#if UNITY_5
-			mesh.uv3 			= uv3;
-			mesh.uv4 			= uv4;
-#endif
+
 		}
 #endregion
 

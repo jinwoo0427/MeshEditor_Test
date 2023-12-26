@@ -1,6 +1,8 @@
 Shader "Hidden/QuickEdit/FaceShader" 
 {
-	Properties {}
+	Properties {
+	_WireColor ("Wire color", Color) = (1,1,1,1)
+	}
 
 	SubShader
 	{
@@ -20,6 +22,10 @@ Shader "Hidden/QuickEdit/FaceShader"
 			#pragma fragment frag
 			#include "UnityCG.cginc"
 
+
+			float4 _WireColor;
+			
+			
 			struct appdata
 			{
 				float4 vertex : POSITION;
@@ -47,7 +53,7 @@ Shader "Hidden/QuickEdit/FaceShader"
 
 			half4 frag (v2f i) : COLOR
 			{
-				return i.col;
+				return i.col*_WireColor;
 			}
 
 			ENDCG

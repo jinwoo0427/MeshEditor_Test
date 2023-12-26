@@ -5,6 +5,7 @@ using UnityEngine;
 public class WireframeShader : MonoBehaviour
 {
 	public Material wireframeMaterial;
+	public Material meshMaterial;
 	private GameObject wireframeObject;
 	private Mesh bakedMesh;
 	bool hasMesh = false;

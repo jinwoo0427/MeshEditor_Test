@@ -14,8 +14,14 @@ namespace XDPaint.Core
         {
             public static readonly UnityEngine.Color ClearBlack = new UnityEngine.Color(0, 0, 0, 0);
             public static readonly UnityEngine.Color ClearWhite = new UnityEngine.Color(1, 1, 1, 0);
-        }
 
+            public static UnityEngine.Color ProBuilderBlue = new UnityEngine.Color(0f, .682f, .937f, 1f);
+            public static UnityEngine.Color FaceSelectionColor = new UnityEngine.Color(0f, .682f, .937f, .3f);
+            public static UnityEngine.Color ProBuilderLightGray = new UnityEngine.Color(.35f, .35f, .35f, .4f);
+            public static UnityEngine.Color ProBuilderDarkGray = new UnityEngine.Color(.1f, .1f, .1f, .3f);
+
+        }
+       
         public static class PaintShader
         {
             public const string PaintTexture = "_MainTex";

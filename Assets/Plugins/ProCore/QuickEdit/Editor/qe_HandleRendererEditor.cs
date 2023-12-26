@@ -4,7 +4,7 @@ using UnityEditor;
 namespace QuickEdit
 {
 	[CustomEditor(typeof(qe_HandleRenderer))]
-	public class qe_HandleRendererEditor : Editor
+	public class qe_HandleRendererEditor : UnityEditor.Editor
 	{	
 		#if UNITY_EDITOR
 		void OnEnable()

@@ -2,6 +2,7 @@
 {
 	Properties
 	{
+		_WireColor ("Wire color", Color) = (1,1,1,1)/* (1, 0.7, 0.2, 1) */
 		_MainTex("Texture", 2D) = "white" {}
 		_Scale("Scale", Range(1,7)) = 2.0
 	}
@@ -26,6 +27,7 @@
 
 			sampler2D _MainTex;
 			float _Scale;
+			float4 _WireColor;
 
 			struct appdata
 			{
@@ -75,7 +77,8 @@
 
 			half4 frag (v2f i) : COLOR
 			{
-				return tex2D(_MainTex, i.uv) * i.color;
+				_WireColor *= i.color;
+				return tex2D(_MainTex, i.uv) * _WireColor;
 			}
 
 			ENDCG

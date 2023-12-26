@@ -24,11 +24,9 @@ namespace QuickEdit
 
 		void OnRenderObject()
 		{
-			// instead of relying on 'SceneCamera' string comparison, check if the hideflags match.
-			// this could probably even just check for one bit match, since chances are that any 
-			// game view camera isn't going to have hideflags set.
-			if( (Camera.current.gameObject.hideFlags & SceneCameraHideFlags) != SceneCameraHideFlags || Camera.current.name != "SceneCamera" )
-				return;
+			// 게임뷰는 안보이게 하는 설정
+			//if( (Camera.current.gameObject.hideFlags & SceneCameraHideFlags) != SceneCameraHideFlags || Camera.current.name != "SceneCamera" )
+			//	return;
 			Mesh msh = mesh;
 			Material mat = material;
 

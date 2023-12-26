@@ -313,7 +313,7 @@ namespace QuickEdit
 				}
 			}
 
-			if( Tools.hidden )
+            if ( Tools.hidden )
 			{
 				VertexHandle();
 			}
@@ -522,10 +522,11 @@ namespace QuickEdit
 			if( selection.mesh.handlesRenderer.material != null )
 				DestroyImmediate(selection.mesh.handlesRenderer.material);
 
-			selection.mesh.handlesRenderer.material = new Material( Shader.Find( mode == ElementMode.Vertex ? "Hidden/QuickEdit/VertexShader" : "Hidden/QuickEdit/FaceShader") );
+			selection.mesh.handlesRenderer.material = new Material(
+				Shader.Find( mode == ElementMode.Vertex ? "Hidden/QuickEdit/VertexShader" : "Hidden/QuickEdit/FaceShader") );
 
 			if(elementMode == ElementMode.Vertex)	
-				selection.mesh.handlesRenderer.material.SetFloat("_Scale", 2f);
+				selection.mesh.handlesRenderer.material.SetFloat("_Scale", 3f);
 
 			selection.mesh.handlesRenderer.material.hideFlags = HideFlags.HideAndDontSave;
 
