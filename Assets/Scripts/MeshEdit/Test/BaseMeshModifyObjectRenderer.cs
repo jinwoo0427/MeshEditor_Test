@@ -8,6 +8,16 @@ using XDPaint.Core.PaintModes;
 public class BaseMeshModifyObjectRenderer : IDisposable
 {
     protected IModifyMode ModifyMode;
+    protected HoveringPreview hovering;
+
+
+    const int CLICK_RECT = 32;
+
+    readonly Color MOUSE_DRAG_RECT_COLOR = new Color(.313f, .8f, 1f, 1f);
+
+    [SerializeField] protected ElementMode elementMode = ElementMode.Face;
+
+    [SerializeField] protected ElementCache selection;
 
     public void SetModifyMode(IModifyMode modifyMode)
     {

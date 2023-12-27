@@ -33,39 +33,75 @@ public class InputDataMeshModify : BaseInputData
             data.RaycastData = null;
         }
     }
+    public override void OnHover(int fingerId, Vector3 position)
+    {
+        base.OnHover(fingerId, position);
+    }
 
+
+    protected override void OnHoverFailed(int fingerId)
+    {
+        base.OnHoverFailed(fingerId);
+    }
+
+    public override void OnDown(int fingerId, Vector3 position, float pressure = 1)
+    {
+        base.OnDown(fingerId, position, pressure);
+    }
+
+
+    protected override void OnDownFailed(int fingerId, Vector3 position, float pressure = 1)
+    {
+        base.OnDownFailed(fingerId, position, pressure);
+    }
+
+    public override void OnPress(int fingerId, Vector3 position, float pressure = 1)
+    {
+        base.OnPress(fingerId, position, pressure);
+    }
+
+
+
+    protected override void OnPressFailed(int fingerId, Vector3 position, float pressure = 1)
+    {
+        base.OnPressFailed(fingerId, position, pressure);
+    }
+
+    public override void OnUp(int fingerId, Vector3 position)
+    {
+        base.OnUp(fingerId, position);
+    }
     protected override void OnHoverSuccess(int fingerId, Vector3 position, RaycastData raycast)
     {
-
-    }
-
-    protected virtual void OnHoverSuccessEnd(RaycastRequestContainer request, int fingerId, Vector3 position)
-    {
+        var data = InputData[fingerId];
+        data.Position = position;
+        data.Ray = Camera.ScreenPointToRay(position);
         
+
+        data.PreviousPosition = position;
     }
+
 
     protected override void OnDownSuccess(int fingerId, Vector3 position, float pressure = 1.0f)
     {
 
     }
 
-    protected virtual void OnDownSuccessCallback(RaycastRequestContainer request, int fingerId, Vector3 position, float pressure = 1.0f)
-    {
-       
-    }
 
     protected override void OnPressSuccess(int fingerId, Vector3 position, float pressure = 1.0f)
     {
        
     }
 
-    protected virtual void OnPressSuccessCallback(RaycastRequestContainer request, int fingerId, Vector3 position, float pressure = 1.0f)
-    {
-
-    }
-
     protected override void OnUpSuccessInvoke(int fingerId, Vector3 position)
     {
         
     }
+
+    public override void DoDispose()
+    {
+        base.DoDispose();
+    }
+
+    
 }

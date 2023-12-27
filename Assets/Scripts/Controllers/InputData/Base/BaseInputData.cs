@@ -117,7 +117,7 @@ namespace XDPaint.Controllers.InputData.Base
         {
         }
 
-        public void OnHover(int fingerId, Vector3 position)
+        public virtual void OnHover(int fingerId, Vector3 position)
         {
             if (PaintManager != null)
             {
@@ -161,7 +161,7 @@ namespace XDPaint.Controllers.InputData.Base
             OnHoverSuccessHandlerInvoke(fingerId, position, raycast);
         }
         
-        protected void OnHoverSuccessHandlerInvoke(int fingerId, Vector3 position, RaycastData raycast)
+        protected virtual void OnHoverSuccessHandlerInvoke(int fingerId, Vector3 position, RaycastData raycast)
         {
             OnHoverSuccessHandler?.Invoke(fingerId, position, raycast);
         }
@@ -171,7 +171,7 @@ namespace XDPaint.Controllers.InputData.Base
             OnHoverFailedHandler?.Invoke(fingerId, Vector4.zero, null);
         }
 
-        public void OnDown(int fingerId, Vector3 position, float pressure = 1.0f)
+        public virtual void OnDown(int fingerId, Vector3 position, float pressure = 1.0f)
         {
             if (PaintManager != null)
             {
@@ -218,17 +218,17 @@ namespace XDPaint.Controllers.InputData.Base
             OnDownSuccessInvoke(fingerId, position, pressure);
         }
 
-        protected void OnDownSuccessInvoke(int fingerId, Vector3 position, float pressure = 1.0f, RaycastData raycast = null)
+        protected virtual void OnDownSuccessInvoke(int fingerId, Vector3 position, float pressure = 1.0f, RaycastData raycast = null)
         {
             OnDownHandler?.Invoke(fingerId, position, pressure, raycast);
         }
         
-        protected void OnDownFailed(int fingerId, Vector3 position, float pressure = 1.0f)
+        protected virtual void OnDownFailed(int fingerId, Vector3 position, float pressure = 1.0f)
         {
             OnDownFailedHandler?.Invoke(fingerId, position, pressure, null);
         }
 
-        public void OnPress(int fingerId, Vector3 position, float pressure = 1.0f)
+        public virtual void OnPress(int fingerId, Vector3 position, float pressure = 1.0f)
         {
             if(PaintManager != null)
             {
@@ -272,17 +272,17 @@ namespace XDPaint.Controllers.InputData.Base
             OnPressSuccessInvoke(fingerId, position, pressure);
         }
 
-        protected void OnPressSuccessInvoke(int fingerId, Vector3 position, float pressure = 1.0f, RaycastData raycast = null)
+        protected virtual void OnPressSuccessInvoke(int fingerId, Vector3 position, float pressure = 1.0f, RaycastData raycast = null)
         {
             OnPressHandler?.Invoke(fingerId, position, pressure, raycast);
         }
         
-        protected void OnPressFailed(int fingerId, Vector3 position, float pressure = 1.0f)
+        protected virtual void OnPressFailed(int fingerId, Vector3 position, float pressure = 1.0f)
         {
             OnPressFailedHandler?.Invoke(fingerId, position, pressure, null);
         }
 
-        public void OnUp(int fingerId, Vector3 position)
+        public virtual void OnUp(int fingerId, Vector3 position)
         {
             if (PaintManager != null)
             {
@@ -303,7 +303,7 @@ namespace XDPaint.Controllers.InputData.Base
             OnUpHandler?.Invoke(fingerId, position);
         }
 
-        private bool CheckRaycasts(int fingerId)
+        private  bool CheckRaycasts(int fingerId)
         {
             var result = true;
             if (fingerId < raycastResults.Count)
