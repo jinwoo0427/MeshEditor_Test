@@ -21,6 +21,7 @@ using XDPaint.Controllers.InputData;
 using XDPaint.Tools.Triangles;
 using XDPaint.Core.PaintObject;
 using XDPaint.Demo.UI;
+using UnityEditor;
 
 public class MeshModifyManager : MonoBehaviour, IMeshModifyManager
 {
@@ -97,7 +98,7 @@ public class MeshModifyManager : MonoBehaviour, IMeshModifyManager
         }
     }
 
-
+    private ElementCache selection;
     private IPaintData paintData;
     private BaseInputData inputData;
     private bool initialized;
@@ -186,6 +187,38 @@ public class MeshModifyManager : MonoBehaviour, IMeshModifyManager
     }
 
     #endregion
+
+    void SetElementMode(ElementMode mode)
+    {
+        modifyModeType = mode;
+
+        if (selection.mesh.handlesRenderer.material != null)
+            DestroyImmediate(selection.mesh.handlesRenderer.material);
+
+        selection.mesh.handlesRenderer.material = new Material(
+            Shader.Find(mode == ElementMode.Vertex ? "Hidden/QuickEdit/VertexShader" : "Hidden/QuickEdit/FaceShader"));
+
+        if (modifyModeType == ElementMode.Vertex)
+            selection.mesh.handlesRenderer.material.SetFloat("_Scale", 3f);
+
+        selection.mesh.handlesRenderer.material.hideFlags = HideFlags.HideAndDontSave;
+
+        CacheIndicesForGraphics();
+
+        UpdateGraphics();
+    }
+
+    private void UpdateGraphics()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void CacheIndicesForGraphics()
+    {
+        throw new NotImplementedException();
+    }
+
+
     #region Setup Input Events
 
     private void SubscribeInputEvents(ObjectComponentType component)

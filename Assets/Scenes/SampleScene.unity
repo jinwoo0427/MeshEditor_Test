@@ -1461,7 +1461,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 275556766}
-  m_Mesh: {fileID: 1674366167}
+  m_Mesh: {fileID: 1632854505}
 --- !u!4 &275556770
 Transform:
   m_ObjectHideFlags: 0
@@ -3588,25 +3588,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1654444602 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7353510370279010678, guid: aa20cc0f94b8e0948badfcafba3d4406,
-    type: 3}
-  m_PrefabInstance: {fileID: 229132135}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!43 &1674366167
+--- !u!43 &1632854505
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: qe0_Capsule
+  m_Name: qe2_Capsule
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -3765,6 +3753,18 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!114 &1654444602 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7353510370279010678, guid: aa20cc0f94b8e0948badfcafba3d4406,
+    type: 3}
+  m_PrefabInstance: {fileID: 229132135}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1684902299 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8092542990256804175, guid: aa20cc0f94b8e0948badfcafba3d4406,

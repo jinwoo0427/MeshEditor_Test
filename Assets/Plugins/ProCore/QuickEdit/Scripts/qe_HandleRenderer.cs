@@ -15,8 +15,8 @@ namespace QuickEdit
 
 		public Mesh mesh;
 		public Material material;
-
-		void OnDestroy()
+       
+        void OnDestroy()
 		{
 			if(mesh) DestroyImmediate(mesh);
 			if(material) DestroyImmediate(material);

@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
 using System.Linq;
+using RuntimeHandle;
+using UnityEngine.SubsystemsImplementation;
 
 namespace QuickEdit
 {
@@ -612,7 +614,26 @@ namespace QuickEdit
 			activePivot = originPivot;
 			originPivotMatrix = originPivot.GetMatrix();
 		}
-
+		GameObject preObj;
+		Material mat;
+		void CreateDot(Vector3 pos)
+		{
+			if(preObj != null)
+				DestroyImmediate(preObj);
+			if (mat == null)
+			{
+				mat = new Material(Shader.Find("Universal Render Pipeline/Lit"));
+				mat.SetPass(0);
+			}
+            GameObject o = new GameObject();
+			o.transform.position = pos;
+            MeshRenderer mr = o.AddComponent<MeshRenderer>();
+			mr.sharedMaterial = mat;
+			mr.material.color = Color.red;
+            MeshFilter mf = o.AddComponent<MeshFilter>();
+            mf.mesh = MeshUtils.CreateBox(.02f, .02f, 0.02f);
+			preObj = o;
+        }
 		private class HoveringPreview
 		{
 			#if UNITY_5
@@ -642,9 +663,8 @@ namespace QuickEdit
 
 							//Handles.DotCap(-1, vertices[0], Quaternion.identity, HandleUtility.GetHandleSize(vertices[0]) * .06f);
 							Handles.DotHandleCap(-1, vertices[0], Quaternion.identity, HandleUtility.GetHandleSize(vertices[0]) * .06f, EventType.Repaint);
-							
-
-						}
+                           
+                        }
 					break;
 
 					case ElementMode.Face:
@@ -692,7 +712,9 @@ namespace QuickEdit
 						hovering.valid = true;
 						hovering.hashCode = tri.GetHashCode();
 						hovering.vertices[0] = selection.verticesInWorldSpace[tri];
-					}
+							//CreateDot(hovering.vertices[0]);
+
+                    }
 				}
 				break;
 
