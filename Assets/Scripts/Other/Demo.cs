@@ -107,7 +107,8 @@ namespace XDPaint.Demo
             Application.runInBackground = false;
 #endif
 #if !UNITY_WEBGL
-            Application.targetFrameRate = Mathf.Clamp(Screen.currentResolution.refreshRate, 30, Screen.currentResolution.refreshRate);
+            Application.targetFrameRate = 
+                Mathf.Clamp((int)Math.Round(Screen.currentResolution.refreshRateRatio.value), 30, (int)Math.Round(Screen.currentResolution.refreshRateRatio.value));
 #endif
             if (mainCamera == null)
             {
