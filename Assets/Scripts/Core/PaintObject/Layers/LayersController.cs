@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 using XDPaint.States;
 using XDPaint.Utils;
 
@@ -28,6 +29,7 @@ namespace XDPaint.Core.Layers
         [SerializeField] private List<Layer> layersList = new List<Layer>();
 #endif
         //store layers for user
+        private Transform DrawPanel;
         private ReadOnlyCollection<ILayer> layersCollection;
         private LayersMergeController mergeController;
         private CommandBufferBuilder commandBufferBuilder;
@@ -99,10 +101,11 @@ namespace XDPaint.Core.Layers
             }
         }
         
-        public void Init(int width, int height)
+        public void Init(int width, int height, Transform transform)
         {
             defaultWidth = width;
             defaultHeight = height;
+            DrawPanel = transform;
         }
 
         public void CreateBaseLayers(Texture sourceTexture, bool copySourceTextureToLayer, bool useSourceTextureAsBackground)
@@ -128,7 +131,29 @@ namespace XDPaint.Core.Layers
         {
             filterMode = mode;
         }
+        public void CreateRawImage(string name, Texture texture, bool isImportImage)
+        {
 
+            // RawImage의 크기를 이미지의 크기에 맞게 조절
+
+            GameObject rawImageObject = new GameObject(name);
+
+            rawImageObject.transform.SetParent(DrawPanel, false);
+            RawImage rawImage = rawImageObject.AddComponent<RawImage>();
+            rawImage.texture = texture;
+
+            // RawImage의 크기를 이미지의 크기에 맞게 조절
+            RectTransform rt = rawImageObject.GetComponent<RectTransform>();
+            if (isImportImage)
+            {
+                //rt.position = new Vector3(rt.position.x - 350f, rt.position.y, rt.position.z);
+                rt.sizeDelta = new Vector2(texture.width , texture.height );
+            }
+            else
+            {
+                rt.sizeDelta = new Vector2(700f, 700f);
+            }
+        }
         public ILayer AddNewLayer()
         {
             var layerName = "Layer " + (layers.Count + 1);
@@ -142,18 +167,20 @@ namespace XDPaint.Core.Layers
             layer.Init(commandBufferBuilder, () => CanDisableLayer);
             layer.Create(name, defaultWidth, defaultHeight, LayerRenderTextureFormat, filterMode);
             InitLayer(layer);
+            CreateRawImage(layer.Name, layer.RenderTexture, false);
             layer.OnRenderPropertyChanged = OnLayerRenderPropertyChanged;
             DisableStatesGrouping();
             return layer;
         }
         
-        public ILayer AddNewLayer(string name, Texture sourceTexture)
+        public ILayer AddNewLayer(string name, Texture sourceTexture, bool isImportImage = false)
         {
             EnableStatesGrouping();
             var layer = new Layer(this);
             layer.Init(commandBufferBuilder, () => CanDisableLayer);
             layer.Create(name, sourceTexture, LayerRenderTextureFormat, filterMode);
             InitLayer(layer);
+            CreateRawImage(layer.Name, layer.RenderTexture, isImportImage);
             layer.OnRenderPropertyChanged = OnLayerRenderPropertyChanged;
             DisableStatesGrouping();
             return layer;

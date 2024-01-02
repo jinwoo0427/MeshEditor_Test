@@ -127,6 +127,7 @@ namespace XDPaint.Controllers
         }
 
         [SerializeField] private List<PaintManager> paintManagers;
+        [SerializeField] private PaintManager curpaintManager;
         private IPaintMode mode;
         private bool initialized;
 
@@ -219,7 +220,14 @@ namespace XDPaint.Controllers
             }
             brush.DoDispose();
         }
-
+        public void SetCurPaintManager(PaintManager paintManager)
+        {
+            curpaintManager = paintManager;
+        }
+        public PaintManager GetCurPaintManager()
+        {
+            return curpaintManager;
+        }
         public PaintManager[] ActivePaintManagers()
         {
             return paintManagers?.Where(paintManager => paintManager != null && paintManager.gameObject.activeInHierarchy && paintManager.enabled && paintManager.Initialized).ToArray();

@@ -35,6 +35,8 @@ namespace XDPaint.Editor
         private SerializedProperty toolsManagerProperty;
         private SerializedProperty layersControllerProperty;
         private SerializedProperty layersContainerProperty;
+        private SerializedProperty DrawPanelProperty;
+        private SerializedProperty PaintBoardProperty;
         private PaintManager paintManager;
         private Component component;
 
@@ -141,6 +143,9 @@ namespace XDPaint.Editor
             toolsManagerProperty = serializedObject.FindProperty("toolsManager");
             layersControllerProperty = serializedObject.FindProperty("layersController");
             layersContainerProperty = serializedObject.FindProperty("layersContainer");
+            DrawPanelProperty = serializedObject.FindProperty("DrawPanel");
+            PaintBoardProperty = serializedObject.FindProperty("PaintBoard");
+            
             UpdateTexturesList();
             UpdateMeshData();
         }
@@ -179,6 +184,8 @@ namespace XDPaint.Editor
         {
             serializedObject.Update();
             EditorGUI.BeginChangeCheck();
+            EditorGUILayout.PropertyField(PaintBoardProperty, new GUIContent("PaintBoard", ""));
+            EditorGUILayout.PropertyField(DrawPanelProperty, new GUIContent("DrawPanel", ""));
             EditorGUILayout.PropertyField(objectForPaintingProperty, new GUIContent("Object For Painting", PaintManagerHelper.ObjectForPaintingTooltip));
             if (EditorGUI.EndChangeCheck())
             {

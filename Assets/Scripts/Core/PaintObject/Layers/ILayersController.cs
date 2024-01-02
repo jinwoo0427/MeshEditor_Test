@@ -21,12 +21,12 @@ namespace XDPaint.Core.Layers
         ReadOnlyCollection<ILayer> Layers { get; }
         ILayer ActiveLayer { get; }
         
-        void Init(int width, int height);
+        void Init(int width, int height, Transform transform);
         void CreateBaseLayers(Texture sourceTexture, bool copySourceTextureToLayer, bool useSourceTextureAsBackground);
         void SetFilterMode(FilterMode filterMode);
         ILayer AddNewLayer();
         ILayer AddNewLayer(string name);
-        ILayer AddNewLayer(string name, Texture source);
+        ILayer AddNewLayer(string name, Texture source, bool isImportImage = false);
         void AddLayerMask(ILayer layer, Texture source);
         void AddLayerMask(ILayer layer);
         void AddLayerMask(Texture source);

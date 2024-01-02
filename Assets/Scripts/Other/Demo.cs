@@ -87,7 +87,10 @@ namespace XDPaint.Demo
 
         [SerializeField] private EventTrigger allArea;
         [SerializeField] private EventTrigger uiLocker;
-        
+
+
+        [Header("Draw panel")]
+
         private EventTrigger.Entry hoverEnter;
         private EventTrigger.Entry hoverExit;
         private EventTrigger.Entry onDown;
@@ -126,7 +129,8 @@ namespace XDPaint.Demo
             }
 
             PaintManager.OnInitialized += OnInitialized;
-                
+            PaintController.Instance.SetCurPaintManager(PaintManager);
+
         }
 
         private IEnumerator Start()
@@ -599,7 +603,7 @@ namespace XDPaint.Demo
                     currentPaintManagerId = paintManagers.Length - 1;
                 }
             }
-            
+            PaintController.Instance.SetCurPaintManager(PaintManager);
             toolsToggles.First(x => x.Tool == PaintTool.Brush).Toggle.isOn = true;
             PaintManager.gameObject.SetActive(true);
             PaintManager.OnInitialized -= OnInitialized;

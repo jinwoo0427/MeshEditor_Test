@@ -5,6 +5,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 using XDPaint.Controllers;
 using XDPaint.Controllers.InputData;
 using XDPaint.Controllers.InputData.Base;
@@ -195,7 +196,8 @@ namespace XDPaint
                 return paintMode;
             }            
         }
-
+        public Transform DrawPanel;
+        public RawImage PaintBoard;
         private LayersMergeController layersMergeController;
         private IRenderTextureHelper renderTextureHelper;
         private IRenderComponentsHelper renderComponentsHelper;
@@ -302,7 +304,7 @@ namespace XDPaint
             SubscribeInputEvents(componentType);
             initialized = true;
             Render();
-
+            PaintBoard.texture = renderTextureHelper.GetTexture(RenderTarget.Combined);
             OnInitialized?.Invoke(this);
         }
 
@@ -767,7 +769,7 @@ namespace XDPaint
             layersMergeController = new LayersMergeController();
             layersController?.DoDispose();
             layersController = new LayersController(layersMergeController);
-            layersController.Init(Material.SourceTexture.width, Material.SourceTexture.height);
+            layersController.Init(Material.SourceTexture.width, Material.SourceTexture.height, DrawPanel);
             layersController.SetFilterMode(filterMode);
         }
 
