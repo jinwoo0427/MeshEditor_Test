@@ -252,7 +252,68 @@ namespace XDPaint.Editor
                 }
             }
         }
+        public static void SaveResultTextureToFile(PaintManagerEx paintManager)
+        {
+            var sourceTexture = paintManager.Material.Material.mainTexture;
+            var texturePath = AssetDatabase.GetAssetPath(sourceTexture);
+            if (string.IsNullOrEmpty(texturePath))
+            {
+                texturePath = Application.dataPath + "/" + DefaultTextureFilename;
+            }
+            var textureImporterSettings = new TextureImporterSettings();
+            var assetImporter = AssetImporter.GetAtPath(texturePath);
+            var defaultPlatformSettings = new TextureImporterPlatformSettings();
+            var platformsSettings = new Dictionary<string, TextureImporterPlatformSettings>();
+            if (assetImporter != null)
+            {
+                var textureImporter = (TextureImporter)assetImporter;
+                textureImporter.ReadTextureSettings(textureImporterSettings);
+                defaultPlatformSettings = textureImporter.GetDefaultPlatformTextureSettings();
+                foreach (var platform in TextureImportPlatforms)
+                {
+                    var platformSettings = textureImporter.GetPlatformTextureSettings(platform);
+                    if (platformSettings != null)
+                    {
+                        platformsSettings.Add(platform, platformSettings);
+                    }
+                }
+            }
 
+            var directoryInfo = new FileInfo(texturePath).Directory;
+            if (directoryInfo != null)
+            {
+                var directory = directoryInfo.FullName;
+                var fileName = Path.GetFileName(texturePath);
+                var path = EditorUtility.SaveFilePanel("Save texture as PNG", directory, fileName, "png");
+                if (path.Length > 0)
+                {
+                    var texture2D = paintManager.GetResultTexture();
+                    var pngData = texture2D.EncodeToPNG();
+                    if (pngData != null)
+                    {
+                        File.WriteAllBytes(path, pngData);
+                    }
+
+                    var importPath = path.Replace(Application.dataPath, "Assets");
+                    var importer = AssetImporter.GetAtPath(importPath);
+                    if (importer != null)
+                    {
+                        var texture2DImporter = (TextureImporter)importer;
+                        texture2DImporter.SetTextureSettings(textureImporterSettings);
+                        texture2DImporter.SetPlatformTextureSettings(defaultPlatformSettings);
+                        foreach (var platform in platformsSettings)
+                        {
+                            texture2DImporter.SetPlatformTextureSettings(platform.Value);
+                        }
+                        if (!Application.isPlaying)
+                        {
+                            AssetDatabase.ImportAsset(importPath, ImportAssetOptions.ForceUpdate);
+                            AssetDatabase.Refresh();
+                        }
+                    }
+                }
+            }
+        }
         public static bool HasTexture(PaintManager paintManager)
         {
             if (paintManager.ObjectForPainting.TryGetComponent<RawImage>(out var rawImage))
@@ -260,6 +321,26 @@ namespace XDPaint.Editor
                 return rawImage.texture != null;
             }
             
+            if (paintManager.ObjectForPainting.TryGetComponent<SpriteRenderer>(out var spriteRenderer))
+            {
+                return spriteRenderer.sprite != null;
+            }
+
+            if (paintManager.ObjectForPainting.TryGetComponent<Renderer>(out _))
+            {
+                var shaderTextureName = paintManager.Material.ShaderTextureName;
+                return paintManager.Material.SourceMaterial.GetTexture(shaderTextureName) != null;
+            }
+            return false;
+        }
+
+        public static bool HasTexture(PaintManagerEx paintManager)
+        {
+            if (paintManager.ObjectForPainting.TryGetComponent<RawImage>(out var rawImage))
+            {
+                return rawImage.texture != null;
+            }
+
             if (paintManager.ObjectForPainting.TryGetComponent<SpriteRenderer>(out var spriteRenderer))
             {
                 return spriteRenderer.sprite != null;

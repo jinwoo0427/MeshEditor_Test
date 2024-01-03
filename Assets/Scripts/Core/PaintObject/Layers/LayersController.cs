@@ -167,7 +167,7 @@ namespace XDPaint.Core.Layers
             layer.Init(commandBufferBuilder, () => CanDisableLayer);
             layer.Create(name, defaultWidth, defaultHeight, LayerRenderTextureFormat, filterMode);
             InitLayer(layer);
-            CreateRawImage(layer.Name, layer.RenderTexture, false);
+            //CreateRawImage(layer.Name, layer.RenderTexture, false);
             layer.OnRenderPropertyChanged = OnLayerRenderPropertyChanged;
             DisableStatesGrouping();
             return layer;
@@ -180,7 +180,7 @@ namespace XDPaint.Core.Layers
             layer.Init(commandBufferBuilder, () => CanDisableLayer);
             layer.Create(name, sourceTexture, LayerRenderTextureFormat, filterMode);
             InitLayer(layer);
-            CreateRawImage(layer.Name, layer.RenderTexture, isImportImage);
+            //CreateRawImage(layer.Name, layer.RenderTexture, isImportImage);
             layer.OnRenderPropertyChanged = OnLayerRenderPropertyChanged;
             DisableStatesGrouping();
             return layer;

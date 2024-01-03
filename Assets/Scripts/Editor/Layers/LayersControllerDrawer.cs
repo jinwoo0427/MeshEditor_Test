@@ -30,7 +30,6 @@ namespace XDPaint.Editor
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
-            layersController = property.GetInstance<LayersController>();
             if (property.isExpanded)
             {
                 var singleElementHeight = MarginBetweenFields * 4f + SingleLineHeight * 3f;

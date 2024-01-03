@@ -1,4 +1,6 @@
-ï»¿using System;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.IO;
@@ -25,37 +27,39 @@ using XDPaint.Utils;
 
 namespace XDPaint
 {
-    public class PaintManager : MonoBehaviour, IPaintManager
+    public class PaintManagerEx : MonoBehaviour, IPaintManager
     {
+        [SerializeField] private PaintManager ModelPaintManager;
+
         #region Events
 
         public event Action<PaintManager> OnInitialized;
         public event Action OnDisposed;
 
         #endregion
-        
+
         #region Properties and variables
 
-        [FormerlySerializedAs("ObjectForPainting")] [SerializeField] private GameObject objectForPainting;
+        [FormerlySerializedAs("ObjectForPainting")][SerializeField] private GameObject objectForPainting;
         public GameObject ObjectForPainting
         {
             get => objectForPainting;
             set => objectForPainting = value;
         }
 
-        [FormerlySerializedAs("Material")] [SerializeField] private Paint material = new Paint();
+        [FormerlySerializedAs("Material")][SerializeField] private Paint material = new Paint();
         public Paint Material => material;
-        
-        [FormerlySerializedAs("CopySourceTextureToLayer")] [SerializeField] private bool copySourceTextureToLayer = true;
+
+        [FormerlySerializedAs("CopySourceTextureToLayer")][SerializeField] private bool copySourceTextureToLayer = true;
         public bool CopySourceTextureToLayer
         {
             get => copySourceTextureToLayer;
             set => copySourceTextureToLayer = value;
         }
-        
+
         [SerializeField] private LayersController layersController;
-        public ILayersController LayersController => layersController;
-        
+        public ILayersController LayersController => ModelPaintManager.LayersController;
+
         [SerializeField] private LayersContainer layersContainer;
         public LayersContainer LayersContainer
         {
@@ -69,10 +73,10 @@ namespace XDPaint
             get => paintObject;
             private set => paintObject = value;
         }
-        
+
         private StatesController statesController;
         public IStatesController StatesController => statesController;
-        
+
         [SerializeField] private PaintMode paintModeType;
         [SerializeField] private FilterMode filterMode = FilterMode.Bilinear;
         public FilterMode FilterMode
@@ -112,7 +116,7 @@ namespace XDPaint
                 {
                     brush = (Brush)value;
                 }
-                
+
                 if (initialized)
                 {
                     PaintObject.Brush = currentBrush;
@@ -120,7 +124,7 @@ namespace XDPaint
                 }
             }
         }
-        
+
         [SerializeField] private ToolsManager toolsManager;
         public ToolsManager ToolsManager => toolsManager;
 
@@ -134,7 +138,7 @@ namespace XDPaint
                     return toolsManager.CurrentTool.Type;
                 }
                 return PaintTool.Brush;
-            } 
+            }
             set
             {
                 paintTool = value;
@@ -159,9 +163,9 @@ namespace XDPaint
             set => useSourceTextureAsBackground = value;
         }
 
-        
+
         public bool HasTrianglesData => triangles != null && triangles.Length > 0;
-        
+
         public bool Initialized => initialized;
 
         private Triangle[] triangles;
@@ -173,7 +177,7 @@ namespace XDPaint
             get => subMesh;
             set => subMesh = value;
         }
-        
+
         [SerializeField] private int uvChannel;
         public int UVChannel
         {
@@ -183,7 +187,7 @@ namespace XDPaint
 
         private ObjectComponentType componentType;
         public ObjectComponentType ComponentType => componentType;
-        
+
         private IPaintMode paintMode;
         public IPaintMode PaintMode
         {
@@ -194,7 +198,7 @@ namespace XDPaint
                     paintMode = PaintController.Instance.GetPaintMode(PaintController.Instance.UseSharedSettings ? PaintController.Instance.PaintMode : paintModeType);
                 }
                 return paintMode;
-            }            
+            }
         }
         public Transform DrawPanel;
         public RawImage PaintBoard;
@@ -210,14 +214,15 @@ namespace XDPaint
         private const string FilenameFormat = "{0}_LayersContainer.json";
         private const string TextureFilenameFormat = "_{0}.png";
         private const string MaskFilenameFormat = "_{0}_Mask.png";
-        
+
         #endregion
+
 
         private void Start()
         {
             if (initialized)
                 return;
-            
+
             Init();
         }
 
@@ -241,7 +246,7 @@ namespace XDPaint
         {
             if (initialized)
                 DoDispose();
-            
+
             initialized = false;
             if (ObjectForPainting == null)
             {
@@ -250,7 +255,7 @@ namespace XDPaint
             }
 
             RestoreSourceMaterialTexture();
-            
+
             if (renderComponentsHelper == null)
             {
                 renderComponentsHelper = new RenderComponentsHelper();
@@ -272,7 +277,7 @@ namespace XDPaint
             {
                 var paintComponent = renderComponentsHelper.PaintComponent;
                 var renderComponent = renderComponentsHelper.RendererComponent;
-                var mesh = renderComponentsHelper.GetMesh(this);
+                var mesh = renderComponentsHelper.GetMesh(ModelPaintManager);
                 if (triangles == null || triangles.Length == 0)
                 {
                     if (mesh != null)
@@ -286,7 +291,7 @@ namespace XDPaint
                     }
                 }
 
-                RaycastController.Instance.InitObject(this, paintComponent, renderComponent);
+                RaycastController.Instance.InitObject(ModelPaintManager, paintComponent, renderComponent);
             }
 
             InitRenderTexture();
@@ -294,9 +299,9 @@ namespace XDPaint
             InitStates();
             CreateLayers();
             InitMaterial();
-            
+
             //register PaintManager
-            PaintController.Instance.RegisterPaintManager(this);
+            PaintController.Instance.RegisterPaintManager(ModelPaintManager);
             InitBrush();
             InitPaintObject();
             InitTools();
@@ -306,16 +311,16 @@ namespace XDPaint
             Render();
 
             PaintBoard.texture = GetResultRenderTexture();
-            OnInitialized?.Invoke(this);
+            OnInitialized?.Invoke(ModelPaintManager);
         }
 
         public void DoDispose()
         {
             if (!initialized)
                 return;
-            
+
             //unregister PaintManager
-            PaintController.Instance.UnRegisterPaintManager(this);
+            PaintController.Instance.UnRegisterPaintManager(ModelPaintManager);
             //restore source material and texture
             RestoreSourceMaterialTexture();
             //free tools resources
@@ -344,12 +349,11 @@ namespace XDPaint
                 layersController.OnLayersCollectionChanged -= OnLayersCollectionChanged;
             }
             layersController.DoDispose();
-            UnloadLayersContainer();
             statesController?.DoDispose();
             //destroy raycast data
             if (renderComponentsHelper.IsMesh())
             {
-                RaycastController.Instance.DestroyMeshData(this);
+                RaycastController.Instance.DestroyMeshData(ModelPaintManager);
             }
             //unsubscribe input events
             UnsubscribeInputEvents();
@@ -397,15 +401,15 @@ namespace XDPaint
         }
 
         /// <summary>
-        /// ê²°ê³¼ í…ìŠ¤ì²˜ë¥¼ ë°˜í™˜
+        /// °á°ú ÅØ½ºÃ³¸¦ ¹İÈ¯
         /// </summary>
-        /// <param name="hideBrushPreview">ë¸ŒëŸ¬ì‹œ ë¯¸ë¦¬ë³´ê¸°ë¥¼ ìˆ¨ê¸¸ì§€ ì—¬ë¶€</param>
+        /// <param name="hideBrushPreview">ºê·¯½Ã ¹Ì¸®º¸±â¸¦ ¼û±æÁö ¿©ºÎ</param>
         /// <returns></returns>
         public Texture2D GetResultTexture(bool hideBrushPreview = false)
         {
-            // ë¸ŒëŸ¬ì‹œ ë¯¸ë¦¬ë³´ê¸°ë¥¼ ìˆ¨ê¸°ëŠ” ê²ƒì´ í•„ìš”í•œì§€ í™•ì¸í•©ë‹ˆë‹¤.
+            // ºê·¯½Ã ¹Ì¸®º¸±â¸¦ ¼û±â´Â °ÍÀÌ ÇÊ¿äÇÑÁö È®ÀÎÇÕ´Ï´Ù.
             var needToHideBrushPreview = hideBrushPreview && currentBrush.Preview;
-            // ë¸ŒëŸ¬ì‹œ ë¯¸ë¦¬ë³´ê¸°ë¥¼ ìˆ¨ê¸°ëŠ” ê²½ìš° currentBrush.Previewë¥¼ falseë¡œ ì„¤ì •í•˜ê³  ë‹¤ì‹œ ë Œë”ë§í•©ë‹ˆë‹¤.
+            // ºê·¯½Ã ¹Ì¸®º¸±â¸¦ ¼û±â´Â °æ¿ì currentBrush.Preview¸¦ false·Î ¼³Á¤ÇÏ°í ´Ù½Ã ·»´õ¸µÇÕ´Ï´Ù.
             if (needToHideBrushPreview)
             {
                 currentBrush.Preview = false;
@@ -414,14 +418,14 @@ namespace XDPaint
 
             RenderTexture temp = null;
             var renderTexture = renderTextureHelper.GetTexture(RenderTarget.Combined);
-            // ê°ì²´ê°€ SpriteRendererë¥¼ ì‚¬ìš©í•˜ê³  íŠ¹ì • ì‰ì´ë”ë¥¼ ê°€ì§€ê³  ìˆëŠ”ì§€ í™•ì¸í•©ë‹ˆë‹¤.
+            // °´Ã¼°¡ SpriteRenderer¸¦ »ç¿ëÇÏ°í Æ¯Á¤ ½¦ÀÌ´õ¸¦ °¡Áö°í ÀÖ´ÂÁö È®ÀÎÇÕ´Ï´Ù.
             if (renderComponentsHelper.ComponentType == ObjectComponentType.SpriteRenderer)
             {
                 var spriteRenderer = renderComponentsHelper.RendererComponent as SpriteRenderer;
                 if (spriteRenderer != null && spriteRenderer.material != null &&
                     spriteRenderer.material.shader == Settings.Instance.SpriteMaskShader)
                 {
-                    // ì„ì‹œ RenderTextureë¥¼ ìƒì„±í•˜ê³  ë§ˆìŠ¤í¬ë¥¼ ì ìš©í•©ë‹ˆë‹¤.
+                    // ÀÓ½Ã RenderTexture¸¦ »ı¼ºÇÏ°í ¸¶½ºÅ©¸¦ Àû¿ëÇÕ´Ï´Ù.
                     temp = RenderTextureFactory.CreateTemporaryRenderTexture(renderTexture, false);
                     var rti = new RenderTargetIdentifier(temp);
                     var commandBufferBuilder = new CommandBufferBuilder("ResultTexture");
@@ -431,23 +435,23 @@ namespace XDPaint
                 }
             }
 
-            // ìµœì¢… ê²°ê³¼ í…ìŠ¤ì²˜ë¥¼ Texture2Dë¡œ ìƒì„±í•©ë‹ˆë‹¤.
+            // ÃÖÁ¾ °á°ú ÅØ½ºÃ³¸¦ Texture2D·Î »ı¼ºÇÕ´Ï´Ù.
             var resultTexture = new Texture2D(renderTexture.width, renderTexture.height, TextureFormat.ARGB32, false);
             var previousRenderTexture = RenderTexture.active;
             RenderTexture.active = temp != null ? temp : renderTexture;
 
-            // í™œì„± RenderTextureì—ì„œ resultTextureë¡œ í”½ì…€ì„ ì½ì–´ì˜µë‹ˆë‹¤.
+            // È°¼º RenderTexture¿¡¼­ resultTexture·Î ÇÈ¼¿À» ÀĞ¾î¿É´Ï´Ù.
             resultTexture.ReadPixels(new Rect(0, 0, resultTexture.width, resultTexture.height), 0, 0, false);
             resultTexture.Apply();
 
-            // í™œì„± RenderTextureë¥¼ ë³µì›í•©ë‹ˆë‹¤.
+            // È°¼º RenderTexture¸¦ º¹¿øÇÕ´Ï´Ù.
             RenderTexture.active = previousRenderTexture;
-            // ìƒì„±í•œ ì„ì‹œ RenderTextureë¥¼ í•´ì œí•©ë‹ˆë‹¤.
+            // »ı¼ºÇÑ ÀÓ½Ã RenderTexture¸¦ ÇØÁ¦ÇÕ´Ï´Ù.
             if (temp != null)
             {
                 RenderTexture.ReleaseTemporary(temp);
             }
-            // ë¸ŒëŸ¬ì‹œ ë¯¸ë¦¬ë³´ê¸°ê°€ ìˆ¨ê²¨ì§„ ê²½ìš° ë¯¸ë¦¬ë³´ê¸° ì„¤ì •ì„ ë³µì›í•©ë‹ˆë‹¤.
+            // ºê·¯½Ã ¹Ì¸®º¸±â°¡ ¼û°ÜÁø °æ¿ì ¹Ì¸®º¸±â ¼³Á¤À» º¹¿øÇÕ´Ï´Ù.
             if (needToHideBrushPreview)
             {
                 currentBrush.Preview = true;
@@ -501,216 +505,8 @@ namespace XDPaint
             }
             return layersData;
         }
+
         
-        public bool IsLayersContainerExists(string filename)
-        {
-            var path = Path.Combine(DefaultPath, string.Format(FilenameFormat, filename));
-            return path.IsCorrectFilename(true) && File.Exists(path);
-        }
-        
-        public bool SaveToLayersContainer(string filename)
-        {
-            if (!initialized)
-                return false;
-            
-            if (!filename.IsCorrectFilename(true))
-                return false;
-            
-            var container = ScriptableObject.CreateInstance<LayersContainer>();
-            container.ActiveLayerIndex = LayersController.ActiveLayerIndex;
-            container.LayersData = GetLayersData();
-            
-            foreach (var layerData in container.LayersData)
-            {
-                if (!layerData.Name.IsCorrectFilename(true))
-                    return false;
-            }
-
-            try
-            {
-                if (!Directory.Exists(DefaultPath))
-                {
-                    Directory.CreateDirectory(DefaultPath);
-                }
-
-                var directory = Path.Combine(DefaultPath, filename);
-                if (!Directory.Exists(directory))
-                {
-                    Directory.CreateDirectory(directory);
-                }
-            
-                for (var i = 0; i < container.LayersData.Length; i++)
-                {
-                    var layerData = container.LayersData[i];
-                    if (layerData.Texture != null)
-                    {
-                        var texture2D = layerData.Texture;
-                        var pngData = texture2D.EncodeToPNG();
-                        if (pngData != null)
-                        {
-                            var filePath = Path.Combine(DefaultPath, Path.Combine(filename, layerData.Name + string.Format(TextureFilenameFormat, i)));
-                            File.WriteAllBytes(filePath, pngData);
-                        }
-                        Destroy(texture2D);
-                    }
-
-                    if (layerData.Mask != null)
-                    {
-                        var texture2D = layerData.Mask;
-                        var pngData = texture2D.EncodeToPNG();
-                        if (pngData != null)
-                        {
-                            var filePath = Path.Combine(DefaultPath, Path.Combine(filename, layerData.Name + string.Format(MaskFilenameFormat, i)));
-                            File.WriteAllBytes(filePath, pngData);
-                        }
-                        Destroy(texture2D);
-                    }
-                }
-
-                var json = JsonUtility.ToJson(container);
-                var path = Path.Combine(DefaultPath, string.Format(FilenameFormat, filename));
-                File.WriteAllText(path, json);
-            }
-            catch (Exception e)
-            {
-                Debug.LogError(e.Message);
-                return false;
-            }
-            
-            return true;
-        }
-
-        public bool DeleteLayersContainer(string filename)
-        {
-            if (!filename.IsCorrectFilename(true))
-                return false;
-
-            var jsonPath = Path.Combine(DefaultPath, string.Format(FilenameFormat, filename));
-            if (!File.Exists(jsonPath))
-            {
-                Debug.LogError($"Can't find file at path {jsonPath}");
-                return false;
-            }
-            
-            var json = File.ReadAllText(jsonPath);
-            var container = ScriptableObject.CreateInstance<LayersContainer>();
-            JsonUtility.FromJsonOverwrite(json, container);
-
-            foreach (var layerData in container.LayersData)
-            {
-                if (!layerData.Name.IsCorrectFilename(true))
-                    return false;
-            }
-
-            try
-            {
-                var directory = Path.Combine(DefaultPath, filename);
-                if (Directory.Exists(directory))
-                {
-                    Directory.Delete(directory, true);
-                }
-            }
-            catch (Exception e)
-            {
-                Debug.LogError(e.Message);
-                return false;
-            }
-            finally
-            {
-                Destroy(container);
-                File.Delete(jsonPath);
-            }
-
-            return true;
-        }
-
-        public bool LoadFromLayersContainer(string filename)
-        {
-            if (!filename.IsCorrectFilename(true))
-                return false;
-            
-            var jsonPath = Path.Combine(DefaultPath, string.Format(FilenameFormat, filename));
-            if (!File.Exists(jsonPath))
-            {
-                Debug.LogError($"Can't find file at path {jsonPath}");
-                return false;
-            }
-            
-            DoDispose();
-            
-            var json = File.ReadAllText(jsonPath);
-            var container = ScriptableObject.CreateInstance<LayersContainer>();
-            JsonUtility.FromJsonOverwrite(json, container);
-            loadedLayersContainer = container;
-
-            try
-            {
-                for (var i = 0; i < loadedLayersContainer.LayersData.Length; i++)
-                {
-                    var layerData = container.LayersData[i];
-                    var texturePath = Path.Combine(DefaultPath,
-                        Path.Combine(filename, layerData.Name + string.Format(TextureFilenameFormat, i)));
-                    var textureData = File.ReadAllBytes(texturePath);
-                    var layerTexture = new Texture2D(1, 1);
-                    layerTexture.LoadImage(textureData);
-                    layerData.SourceTexture = layerTexture;
-                    layerData.Texture = layerTexture;
-                    var maskPath = Path.Combine(DefaultPath,
-                        Path.Combine(filename, layerData.Name + string.Format(MaskFilenameFormat, i)));
-                    if (File.Exists(maskPath))
-                    {
-                        var maskData = File.ReadAllBytes(maskPath);
-                        var maskTexture = new Texture2D(1, 1);
-                        maskTexture.LoadImage(maskData);
-                        layerData.Mask = maskTexture;
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Debug.LogError(e.Message);
-                return false;
-            }
-            finally
-            {
-                LayersContainer = container;
-                Init();
-            }
-
-            return true;
-        }
-
-        private void UnloadLayersContainer()
-        {
-            if (loadedLayersContainer != null)
-            {
-                foreach (var layerData in loadedLayersContainer.LayersData)
-                {
-                    if (layerData.SourceTexture != null)
-                    {
-                        Destroy(layerData.SourceTexture);
-                    }
-
-                    if (layerData.Texture != null)
-                    {
-                        Destroy(layerData.Texture);
-                    }
-                    
-                    if (layerData.Mask != null)
-                    {
-                        Destroy(layerData.Mask);
-                    }
-                }
-
-                if (layersContainer == loadedLayersContainer)
-                {
-                    layersContainer = null;
-                }
-
-                loadedLayersContainer.LayersData = null;
-                loadedLayersContainer = null;
-            }
-        }
 
         /// <summary>
         /// Restore source material and texture
@@ -726,7 +522,7 @@ namespace XDPaint
                 renderComponentsHelper.SetSourceMaterial(Material.SourceMaterial, Material.MaterialIndex);
             }
         }
-        
+
         public void InitBrush()
         {
             if (PaintController.Instance.UseSharedSettings)
@@ -752,7 +548,7 @@ namespace XDPaint
             currentBrush.OnPreviewChanged -= UpdatePreviewInput;
             currentBrush.OnPreviewChanged += UpdatePreviewInput;
         }
-        
+
         private void InitRenderTexture()
         {
             paintMode = PaintController.Instance.GetPaintMode(PaintController.Instance.UseSharedSettings ? PaintController.Instance.PaintMode : paintModeType);
@@ -822,7 +618,7 @@ namespace XDPaint
                 }
             }
         }
-        
+
         private void OnLayersCollectionChanged(ObservableCollection<ILayer> collection, NotifyCollectionChangedEventArgs args)
         {
             TryRender();
@@ -866,8 +662,8 @@ namespace XDPaint
             {
                 PaintObject = new SkinnedMeshRendererPaint();
             }
-            
-            PaintObject.Init(this, Camera, ObjectForPainting.transform, Material, renderTextureHelper, statesController);
+
+            PaintObject.Init(ModelPaintManager, Camera, ObjectForPainting.transform, Material, renderTextureHelper, statesController);
             PaintObject.Brush = currentBrush;
             PaintObject.SetActiveLayer(layersController.GetActiveLayer);
             PaintObject.SetPaintMode(paintMode);
@@ -885,10 +681,10 @@ namespace XDPaint
             {
                 paintTool = PaintController.Instance.Tool;
             }
-            paintData = new BasePaintData(this, renderTextureHelper, renderComponentsHelper);
+            paintData = new BasePaintData(ModelPaintManager, renderTextureHelper, renderComponentsHelper);
             toolsManager = new ToolsManager(paintTool, paintData);
             toolsManager.OnToolChanged += OnToolChanged;
-            toolsManager.Init(this);
+            toolsManager.Init(ModelPaintManager);
             toolsManager.CurrentTool.SetPaintMode(paintMode);
             PaintObject.Tool = toolsManager.CurrentTool;
         }
@@ -908,11 +704,11 @@ namespace XDPaint
                 inputData.DoDispose();
             }
             inputData = new InputDataResolver().Resolve(component);
-            inputData.Init(this, Camera);
+            inputData.Init(ModelPaintManager, Camera);
             UpdatePreviewInput(currentBrush.Preview);
 
-            // ì¸í’‹ì»¨íŠ¸ë¡¤ëŸ¬ì— ì•¡ì…˜ ë“±ë¡í•˜ê³ 
-            // ë“±ë¡ëœ ì•¡ì…˜ ë°ì´í„°ì˜ ì•¡ì…˜ì„ ë¨¸í• ê±´ì§€ ë“±ë¡í•œë‹¤
+            // ÀÎÇ²ÄÁÆ®·Ñ·¯¿¡ ¾×¼Ç µî·ÏÇÏ°í
+            // µî·ÏµÈ ¾×¼Ç µ¥ÀÌÅÍÀÇ ¾×¼ÇÀ» ¸ÓÇÒ°ÇÁö µî·ÏÇÑ´Ù
             InputController.Instance.OnUpdate += inputData.OnUpdate;
             InputController.Instance.OnMouseDown += inputData.OnDown;
             InputController.Instance.OnMouseButton += inputData.OnPress;
@@ -960,5 +756,6 @@ namespace XDPaint
         }
 
         #endregion
+
     }
 }

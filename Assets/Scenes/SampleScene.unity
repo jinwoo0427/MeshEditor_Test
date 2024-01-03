@@ -315,6 +315,7 @@ MonoBehaviour:
   subMesh: 0
   uvChannel: 0
   DrawPanel: {fileID: 0}
+  PaintBoard: {fileID: 0}
 --- !u!114 &174449024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1771,7 +1772,8 @@ MonoBehaviour:
   useSourceTextureAsBackground: 1
   subMesh: 0
   uvChannel: 0
-  DrawPanel: {fileID: 370226838}
+  DrawPanel: {fileID: 413211877}
+  PaintBoard: {fileID: 413211878}
 --- !u!114 &334990216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1807,6 +1809,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 370226838}
+  - component: {fileID: 370226839}
   m_Layer: 5
   m_Name: DrawPanel
   m_TagString: Untagged
@@ -1834,6 +1837,65 @@ RectTransform:
   m_AnchoredPosition: {x: -50, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &370226839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 370226837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33fb8bb9206e73147bb7f2da9dd191f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ModelPaintManager: {fileID: 0}
+  objectForPainting: {fileID: 413211876}
+  material:
+    shaderTextureName: _MainTex
+    defaultTextureWidth: 2048
+    defaultTextureHeight: 2048
+    defaultTextureColor: {r: 0, g: 0, b: 0, a: 0}
+    SourceMaterial: {fileID: 0}
+  copySourceTextureToLayer: 1
+  layersController:
+    layersList: []
+    activeLayerIndex: 0
+  layersContainer: {fileID: 0}
+  paintModeType: 0
+  filterMode: 1
+  brush:
+    name: Brush 1
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 0}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 0.9
+    preview: 0
+  toolsManager:
+    brushTool:
+      toolSettings:
+        smoothing: 0
+        patternTexture: {fileID: 0}
+    eraseTool:
+      toolSettings:
+        smoothing: 0
+    bucketTool:
+      toolSettings:
+        smoothing: 0
+        patternTexture: {fileID: 0}
+    eyedropperTool:
+      toolSettings:
+        smoothing: 0
+  paintTool: 0
+  useSourceTextureAsBackground: 0
+  subMesh: 0
+  uvChannel: 0
+  DrawPanel: {fileID: 0}
+  PaintBoard: {fileID: 0}
 --- !u!1 &407793169
 GameObject:
   m_ObjectHideFlags: 0
@@ -4234,6 +4296,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3147732669807396800, guid: 779169a261e835649935d4305c3b19ef,
         type: 3}
+      propertyPath: DrawPanel
+      value: 
+      objectReference: {fileID: 413211877}
+    - target: {fileID: 3147732669807396800, guid: 779169a261e835649935d4305c3b19ef,
+        type: 3}
+      propertyPath: PaintBoard
+      value: 
+      objectReference: {fileID: 413211878}
+    - target: {fileID: 3147732669807396800, guid: 779169a261e835649935d4305c3b19ef,
+        type: 3}
       propertyPath: copySourceTextureToLayer
       value: 0
       objectReference: {fileID: 0}
@@ -4301,6 +4373,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7587399885449545573, guid: 779169a261e835649935d4305c3b19ef,
+        type: 3}
+      propertyPath: m_Material
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8765079287470876016, guid: 779169a261e835649935d4305c3b19ef,
         type: 3}
@@ -4617,6 +4694,7 @@ MonoBehaviour:
   subMesh: 0
   uvChannel: 0
   DrawPanel: {fileID: 0}
+  PaintBoard: {fileID: 0}
 --- !u!114 &1887225601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4875,6 +4953,7 @@ MonoBehaviour:
   subMesh: 0
   uvChannel: 0
   DrawPanel: {fileID: 0}
+  PaintBoard: {fileID: 0}
 --- !u!114 &2011374461
 MonoBehaviour:
   m_ObjectHideFlags: 0

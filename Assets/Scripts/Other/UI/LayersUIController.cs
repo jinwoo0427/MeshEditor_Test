@@ -215,9 +215,9 @@ namespace XDPaint.Demo.UI
         private IEnumerator AnimatePlateMoving()
         {
             isAnimating = true;
-            var isHidden = Math.Abs(layersTransform.anchoredPosition.x - layersTransform.rect.width) < 0.01f;
+            var isHidden = Math.Abs(layersTransform.anchoredPosition.x - layersTransform.rect.width *0.5f) < 0.01f;
             var startPosition = layersTransform.anchoredPosition;
-            var endPosition = new Vector2(isHidden ? 0 : layersTransform.rect.width, layersTransform.anchoredPosition.y);
+            var endPosition = new Vector2(isHidden ? 0 : layersTransform.rect.width * 0.5f, layersTransform.anchoredPosition.y);
             var t = 0f;
             while (t <= 1f)
             {
