@@ -23,6 +23,7 @@ namespace XDPaint.Controllers.InputData.Base
 
         protected Camera Camera;
         protected PaintManager PaintManager;
+        protected PaintBoardManager PaintBoardManager;
         protected MeshModifyManager MeshManager;
         private List<CanvasGraphicRaycaster> raycasters;
         private Dictionary<int, Dictionary<CanvasGraphicRaycaster, List<RaycastResult>>> raycastResults;
@@ -106,7 +107,51 @@ namespace XDPaint.Controllers.InputData.Base
                 }
             }
         }
-        
+        public virtual void Init(PaintBoardManager paintManagerInstance, Camera camera)
+        {
+            Camera = camera;
+            PaintBoardManager = paintManagerInstance;
+            raycasters = new List<CanvasGraphicRaycaster>();
+            raycastResults = new Dictionary<int, Dictionary<CanvasGraphicRaycaster, List<RaycastResult>>>();
+            for (var i = 0; i < InputController.Instance.MaxTouchesCount; i++)
+            {
+                raycastResults.Add(i, new Dictionary<CanvasGraphicRaycaster, List<RaycastResult>>());
+            }
+
+            if (Settings.Instance.CheckCanvasRaycasts)
+            {
+                if (PaintBoardManager.ObjectForPainting.TryGetComponent<RawImage>(out var rawImage) && rawImage.canvas != null)
+                {
+                    if (!rawImage.canvas.TryGetComponent<CanvasGraphicRaycaster>(out var graphicRaycaster))
+                    {
+                        graphicRaycaster = rawImage.canvas.gameObject.AddComponent<CanvasGraphicRaycaster>();
+                    }
+                    if (!raycasters.Contains(graphicRaycaster))
+                    {
+                        raycasters.Add(graphicRaycaster);
+                    }
+                }
+
+                foreach (var canvas in InputController.Instance.Canvases)
+                {
+                    if (canvas == null)
+                        continue;
+
+                    if (canvas != null)
+                    {
+                        if (!canvas.TryGetComponent<CanvasGraphicRaycaster>(out var graphicRaycaster))
+                        {
+                            graphicRaycaster = canvas.gameObject.AddComponent<CanvasGraphicRaycaster>();
+                        }
+
+                        if (!raycasters.Contains(graphicRaycaster))
+                        {
+                            raycasters.Add(graphicRaycaster);
+                        }
+                    }
+                }
+            }
+        }
         public virtual void DoDispose()
         {
             raycasters.Clear();
@@ -119,7 +164,7 @@ namespace XDPaint.Controllers.InputData.Base
 
         public virtual void OnHover(int fingerId, Vector3 position)
         {
-            if (PaintManager != null)
+            if (PaintManager != null || PaintBoardManager !=null )
             {
                 if (!CanProcess())
                 {
@@ -173,7 +218,7 @@ namespace XDPaint.Controllers.InputData.Base
 
         public virtual void OnDown(int fingerId, Vector3 position, float pressure = 1.0f)
         {
-            if (PaintManager != null)
+            if (PaintManager != null || PaintBoardManager != null)
             {
                 if (!CanProcess())
                 {
@@ -230,7 +275,7 @@ namespace XDPaint.Controllers.InputData.Base
 
         public virtual void OnPress(int fingerId, Vector3 position, float pressure = 1.0f)
         {
-            if(PaintManager != null)
+            if(PaintManager != null || PaintBoardManager != null)
             {
                 if (!CanProcess())
                 {
@@ -284,7 +329,7 @@ namespace XDPaint.Controllers.InputData.Base
 
         public virtual void OnUp(int fingerId, Vector3 position)
         {
-            if (PaintManager != null)
+            if (PaintManager != null || PaintBoardManager != null)
             {
                 if (!CanProcess() )
                     return;
@@ -314,7 +359,7 @@ namespace XDPaint.Controllers.InputData.Base
                     if (raycastResults[fingerId][raycaster].Count > 0)
                     {
                         var raycast = raycastResults[fingerId][raycaster][0];
-                        if (PaintManager != null)
+                        if (PaintManager != null || PaintBoardManager != null)
                         {
                             if (raycast.gameObject == PaintManager.ObjectForPainting && PaintManager.Initialized)
                             {
@@ -343,22 +388,45 @@ namespace XDPaint.Controllers.InputData.Base
         
         private bool CanProcess(bool printWarnings = false)
         {
-            if (!PaintManager.PaintObject.ProcessInput || !PaintManager.enabled ||
-                !PaintManager.LayersController.ActiveLayer.Enabled || PaintManager.Brush.Color.a == 0f)
+            if(PaintManager != null)
             {
-                if (printWarnings)
+                if (!PaintManager.PaintObject.ProcessInput || !PaintManager.enabled ||
+                !PaintManager.LayersController.ActiveLayer.Enabled || PaintManager.Brush.Color.a == 0f)
                 {
-                    if (!PaintManager.LayersController.ActiveLayer.Enabled)
+                    if (printWarnings)
                     {
-                        Debug.LogWarning("Active layer is disabled!");
+                        if (!PaintManager.LayersController.ActiveLayer.Enabled)
+                        {
+                            Debug.LogWarning("Active layer is disabled!");
+                        }
+                        else if (PaintManager.Brush.Color.a == 0f)
+                        {
+                            Debug.LogWarning("Brush has zero alpha value!");
+                        }
                     }
-                    else if (PaintManager.Brush.Color.a == 0f)
-                    {
-                        Debug.LogWarning("Brush has zero alpha value!");
-                    }
+                    return false;
                 }
-                return false;
             }
+            else
+            {
+                if (!PaintBoardManager.PaintObject.ProcessInput || !PaintBoardManager.enabled ||
+               !PaintBoardManager.LayersController.ActiveLayer.Enabled || PaintBoardManager.Brush.Color.a == 0f)
+                {
+                    if (printWarnings)
+                    {
+                        if (!PaintBoardManager.LayersController.ActiveLayer.Enabled)
+                        {
+                            Debug.LogWarning("Active layer is disabled!");
+                        }
+                        else if (PaintBoardManager.Brush.Color.a == 0f)
+                        {
+                            Debug.LogWarning("Brush has zero alpha value!");
+                        }
+                    }
+                    return false;
+                }
+            }
+            
             return true;
         }
     }

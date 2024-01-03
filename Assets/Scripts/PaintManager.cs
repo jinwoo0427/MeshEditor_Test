@@ -199,8 +199,13 @@ namespace XDPaint
         public Transform DrawPanel;
         public RawImage PaintBoard;
         private LayersMergeController layersMergeController;
-        private IRenderTextureHelper renderTextureHelper;
-        private IRenderComponentsHelper renderComponentsHelper;
+        public LayersMergeController LayersMergeController
+        {
+            get { return layersMergeController; }
+            set { layersMergeController = value; }
+        }
+        public IRenderTextureHelper renderTextureHelper;
+        public IRenderComponentsHelper renderComponentsHelper;
         private IPaintData paintData;
         private BaseInputData inputData;
         private LayersContainer loadedLayersContainer;

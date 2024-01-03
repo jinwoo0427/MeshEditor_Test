@@ -23,7 +23,7 @@ namespace XDPaint.Tools
         [SerializeField] private EyedropperTool eyedropperTool;
         
         private IPaintTool[] allTools;
-        private PaintManager paintManager;
+        private IPaintManager paintManager;
         private bool initialized;
 
         public ToolsManager(PaintTool paintTool, IPaintData paintData)
@@ -40,7 +40,7 @@ namespace XDPaint.Tools
             currentTool.Enter();
         }
 
-        public void Init(PaintManager thisPaintManager)
+        public void Init(IPaintManager thisPaintManager)
         {
             paintManager = thisPaintManager;
             paintManager.PaintObject.OnPointerHover += OnPointerHover;

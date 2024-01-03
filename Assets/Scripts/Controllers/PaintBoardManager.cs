@@ -27,7 +27,7 @@ using XDPaint.Utils;
 
 namespace XDPaint
 {
-    public class PaintManagerEx : MonoBehaviour, IPaintManager
+    public class PaintBoardManager : MonoBehaviour, IPaintManager
     {
         [SerializeField] private PaintManager ModelPaintManager;
 
@@ -50,22 +50,9 @@ namespace XDPaint
         [FormerlySerializedAs("Material")][SerializeField] private Paint material = new Paint();
         public Paint Material => material;
 
-        [FormerlySerializedAs("CopySourceTextureToLayer")][SerializeField] private bool copySourceTextureToLayer = true;
-        public bool CopySourceTextureToLayer
-        {
-            get => copySourceTextureToLayer;
-            set => copySourceTextureToLayer = value;
-        }
-
         [SerializeField] private LayersController layersController;
         public ILayersController LayersController => ModelPaintManager.LayersController;
 
-        [SerializeField] private LayersContainer layersContainer;
-        public LayersContainer LayersContainer
-        {
-            get => layersContainer;
-            set => layersContainer = value;
-        }
 
         [SerializeField] private BasePaintObject paintObject;
         public BasePaintObject PaintObject
@@ -75,7 +62,7 @@ namespace XDPaint
         }
 
         private StatesController statesController;
-        public IStatesController StatesController => statesController;
+        public IStatesController StatesController => ModelPaintManager.StatesController;
 
         [SerializeField] private PaintMode paintModeType;
         [SerializeField] private FilterMode filterMode = FilterMode.Bilinear;
@@ -169,7 +156,7 @@ namespace XDPaint
         public bool Initialized => initialized;
 
         private Triangle[] triangles;
-        public Triangle[] Triangles => triangles;
+        public Triangle[] Triangles => ModelPaintManager.Triangles;
 
         [SerializeField] private int subMesh;
         public int SubMesh
@@ -208,21 +195,16 @@ namespace XDPaint
         private IPaintData paintData;
         private BaseInputData inputData;
         private LayersContainer loadedLayersContainer;
-        private bool initialized;
-
-        private string DefaultPath => Path.Combine(Application.persistentDataPath, "XDPaint");
-        private const string FilenameFormat = "{0}_LayersContainer.json";
-        private const string TextureFilenameFormat = "_{0}.png";
-        private const string MaskFilenameFormat = "_{0}_Mask.png";
+        private bool initialized = false;
 
         #endregion
 
 
-        private void Start()
+        private void StartInit()
         {
             if (initialized)
                 return;
-
+            InitPaintBoard();
             Init();
         }
 
@@ -241,7 +223,11 @@ namespace XDPaint
         {
             DoDispose();
         }
-
+        public void InitPaintBoard(/*IRenderTextureHelper renderTextureHelper , IRenderComponentsHelper renderComponentsHelper*/)
+        {
+            renderTextureHelper = ModelPaintManager.renderTextureHelper;
+            renderComponentsHelper = ModelPaintManager.renderComponentsHelper;
+        }
         public void Init()
         {
             if (initialized)
@@ -277,7 +263,7 @@ namespace XDPaint
             {
                 var paintComponent = renderComponentsHelper.PaintComponent;
                 var renderComponent = renderComponentsHelper.RendererComponent;
-                var mesh = renderComponentsHelper.GetMesh(ModelPaintManager);
+                var mesh = renderComponentsHelper.GetMesh(this);
                 if (triangles == null || triangles.Length == 0)
                 {
                     if (mesh != null)
@@ -297,11 +283,10 @@ namespace XDPaint
             InitRenderTexture();
             InitLayers();
             InitStates();
-            CreateLayers();
             InitMaterial();
 
             //register PaintManager
-            PaintController.Instance.RegisterPaintManager(ModelPaintManager);
+            //PaintController.Instance.RegisterPaintManager(ModelPaintManager);
             InitBrush();
             InitPaintObject();
             InitTools();
@@ -310,7 +295,7 @@ namespace XDPaint
             initialized = true;
             Render();
 
-            PaintBoard.texture = GetResultRenderTexture();
+            //PaintBoard.texture = GetResultRenderTexture();
             OnInitialized?.Invoke(ModelPaintManager);
         }
 
@@ -320,7 +305,7 @@ namespace XDPaint
                 return;
 
             //unregister PaintManager
-            PaintController.Instance.UnRegisterPaintManager(ModelPaintManager);
+            //PaintController.Instance.UnRegisterPaintManager(ModelPaintManager);
             //restore source material and texture
             RestoreSourceMaterialTexture();
             //free tools resources
@@ -346,7 +331,6 @@ namespace XDPaint
             }
             else
             {
-                layersController.OnLayersCollectionChanged -= OnLayersCollectionChanged;
             }
             layersController.DoDispose();
             statesController?.DoDispose();
@@ -488,7 +472,6 @@ namespace XDPaint
                 }
             }
             layersController.SetActiveLayer(container.ActiveLayerIndex);
-            statesController.SetMinUndoStatesCount(layersContainer.LayersData.Length);
         }
 
         /// <summary>
@@ -525,6 +508,7 @@ namespace XDPaint
 
         public void InitBrush()
         {
+            // 보통은 true일 예정
             if (PaintController.Instance.UseSharedSettings)
             {
                 currentBrush = PaintController.Instance.Brush;
@@ -556,18 +540,13 @@ namespace XDPaint
             {
                 renderTextureHelper = new RenderTextureHelper();
             }
-            var sourceTexture = layersContainer != null ? layersContainer.LayersData[0].SourceTexture : null;
-            Material.Init(renderComponentsHelper, sourceTexture);
+            Material.Init(renderComponentsHelper, null);
             renderTextureHelper.Init(Material.SourceTexture.width, Material.SourceTexture.height, filterMode);
         }
 
         private void InitLayers()
         {
-            layersMergeController = new LayersMergeController();
-            layersController?.DoDispose();
-            layersController = new LayersController(layersMergeController);
-            layersController.Init(Material.SourceTexture.width, Material.SourceTexture.height, DrawPanel);
-            layersController.SetFilterMode(filterMode);
+            layersMergeController = ModelPaintManager.LayersMergeController;
         }
 
         private void InitMaterial()
@@ -585,43 +564,13 @@ namespace XDPaint
         {
             if (StatesSettings.Instance.UndoRedoEnabled)
             {
-                statesController = new StatesController();
-                statesController.Init(layersController);
-                layersController.SetStateController(statesController);
-                layersController.OnLayersCollectionChanged -= statesController.AddState;
-                layersController.OnLayersCollectionChanged += statesController.AddState;
+                statesController = ModelPaintManager.StatesController as StatesController;
                 statesController.OnUndo -= TryRender;
                 statesController.OnUndo += TryRender;
                 statesController.OnRedo -= TryRender;
                 statesController.OnRedo += TryRender;
                 statesController.Enable();
             }
-            else
-            {
-                layersController.OnLayersCollectionChanged -= OnLayersCollectionChanged;
-                layersController.OnLayersCollectionChanged += OnLayersCollectionChanged;
-            }
-        }
-
-        private void CreateLayers()
-        {
-            if (layersContainer != null)
-            {
-                SetLayersData(layersContainer);
-            }
-            else
-            {
-                layersController.CreateBaseLayers(Material.SourceTexture, copySourceTextureToLayer, useSourceTextureAsBackground);
-                if (statesController != null)
-                {
-                    statesController.SetMinUndoStatesCount(useSourceTextureAsBackground ? 2 : 1);
-                }
-            }
-        }
-
-        private void OnLayersCollectionChanged(ObservableCollection<ILayer> collection, NotifyCollectionChangedEventArgs args)
-        {
-            TryRender();
         }
 
         private void TryRender()
@@ -663,7 +612,7 @@ namespace XDPaint
                 PaintObject = new SkinnedMeshRendererPaint();
             }
 
-            PaintObject.Init(ModelPaintManager, Camera, ObjectForPainting.transform, Material, renderTextureHelper, statesController);
+            PaintObject.Init(this, Camera, ObjectForPainting.transform, Material, renderTextureHelper, statesController);
             PaintObject.Brush = currentBrush;
             PaintObject.SetActiveLayer(layersController.GetActiveLayer);
             PaintObject.SetPaintMode(paintMode);
@@ -681,10 +630,10 @@ namespace XDPaint
             {
                 paintTool = PaintController.Instance.Tool;
             }
-            paintData = new BasePaintData(ModelPaintManager, renderTextureHelper, renderComponentsHelper);
+            paintData = new BasePaintData(this, renderTextureHelper, renderComponentsHelper);
             toolsManager = new ToolsManager(paintTool, paintData);
             toolsManager.OnToolChanged += OnToolChanged;
-            toolsManager.Init(ModelPaintManager);
+            toolsManager.Init(this);
             toolsManager.CurrentTool.SetPaintMode(paintMode);
             PaintObject.Tool = toolsManager.CurrentTool;
         }
@@ -704,7 +653,7 @@ namespace XDPaint
                 inputData.DoDispose();
             }
             inputData = new InputDataResolver().Resolve(component);
-            inputData.Init(ModelPaintManager, Camera);
+            inputData.Init(this, Camera);
             UpdatePreviewInput(currentBrush.Preview);
 
             // 인풋컨트롤러에 액션 등록하고

@@ -32,6 +32,10 @@ namespace XDPaint.Editor
         {
             if (property.isExpanded)
             {
+                if(!Application.isPlaying)
+                {
+                    return 50f;
+                }
                 var singleElementHeight = MarginBetweenFields * 4f + SingleLineHeight * 3f;
                 return SingleLineHeight + singleElementHeight * layersController.Layers.Count +
                        MarginBetweenFields * (layersController.Layers.Count + 1);

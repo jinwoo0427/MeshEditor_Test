@@ -252,7 +252,7 @@ namespace XDPaint.Editor
                 }
             }
         }
-        public static void SaveResultTextureToFile(PaintManagerEx paintManager)
+        public static void SaveResultTextureToFile(PaintBoardManager paintManager)
         {
             var sourceTexture = paintManager.Material.Material.mainTexture;
             var texturePath = AssetDatabase.GetAssetPath(sourceTexture);
@@ -334,7 +334,7 @@ namespace XDPaint.Editor
             return false;
         }
 
-        public static bool HasTexture(PaintManagerEx paintManager)
+        public static bool HasTexture(PaintBoardManager paintManager)
         {
             if (paintManager.ObjectForPainting.TryGetComponent<RawImage>(out var rawImage))
             {

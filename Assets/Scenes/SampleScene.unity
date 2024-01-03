@@ -1830,6 +1830,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 413211877}
+  - {fileID: 1395588166}
   m_Father: {fileID: 1621009248}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
@@ -1849,19 +1850,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33fb8bb9206e73147bb7f2da9dd191f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ModelPaintManager: {fileID: 0}
-  objectForPainting: {fileID: 413211876}
+  ModelPaintManager: {fileID: 334990214}
+  objectForPainting: {fileID: 1395588163}
   material:
     shaderTextureName: _MainTex
     defaultTextureWidth: 2048
     defaultTextureHeight: 2048
     defaultTextureColor: {r: 0, g: 0, b: 0, a: 0}
-    SourceMaterial: {fileID: 0}
-  copySourceTextureToLayer: 1
+    SourceMaterial: {fileID: 2100000, guid: b798aa789654d0b4194f4b3972b2a139, type: 2}
   layersController:
     layersList: []
     activeLayerIndex: 0
-  layersContainer: {fileID: 0}
   paintModeType: 0
   filterMode: 1
   brush:
@@ -1894,8 +1893,8 @@ MonoBehaviour:
   useSourceTextureAsBackground: 0
   subMesh: 0
   uvChannel: 0
-  DrawPanel: {fileID: 0}
-  PaintBoard: {fileID: 0}
+  DrawPanel: {fileID: 413211877}
+  PaintBoard: {fileID: 413211878}
 --- !u!1 &407793169
 GameObject:
   m_ObjectHideFlags: 0
@@ -3026,7 +3025,7 @@ PrefabInstance:
     - target: {fileID: 114925808778284472, guid: 7d821af3d6b1aee4dad774889f29b0d0,
         type: 3}
       propertyPath: brush.size
-      value: 0.1
+      value: 0.11
       objectReference: {fileID: 0}
     - target: {fileID: 114925808778284472, guid: 7d821af3d6b1aee4dad774889f29b0d0,
         type: 3}
@@ -3037,6 +3036,11 @@ PrefabInstance:
         type: 3}
       propertyPath: paintModeType
       value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 114925808778284472, guid: 7d821af3d6b1aee4dad774889f29b0d0,
+        type: 3}
+      propertyPath: brush.renderAngle
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4026,6 +4030,78 @@ RectTransform:
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 50, y: 50}
   m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1395588163
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1395588166}
+  - component: {fileID: 1395588165}
+  - component: {fileID: 1395588164}
+  m_Layer: 5
+  m_Name: RawImage (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1395588164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1395588163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Texture: {fileID: 0}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+--- !u!222 &1395588165
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1395588163}
+  m_CullTransparentMesh: 1
+--- !u!224 &1395588166
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1395588163}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 370226838}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -350, y: 0}
+  m_SizeDelta: {x: 700, y: 700}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1423856187 stripped
 MonoBehaviour:
