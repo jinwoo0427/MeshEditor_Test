@@ -12,7 +12,7 @@ namespace XDPaint.Demo.UI
     {
         public event Action OnLayersUpdated;
         
-        private const int MaxLayersCount = 5;
+        private const int MaxLayersCount = 10;
         private const float MovePlateDuration = 0.3f;
         
         [Header("Buttons")]
@@ -154,6 +154,7 @@ namespace XDPaint.Demo.UI
             {
                 contentSizeFitter.enabled = true;
             }
+            //layersUI.
             
             for (var i = 0; i < layersUI.Length; i++)
             {

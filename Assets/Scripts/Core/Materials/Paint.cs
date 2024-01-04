@@ -20,14 +20,14 @@ namespace XDPaint.Core.Materials
             set => shaderTextureName = value;
         }
         
-        [SerializeField] private int defaultTextureWidth = 2048;
+        [SerializeField] private int defaultTextureWidth = 640;
         public int DefaultTextureWidth
         {
             get => defaultTextureWidth;
             set => defaultTextureWidth = value;
         }
         
-        [SerializeField] private int defaultTextureHeight = 2048;
+        [SerializeField] private int defaultTextureHeight = 640;
         public int DefaultTextureHeight
         {
             get => defaultTextureHeight;
@@ -48,10 +48,8 @@ namespace XDPaint.Core.Materials
         public Texture SourceTexture => sourceTexture;
 
         public Material SourceMaterial;
-        public Material SourceMaterial2;
         private IRenderComponentsHelper renderComponentsHelper;
         private Material objectMaterial;
-        private Material objectMaterial2;
         private bool isSourceTextureCreated;
         private bool initialized;
         

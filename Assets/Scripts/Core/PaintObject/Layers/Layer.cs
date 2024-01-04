@@ -205,7 +205,7 @@ namespace XDPaint.Core.Layers
             OnPropertyChanged(this, null, renderTexture, maskSourceTexture, nameof(RenderTexture));
             OnRenderPropertyChanged?.Invoke(this);
         }
-        public void AddImage()
+        public void AddImage(Texture source)
         {
             commandBufferBuilder.Clear().SetRenderTarget(renderTarget).ClearRenderTarget(Color.clear).Execute();
             OnPropertyChanged(this, null, renderTexture, null, nameof(RenderTexture));

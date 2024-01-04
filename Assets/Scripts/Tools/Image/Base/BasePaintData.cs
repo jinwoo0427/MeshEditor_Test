@@ -54,12 +54,19 @@ namespace XDPaint.Tools.Image.Base
 
         public void StartCoroutine(IEnumerator coroutine)
         {
-            ((PaintManager)paintManager).StartCoroutine(coroutine);
+            if(paintManager is PaintManager)
+                ((PaintManager)paintManager).StartCoroutine(coroutine);
+            else
+                ((PaintBoardManager)paintManager).StartCoroutine(coroutine);
+
         }
 
         public void StopCoroutine(IEnumerator coroutine)
         {
-            ((PaintManager)paintManager).StopCoroutine(coroutine);
+            if (paintManager is PaintManager)
+                ((PaintManager)paintManager).StopCoroutine(coroutine);
+            else
+                ((PaintBoardManager)paintManager).StopCoroutine(coroutine);
         }
 
         public void DoDispose()

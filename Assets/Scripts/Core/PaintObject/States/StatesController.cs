@@ -380,6 +380,7 @@ namespace XDPaint.States
                 //현재 그룹 인덱스가 설정된 최대 허용 작업 수(UndoRedoMaxActionsCount)를 초과하는 경우 실행됩니다.
                 if (currentGroupIndex >= StatesSettings.Instance.UndoRedoMaxActionsCount)
                 {
+                    Debug.Log("flkdlkjdldls");
                     if (statesGroups.Count > 0)
                     {
                         //첫 번째 그룹의 각 상태에 대한 검사를 수행합니다.
@@ -520,36 +521,12 @@ namespace XDPaint.States
                     //최대 허용 작업 수를 초과하는 경우, 상태 그룹 목록에서 첫 번째 그룹을 제거합니다.
                     //혹은 그렇지 않은 경우, 현재 그룹 인덱스 이후의 모든 그룹을 제거합니다.
                     statesGroups = statesGroups.GetRange(1, statesGroups.Count - 1);
-#if UNITY_EDITOR && XDP_DEBUG
-                    texturesStates.Clear();
-                    foreach (var group in statesGroups)
-                    {
-                        foreach (var state in group)
-                        {
-                            if (state is RenderTextureChangeRecord s)
-                            {
-                                texturesStates.Add(s);
-                            }
-                        }
-                    }
-#endif
+
                 }
                 else if (statesGroups.Count > currentGroupIndex)
                 {
                     statesGroups = statesGroups.GetRange(0, currentGroupIndex);
-#if UNITY_EDITOR && XDP_DEBUG
-                    texturesStates.Clear();
-                    foreach (var group in statesGroups)
-                    {
-                        foreach (var state in group)
-                        {
-                            if (state is RenderTextureChangeRecord s)
-                            {
-                                texturesStates.Add(s);
-                            }
-                        }
-                    }
-#endif
+
                 }
                 //현재 그룹 인덱스를 상태 그룹 목록의 길이로 업데이트합니다.
                 currentGroupIndex = statesGroups.Count;
