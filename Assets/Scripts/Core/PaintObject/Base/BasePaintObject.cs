@@ -179,7 +179,6 @@ namespace XDPaint.Core.PaintObject.Base
             statesController.OnClearTextureAction += OnClearTexture;
             statesController.OnResetState += OnResetState;
         }
-
         private void OnResetState()
         {
             shouldClearTexture = true;
