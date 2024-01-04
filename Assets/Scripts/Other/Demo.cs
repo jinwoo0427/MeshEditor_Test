@@ -49,6 +49,7 @@ namespace XDPaint.Demo
             Smoothing = 8
         }
 
+        [SerializeField] private PaintBoardManager paintBoardManager;
         [SerializeField] private PaintManagersData[] paintManagers;
         [SerializeField] private Camera mainCamera;
         [SerializeField] private bool loadPrefs = true;
@@ -129,6 +130,8 @@ namespace XDPaint.Demo
             }
 
             PaintManager.OnInitialized += OnInitialized;
+            PaintManager.OnInitialized += paintBoardManager.StartInit;
+            PaintController.Instance.paintBoardManager = paintBoardManager;
             PaintController.Instance.SetCurPaintManager(PaintManager);
 
         }
@@ -603,6 +606,7 @@ namespace XDPaint.Demo
                     currentPaintManagerId = paintManagers.Length - 1;
                 }
             }
+
             PaintController.Instance.SetCurPaintManager(PaintManager);
             toolsToggles.First(x => x.Tool == PaintTool.Brush).Toggle.isOn = true;
             PaintManager.gameObject.SetActive(true);

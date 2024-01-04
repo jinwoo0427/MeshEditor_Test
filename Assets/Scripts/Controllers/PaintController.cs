@@ -128,6 +128,7 @@ namespace XDPaint.Controllers
 
         [SerializeField] private List<PaintManager> paintManagers;
         [SerializeField] private PaintManager curpaintManager;
+        public PaintBoardManager paintBoardManager;
         private IPaintMode mode;
         private bool initialized;
 

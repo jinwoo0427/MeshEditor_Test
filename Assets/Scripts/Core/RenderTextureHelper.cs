@@ -95,6 +95,7 @@ namespace XDPaint.Core
 
         public RenderTexture GetTexture(RenderTarget target)
         {
+            
             return renderTexturesData[target].Key;
         }
 

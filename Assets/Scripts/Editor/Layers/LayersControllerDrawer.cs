@@ -8,7 +8,7 @@ using XDPaint.Editor.Utils;
 
 namespace XDPaint.Editor
 {
-    [CustomPropertyDrawer(typeof(LayersController))]
+    //[CustomPropertyDrawer(typeof(LayersController))]
     public class LayersControllerDrawer : PropertyDrawer
     {
         private float MarginBetweenFields => EditorGUIUtility.standardVerticalSpacing;

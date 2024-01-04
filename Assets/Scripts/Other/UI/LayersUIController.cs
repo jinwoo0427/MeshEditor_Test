@@ -12,7 +12,7 @@ namespace XDPaint.Demo.UI
     {
         public event Action OnLayersUpdated;
         
-        private const int MaxLayersCount = 4;
+        private const int MaxLayersCount = 5;
         private const float MovePlateDuration = 0.3f;
         
         [Header("Buttons")]

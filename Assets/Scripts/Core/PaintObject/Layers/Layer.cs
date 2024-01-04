@@ -205,7 +205,12 @@ namespace XDPaint.Core.Layers
             OnPropertyChanged(this, null, renderTexture, maskSourceTexture, nameof(RenderTexture));
             OnRenderPropertyChanged?.Invoke(this);
         }
-
+        public void AddImage()
+        {
+            commandBufferBuilder.Clear().SetRenderTarget(renderTarget).ClearRenderTarget(Color.clear).Execute();
+            OnPropertyChanged(this, null, renderTexture, null, nameof(RenderTexture));
+            OnRenderPropertyChanged?.Invoke(this);
+        }
         public void Init(CommandBufferBuilder bufferBuilder, Func<bool> canDisableLayer)
         {
             commandBufferBuilder = bufferBuilder;

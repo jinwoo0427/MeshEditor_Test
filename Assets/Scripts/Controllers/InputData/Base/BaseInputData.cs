@@ -359,9 +359,16 @@ namespace XDPaint.Controllers.InputData.Base
                     if (raycastResults[fingerId][raycaster].Count > 0)
                     {
                         var raycast = raycastResults[fingerId][raycaster][0];
-                        if (PaintManager != null || PaintBoardManager != null)
+                        if (PaintManager != null )
                         {
                             if (raycast.gameObject == PaintManager.ObjectForPainting && PaintManager.Initialized)
+                            {
+                                continue;
+                            }
+                        }
+                        else if(PaintBoardManager != null)
+                        {
+                            if (raycast.gameObject == PaintBoardManager.ObjectForPainting && PaintBoardManager.Initialized)
                             {
                                 continue;
                             }

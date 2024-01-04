@@ -51,7 +51,7 @@ namespace XDPaint
         public Paint Material => material;
 
         [SerializeField] private LayersController layersController;
-        public ILayersController LayersController => ModelPaintManager.LayersController;
+        public ILayersController LayersController => layersController;
 
 
         [SerializeField] private BasePaintObject paintObject;
@@ -200,11 +200,11 @@ namespace XDPaint
         #endregion
 
 
-        private void StartInit()
+        public void StartInit(PaintManager paintManager)
         {
             if (initialized)
                 return;
-            InitPaintBoard();
+            InitPaintBoard(paintManager);
             Init();
         }
 
@@ -221,10 +221,11 @@ namespace XDPaint
 
         private void OnDestroy()
         {
-            DoDispose();
+            //DoDispose();
         }
-        public void InitPaintBoard(/*IRenderTextureHelper renderTextureHelper , IRenderComponentsHelper renderComponentsHelper*/)
+        public void InitPaintBoard(PaintManager paintManager)
         {
+            ModelPaintManager = paintManager;
             renderTextureHelper = ModelPaintManager.renderTextureHelper;
             renderComponentsHelper = ModelPaintManager.renderComponentsHelper;
         }
@@ -335,10 +336,10 @@ namespace XDPaint
             layersController.DoDispose();
             statesController?.DoDispose();
             //destroy raycast data
-            if (renderComponentsHelper.IsMesh())
-            {
-                RaycastController.Instance.DestroyMeshData(ModelPaintManager);
-            }
+            //if (renderComponentsHelper.IsMesh())
+            //{
+            //    RaycastController.Instance.DestroyMeshData(ModelPaintManager);
+            //}
             //unsubscribe input events
             UnsubscribeInputEvents();
             inputData.DoDispose();
@@ -538,15 +539,16 @@ namespace XDPaint
             paintMode = PaintController.Instance.GetPaintMode(PaintController.Instance.UseSharedSettings ? PaintController.Instance.PaintMode : paintModeType);
             if (renderTextureHelper == null)
             {
-                renderTextureHelper = new RenderTextureHelper();
+                renderTextureHelper = ModelPaintManager.renderTextureHelper;
             }
             Material.Init(renderComponentsHelper, null);
-            renderTextureHelper.Init(Material.SourceTexture.width, Material.SourceTexture.height, filterMode);
+            //renderTextureHelper.Init(Material.SourceTexture.width, Material.SourceTexture.height, filterMode);
         }
 
         private void InitLayers()
         {
             layersMergeController = ModelPaintManager.LayersMergeController;
+            layersController = ModelPaintManager.LayersController as LayersController;
         }
 
         private void InitMaterial()

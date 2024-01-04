@@ -145,6 +145,7 @@ namespace XDPaint
                     {
                         toolsManager.SetTool(paintTool);
                         toolsManager.CurrentTool.SetPaintMode(paintMode);
+                        PaintController.Instance.paintBoardManager.Tool = paintTool;
                     }
                 }
             }

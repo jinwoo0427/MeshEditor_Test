@@ -3843,6 +3843,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0b3d2c2aedd548b2b185196ea44e952, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  paintBoardManager: {fileID: 370226839}
   paintManagers:
   - PaintManager: {fileID: 334990214}
     Text: 1
