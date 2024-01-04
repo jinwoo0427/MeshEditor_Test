@@ -20,6 +20,7 @@ namespace XDPaint.Editor
     {
         private SerializedProperty objectForPaintingProperty;
         private SerializedProperty paintMaterialProperty;
+        private SerializedProperty paintMaterial2Property;
         private SerializedProperty shaderTextureNameProperty;
         private SerializedProperty paintModeProperty;
         private SerializedProperty filterModeProperty;
@@ -128,6 +129,7 @@ namespace XDPaint.Editor
             paintManager = (PaintManager)target;
             objectForPaintingProperty = serializedObject.FindProperty("objectForPainting");
             paintMaterialProperty = serializedObject.FindProperty("material.SourceMaterial");
+            paintMaterial2Property = serializedObject.FindProperty("material.SourceMaterial2");
             shaderTextureNameProperty = serializedObject.FindProperty("material.shaderTextureName");
             paintModeProperty = serializedObject.FindProperty("paintModeType");
             filterModeProperty = serializedObject.FindProperty("filterMode");
@@ -161,6 +163,17 @@ namespace XDPaint.Editor
             if (paintManager.Material.SourceMaterial == null && material != null)
             {
                 paintManager.Material.SourceMaterial = material;
+            }
+
+            var material2 = paintMaterial2Property.objectReferenceValue as Material;
+            //if (material != null)
+            //{
+            //    var shaderTextureNames = PaintManagerHelper.GetTexturesListFromShader(material);
+            //    shaderTextureNameSelectedId = Array.IndexOf(shaderTextureNames, shaderTextureNameProperty.stringValue);
+            //}
+            if (paintManager.Material2.SourceMaterial == null && material2 != null)
+            {
+                paintManager.Material2.SourceMaterial = material2;
             }
         }
 
@@ -318,6 +331,7 @@ namespace XDPaint.Editor
         {
             EditorGUI.BeginChangeCheck();
             EditorGUILayout.PropertyField(paintMaterialProperty, new GUIContent("Material", PaintManagerHelper.MaterialTooltip));
+            EditorGUILayout.PropertyField(paintMaterial2Property, new GUIContent("Material2", PaintManagerHelper.MaterialTooltip));
             if (EditorGUI.EndChangeCheck())
             {
                 UpdateTexturesList();

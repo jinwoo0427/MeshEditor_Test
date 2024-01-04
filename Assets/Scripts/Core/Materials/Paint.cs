@@ -48,8 +48,10 @@ namespace XDPaint.Core.Materials
         public Texture SourceTexture => sourceTexture;
 
         public Material SourceMaterial;
+        public Material SourceMaterial2;
         private IRenderComponentsHelper renderComponentsHelper;
         private Material objectMaterial;
+        private Material objectMaterial2;
         private bool isSourceTextureCreated;
         private bool initialized;
         

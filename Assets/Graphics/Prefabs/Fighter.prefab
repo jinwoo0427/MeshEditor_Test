@@ -1,0 +1,463 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1383068754924370269
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2866668208716611615}
+  - component: {fileID: 3744633140972283058}
+  - component: {fileID: 1296664596312662732}
+  - component: {fileID: 2238917186485466997}
+  m_Layer: 0
+  m_Name: Top01_low
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2866668208716611615
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1383068754924370269}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9178831298138334080}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &3744633140972283058
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1383068754924370269}
+  m_Mesh: {fileID: -7037291627299685343, guid: e956bbd951d93d44dbd7980ba62e009c, type: 3}
+--- !u!23 &1296664596312662732
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1383068754924370269}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 1cf9d4bff808b444bbb5d27426d2bdc9, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &2238917186485466997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1383068754924370269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ef3ab0404d6c40319cedaf900bc0847, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectForPainting: {fileID: 1383068754924370269}
+  material:
+    shaderTextureName: _BASE_COLOR_MAP
+    defaultTextureWidth: 2048
+    defaultTextureHeight: 2048
+    defaultTextureColor: {r: 0, g: 0, b: 0, a: 0}
+    SourceMaterial: {fileID: 2100000, guid: 1cf9d4bff808b444bbb5d27426d2bdc9, type: 2}
+  copySourceTextureToLayer: 0
+  layersController:
+    layersList: []
+    activeLayerIndex: 0
+  layersContainer: {fileID: 0}
+  paintModeType: 256
+  filterMode: 1
+  brush:
+    name: Brush 1
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 0}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 0.9
+    preview: 0
+  toolsManager:
+    brushTool:
+      toolSettings:
+        smoothing: 0
+        patternTexture: {fileID: 0}
+    eraseTool:
+      toolSettings:
+        smoothing: 0
+    bucketTool:
+      toolSettings:
+        smoothing: 0
+        patternTexture: {fileID: 0}
+    eyedropperTool:
+      toolSettings:
+        smoothing: 0
+  paintTool: 0
+  useSourceTextureAsBackground: 1
+  subMesh: 0
+  uvChannel: 0
+  DrawPanel: {fileID: 0}
+  PaintBoard: {fileID: 0}
+--- !u!1 &4853241999512391336
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9096888391534377781}
+  - component: {fileID: 6980858365104847624}
+  - component: {fileID: 7838705180682746923}
+  - component: {fileID: 5112017443446198314}
+  m_Layer: 0
+  m_Name: Hair_low
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9096888391534377781
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4853241999512391336}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9178831298138334080}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &6980858365104847624
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4853241999512391336}
+  m_Mesh: {fileID: 6583121486957944939, guid: e956bbd951d93d44dbd7980ba62e009c, type: 3}
+--- !u!23 &7838705180682746923
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4853241999512391336}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: fd1f26914ac011649b6f405ccd1b0985, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &5112017443446198314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4853241999512391336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ef3ab0404d6c40319cedaf900bc0847, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectForPainting: {fileID: 4853241999512391336}
+  material:
+    shaderTextureName: _BASE_COLOR_MAP
+    defaultTextureWidth: 2048
+    defaultTextureHeight: 2048
+    defaultTextureColor: {r: 0, g: 0, b: 0, a: 0}
+    SourceMaterial: {fileID: 2100000, guid: fd1f26914ac011649b6f405ccd1b0985, type: 2}
+  copySourceTextureToLayer: 0
+  layersController:
+    layersList: []
+    activeLayerIndex: 0
+  layersContainer: {fileID: 0}
+  paintModeType: 256
+  filterMode: 1
+  brush:
+    name: Brush 1
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 0}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 0.9
+    preview: 0
+  toolsManager:
+    brushTool:
+      toolSettings:
+        smoothing: 0
+        patternTexture: {fileID: 0}
+    eraseTool:
+      toolSettings:
+        smoothing: 0
+    bucketTool:
+      toolSettings:
+        smoothing: 0
+        patternTexture: {fileID: 0}
+    eyedropperTool:
+      toolSettings:
+        smoothing: 0
+  paintTool: 0
+  useSourceTextureAsBackground: 1
+  subMesh: 0
+  uvChannel: 0
+  DrawPanel: {fileID: 0}
+  PaintBoard: {fileID: 0}
+--- !u!1 &6638649167991186952
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9178831298138334080}
+  m_Layer: 0
+  m_Name: Fighter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9178831298138334080
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6638649167991186952}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: -0.37, y: 0, z: -8.3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3854599096738932152}
+  - {fileID: 9096888391534377781}
+  - {fileID: 2866668208716611615}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!1 &8606606687677028654
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3854599096738932152}
+  - component: {fileID: 5283501076477022417}
+  - component: {fileID: 2791176743771203263}
+  - component: {fileID: 1331983694933621403}
+  m_Layer: 0
+  m_Name: Face_low
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3854599096738932152
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8606606687677028654}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9178831298138334080}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &5283501076477022417
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8606606687677028654}
+  m_Mesh: {fileID: -1628355118487466318, guid: e956bbd951d93d44dbd7980ba62e009c, type: 3}
+--- !u!23 &2791176743771203263
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8606606687677028654}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 778266367b38b36459ce0074c8cc6f74, type: 2}
+  - {fileID: 2100000, guid: db0801542043c954bad6c5d9467d69a5, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1331983694933621403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8606606687677028654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ef3ab0404d6c40319cedaf900bc0847, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectForPainting: {fileID: 8606606687677028654}
+  material:
+    shaderTextureName: _BASE_COLOR_MAP
+    defaultTextureWidth: 2048
+    defaultTextureHeight: 2048
+    defaultTextureColor: {r: 0, g: 0, b: 0, a: 0}
+    SourceMaterial: {fileID: 2100000, guid: 778266367b38b36459ce0074c8cc6f74, type: 2}
+  copySourceTextureToLayer: 0
+  layersController:
+    layersList: []
+    activeLayerIndex: 0
+  layersContainer: {fileID: 0}
+  paintModeType: 256
+  filterMode: 1
+  brush:
+    name: Brush 1
+    material: {fileID: 0}
+    filterMode: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    sourceTexture: {fileID: 0}
+    renderTexture: {fileID: 0}
+    size: 1
+    renderAngle: 0
+    hardness: 0.9
+    preview: 0
+  toolsManager:
+    brushTool:
+      toolSettings:
+        smoothing: 0
+        patternTexture: {fileID: 0}
+    eraseTool:
+      toolSettings:
+        smoothing: 0
+    bucketTool:
+      toolSettings:
+        smoothing: 0
+        patternTexture: {fileID: 0}
+    eyedropperTool:
+      toolSettings:
+        smoothing: 0
+  paintTool: 0
+  useSourceTextureAsBackground: 1
+  subMesh: 0
+  uvChannel: 0
+  DrawPanel: {fileID: 0}
+  PaintBoard: {fileID: 0}

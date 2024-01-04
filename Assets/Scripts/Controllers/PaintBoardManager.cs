@@ -260,26 +260,26 @@ namespace XDPaint
                 containerGameObject.AddComponent<ControllersContainer>();
             }
 
-            if (renderComponentsHelper.IsMesh())
-            {
-                var paintComponent = renderComponentsHelper.PaintComponent;
-                var renderComponent = renderComponentsHelper.RendererComponent;
-                var mesh = renderComponentsHelper.GetMesh(this);
-                if (triangles == null || triangles.Length == 0)
-                {
-                    if (mesh != null)
-                    {
-                        triangles = TrianglesData.GetData(mesh, subMesh, uvChannel);
-                    }
-                    else
-                    {
-                        Debug.LogError("Mesh is null!");
-                        return;
-                    }
-                }
+            //if (renderComponentsHelper.IsMesh())
+            //{
+            //    var paintComponent = renderComponentsHelper.PaintComponent;
+            //    var renderComponent = renderComponentsHelper.RendererComponent;
+            //    var mesh = renderComponentsHelper.GetMesh(this);
+            //    if (triangles == null || triangles.Length == 0)
+            //    {
+            //        if (mesh != null)
+            //        {
+            //            triangles = TrianglesData.GetData(mesh, subMesh, uvChannel);
+            //        }
+            //        else
+            //        {
+            //            Debug.LogError("Mesh is null!");
+            //            return;
+            //        }
+            //    }
 
-                RaycastController.Instance.InitObject(ModelPaintManager, paintComponent, renderComponent);
-            }
+            //    RaycastController.Instance.InitObject(ModelPaintManager, paintComponent, renderComponent);
+            //}
 
             InitRenderTexture();
             InitLayers();

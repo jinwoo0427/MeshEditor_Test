@@ -45,7 +45,9 @@ namespace XDPaint
 
         [FormerlySerializedAs("Material")] [SerializeField] private Paint material = new Paint();
         public Paint Material => material;
-        
+        [FormerlySerializedAs("Material")][SerializeField] private Paint material2 = new Paint();
+        public Paint Material2 => material2;
+
         [FormerlySerializedAs("CopySourceTextureToLayer")] [SerializeField] private bool copySourceTextureToLayer = true;
         public bool CopySourceTextureToLayer
         {

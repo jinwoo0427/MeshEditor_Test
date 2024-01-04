@@ -277,6 +277,14 @@ MonoBehaviour:
     defaultTextureHeight: 2048
     defaultTextureColor: {r: 0, g: 0, b: 0, a: 0}
     SourceMaterial: {fileID: 2100000, guid: 2bd61c3923ed0164888e053adbaa1a8b, type: 2}
+    SourceMaterial2: {fileID: 0}
+  material2:
+    shaderTextureName: _MainTex
+    defaultTextureWidth: 2048
+    defaultTextureHeight: 2048
+    defaultTextureColor: {r: 0, g: 0, b: 0, a: 0}
+    SourceMaterial: {fileID: 0}
+    SourceMaterial2: {fileID: 0}
   copySourceTextureToLayer: 0
   layersController:
     layersList: []
@@ -1735,6 +1743,14 @@ MonoBehaviour:
     defaultTextureHeight: 2048
     defaultTextureColor: {r: 0, g: 0, b: 0, a: 0}
     SourceMaterial: {fileID: 2100000, guid: 614d9e28d6b1006408c9dbbe724335c8, type: 2}
+    SourceMaterial2: {fileID: 0}
+  material2:
+    shaderTextureName: _MainTex
+    defaultTextureWidth: 2048
+    defaultTextureHeight: 2048
+    defaultTextureColor: {r: 0, g: 0, b: 0, a: 0}
+    SourceMaterial: {fileID: 0}
+    SourceMaterial2: {fileID: 0}
   copySourceTextureToLayer: 0
   layersController:
     layersList: []
@@ -1850,7 +1866,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33fb8bb9206e73147bb7f2da9dd191f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ModelPaintManager: {fileID: 334990214}
+  ModelPaintManager: {fileID: 0}
   objectForPainting: {fileID: 1395588163}
   material:
     shaderTextureName: _MainTex
@@ -1858,6 +1874,7 @@ MonoBehaviour:
     defaultTextureHeight: 2048
     defaultTextureColor: {r: 0, g: 0, b: 0, a: 0}
     SourceMaterial: {fileID: 2100000, guid: b798aa789654d0b4194f4b3972b2a139, type: 2}
+    SourceMaterial2: {fileID: 0}
   layersController:
     layersList: []
     activeLayerIndex: 0
@@ -2637,7 +2654,7 @@ PrefabInstance:
     - target: {fileID: 8788940832595045757, guid: 96d9f7abf88173d449bbcd0049144934,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3626,18 +3643,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!114 &1049650089 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7275038354206625485, guid: ea1c9264226e0ce48994f391d5059f23,
-    type: 3}
-  m_PrefabInstance: {fileID: 935941895}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ef3ab0404d6c40319cedaf900bc0847, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1069727696
 GameObject:
   m_ObjectHideFlags: 0
@@ -3796,6 +3801,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1142580766 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1331983694933621403, guid: 2720977c928538c46b4ec5aa9149b7cf,
+    type: 3}
+  m_PrefabInstance: {fileID: 3387492642815702996}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ef3ab0404d6c40319cedaf900bc0847, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1155218939 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7769397073433866850, guid: aa20cc0f94b8e0948badfcafba3d4406,
@@ -3845,18 +3862,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   paintBoardManager: {fileID: 370226839}
   paintManagers:
-  - PaintManager: {fileID: 334990214}
+  - PaintManager: {fileID: 1142580766}
+    Text: 0
+  - PaintManager: {fileID: 1224238395}
     Text: 1
-  - PaintManager: {fileID: 174449022}
+  - PaintManager: {fileID: 1796185743}
     Text: 2
-  - PaintManager: {fileID: 1887225599}
-    Text: 3
-  - PaintManager: {fileID: 2011374460}
-    Text: 4
-  - PaintManager: {fileID: 1049650089}
-    Text: 5
   - PaintManager: {fileID: 1904978418}
-    Text: 6
+    Text: 3
   mainCamera: {fileID: 330585545}
   loadPrefs: 1
   toolsToggles:
@@ -3922,6 +3935,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1224238395 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5112017443446198314, guid: 2720977c928538c46b4ec5aa9149b7cf,
+    type: 3}
+  m_PrefabInstance: {fileID: 3387492642815702996}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ef3ab0404d6c40319cedaf900bc0847, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1287494107 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 599058438659556957, guid: aa20cc0f94b8e0948badfcafba3d4406,
@@ -4549,6 +4574,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df2d8f87c8d32481baddc89538cf63f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1796185743 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2238917186485466997, guid: 2720977c928538c46b4ec5aa9149b7cf,
+    type: 3}
+  m_PrefabInstance: {fileID: 3387492642815702996}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ef3ab0404d6c40319cedaf900bc0847, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1831877311
 GameObject:
   m_ObjectHideFlags: 0
@@ -4733,6 +4770,14 @@ MonoBehaviour:
     defaultTextureHeight: 2048
     defaultTextureColor: {r: 0, g: 0, b: 0, a: 0}
     SourceMaterial: {fileID: 2100000, guid: 8305e40b485512148b5d0edab9febd48, type: 2}
+    SourceMaterial2: {fileID: 0}
+  material2:
+    shaderTextureName: _MainTex
+    defaultTextureWidth: 2048
+    defaultTextureHeight: 2048
+    defaultTextureColor: {r: 0, g: 0, b: 0, a: 0}
+    SourceMaterial: {fileID: 0}
+    SourceMaterial2: {fileID: 0}
   copySourceTextureToLayer: 0
   layersController:
     layersList: []
@@ -4992,6 +5037,14 @@ MonoBehaviour:
     defaultTextureHeight: 2048
     defaultTextureColor: {r: 0, g: 0, b: 0, a: 0}
     SourceMaterial: {fileID: 2100000, guid: d9d7afc5eb1dd434db9fe71cd1c22e9a, type: 2}
+    SourceMaterial2: {fileID: 0}
+  material2:
+    shaderTextureName: _MainTex
+    defaultTextureWidth: 2048
+    defaultTextureHeight: 2048
+    defaultTextureColor: {r: 0, g: 0, b: 0, a: 0}
+    SourceMaterial: {fileID: 0}
+    SourceMaterial2: {fileID: 0}
   copySourceTextureToLayer: 0
   layersController:
     layersList: []
@@ -5241,6 +5294,124 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &3387492642815702996
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1331983694933621403, guid: 2720977c928538c46b4ec5aa9149b7cf,
+        type: 3}
+      propertyPath: subMesh
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1331983694933621403, guid: 2720977c928538c46b4ec5aa9149b7cf,
+        type: 3}
+      propertyPath: DrawPanel
+      value: 
+      objectReference: {fileID: 370226838}
+    - target: {fileID: 1331983694933621403, guid: 2720977c928538c46b4ec5aa9149b7cf,
+        type: 3}
+      propertyPath: PaintBoard
+      value: 
+      objectReference: {fileID: 413211878}
+    - target: {fileID: 1331983694933621403, guid: 2720977c928538c46b4ec5aa9149b7cf,
+        type: 3}
+      propertyPath: material.SourceMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 778266367b38b36459ce0074c8cc6f74, type: 2}
+    - target: {fileID: 1331983694933621403, guid: 2720977c928538c46b4ec5aa9149b7cf,
+        type: 3}
+      propertyPath: material.SourceMaterial2
+      value: 
+      objectReference: {fileID: 2100000, guid: db0801542043c954bad6c5d9467d69a5, type: 2}
+    - target: {fileID: 1331983694933621403, guid: 2720977c928538c46b4ec5aa9149b7cf,
+        type: 3}
+      propertyPath: material2.SourceMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 778266367b38b36459ce0074c8cc6f74, type: 2}
+    - target: {fileID: 2238917186485466997, guid: 2720977c928538c46b4ec5aa9149b7cf,
+        type: 3}
+      propertyPath: DrawPanel
+      value: 
+      objectReference: {fileID: 370226838}
+    - target: {fileID: 2238917186485466997, guid: 2720977c928538c46b4ec5aa9149b7cf,
+        type: 3}
+      propertyPath: PaintBoard
+      value: 
+      objectReference: {fileID: 413211878}
+    - target: {fileID: 5112017443446198314, guid: 2720977c928538c46b4ec5aa9149b7cf,
+        type: 3}
+      propertyPath: DrawPanel
+      value: 
+      objectReference: {fileID: 370226838}
+    - target: {fileID: 5112017443446198314, guid: 2720977c928538c46b4ec5aa9149b7cf,
+        type: 3}
+      propertyPath: PaintBoard
+      value: 
+      objectReference: {fileID: 413211878}
+    - target: {fileID: 6638649167991186952, guid: 2720977c928538c46b4ec5aa9149b7cf,
+        type: 3}
+      propertyPath: m_Name
+      value: Fighter
+      objectReference: {fileID: 0}
+    - target: {fileID: 9178831298138334080, guid: 2720977c928538c46b4ec5aa9149b7cf,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 9178831298138334080, guid: 2720977c928538c46b4ec5aa9149b7cf,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9178831298138334080, guid: 2720977c928538c46b4ec5aa9149b7cf,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -8.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9178831298138334080, guid: 2720977c928538c46b4ec5aa9149b7cf,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9178831298138334080, guid: 2720977c928538c46b4ec5aa9149b7cf,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9178831298138334080, guid: 2720977c928538c46b4ec5aa9149b7cf,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9178831298138334080, guid: 2720977c928538c46b4ec5aa9149b7cf,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9178831298138334080, guid: 2720977c928538c46b4ec5aa9149b7cf,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9178831298138334080, guid: 2720977c928538c46b4ec5aa9149b7cf,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 9178831298138334080, guid: 2720977c928538c46b4ec5aa9149b7cf,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2720977c928538c46b4ec5aa9149b7cf, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -5252,11 +5423,12 @@ SceneRoots:
   - {fileID: 151436729}
   - {fileID: 275556770}
   - {fileID: 868387407}
+  - {fileID: 1223999297}
+  - {fileID: 868630070}
+  - {fileID: 3387492642815702996}
   - {fileID: 1620179356}
   - {fileID: 935941895}
   - {fileID: 695126124}
   - {fileID: 229132135}
   - {fileID: 2080502923}
   - {fileID: 692126335}
-  - {fileID: 868630070}
-  - {fileID: 1223999297}
