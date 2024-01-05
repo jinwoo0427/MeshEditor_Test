@@ -226,8 +226,8 @@ namespace XDPaint
         public void InitPaintBoard(PaintManager paintManager)
         {
             ModelPaintManager = paintManager;
-            renderTextureHelper = ModelPaintManager.renderTextureHelper;
-            renderComponentsHelper = ModelPaintManager.renderComponentsHelper;
+            //renderTextureHelper = ModelPaintManager.renderTextureHelper;
+            //renderComponentsHelper = ModelPaintManager.renderComponentsHelper;
         }
         public void Init()
         {
@@ -539,10 +539,11 @@ namespace XDPaint
             paintMode = PaintController.Instance.GetPaintMode(PaintController.Instance.UseSharedSettings ? PaintController.Instance.PaintMode : paintModeType);
             if (renderTextureHelper == null)
             {
-                renderTextureHelper = ModelPaintManager.renderTextureHelper;
+             //   renderTextureHelper = ModelPaintManager.renderTextureHelper;
+                renderTextureHelper = new RenderTextureHelper();
             }
             Material.Init(renderComponentsHelper, null);
-            //renderTextureHelper.Init(Material.SourceTexture.width, Material.SourceTexture.height, filterMode);
+            renderTextureHelper.Init(Material.SourceTexture.width, Material.SourceTexture.height, filterMode);
         }
 
         private void InitLayers()

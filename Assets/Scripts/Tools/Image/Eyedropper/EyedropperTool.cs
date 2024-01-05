@@ -28,21 +28,7 @@ namespace XDPaint.Tools.Image
             Data.TexturesHelper.GetTexture(RenderTarget.Combined) : 
             Data.LayersController.ActiveLayer.RenderTexture;
         
-        #region Eyedropper Settings
-
-        [Obsolete("This property is obsolete, use Settings.UseAllActiveLayers")] public bool UseAllActiveLayers
-        {
-            get => Settings.UseAllActiveLayers;
-            set => Settings.UseAllActiveLayers = value;
-        }
         
-        [Obsolete("This property is obsolete, use Settings.SampleAlpha")] public bool SampleAlpha
-        {
-            get => Settings.SampleAlpha;
-            set => Settings.SampleAlpha = value;
-        }
-
-        #endregion
         
         private Material eyedropperMaterial;
         private RenderTexture brushTexture;
