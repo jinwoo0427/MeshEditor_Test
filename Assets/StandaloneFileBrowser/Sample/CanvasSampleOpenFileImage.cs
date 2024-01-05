@@ -63,7 +63,6 @@ public class CanvasSampleOpenFileImage : MonoBehaviour, IPointerDownHandler {
             {
                 Texture2D texture = DownloadHandlerTexture.GetContent(www);
                 
-
                 PaintController.Instance.GetCurPaintManager().LayersController.AddNewLayer("ImportImage", texture, true);
 
                 output.texture = texture;
