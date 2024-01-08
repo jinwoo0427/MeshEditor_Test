@@ -17,7 +17,7 @@ using XDPaint.Core.PaintObject;
 using XDPaint.Core.PaintObject.Base;
 using XDPaint.States;
 using XDPaint.Tools;
-using XDPaint.Tools.Image.Base;
+using XDPaint.Tools.Images.Base;
 using XDPaint.Tools.Layers;
 using XDPaint.Tools.Raycast;
 using XDPaint.Tools.Triangles;

@@ -22,7 +22,8 @@
         Brush,
         Erase,
         Eyedropper,
-        Bucket
+        Bucket,
+        Selection,
     }
 
     public enum PaintRenderTexture

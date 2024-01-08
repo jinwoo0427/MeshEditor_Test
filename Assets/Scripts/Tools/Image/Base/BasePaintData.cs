@@ -8,7 +8,7 @@ using XDPaint.Core.PaintObject.Base;
 using XDPaint.States;
 using XDPaint.Utils;
 
-namespace XDPaint.Tools.Image.Base
+namespace XDPaint.Tools.Images.Base
 {
     public class BasePaintData : IPaintData
     {

@@ -5,12 +5,12 @@ using XDPaint.Tools.Images.Base;
 namespace XDPaint.Tools.Images
 {
     [Serializable]
-    public class EyedropperToolSettings : BasePaintToolSettings
+    public class SelectionToolSettings : BasePaintToolSettings
     {
         [PaintToolSettings] public bool UseAllActiveLayers { get; set; } = true;
         [PaintToolSettings] public bool SampleAlpha { get; set; } = true;
-        
-        public EyedropperToolSettings(IPaintData paintData) : base(paintData)
+
+        public SelectionToolSettings(IPaintData paintData) : base(paintData)
         {
         }
     }

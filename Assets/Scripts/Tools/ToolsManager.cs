@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 using XDPaint.Core;
 using XDPaint.Core.PaintObject.Data;
-using XDPaint.Tools.Image;
-using XDPaint.Tools.Image.Base;
+using XDPaint.Tools.Images;
+using XDPaint.Tools.Images.Base;
 using IDisposable = XDPaint.Core.IDisposable;
 
 namespace XDPaint.Tools
@@ -21,6 +22,7 @@ namespace XDPaint.Tools
         [SerializeField] private EraseTool eraseTool;
         [SerializeField] private BucketTool bucketTool;
         [SerializeField] private EyedropperTool eyedropperTool;
+        [SerializeField] private SelectionTool selectionTool;
         
         private IPaintTool[] allTools;
         private IPaintManager paintManager;
@@ -32,14 +34,14 @@ namespace XDPaint.Tools
             eraseTool = new EraseTool(paintData);
             bucketTool = new BucketTool(paintData);
             eyedropperTool = new EyedropperTool(paintData);
+            selectionTool = new SelectionTool(paintData);
             allTools = new IPaintTool[]
             {
-                brushTool, eraseTool, bucketTool, eyedropperTool
+                brushTool, eraseTool, bucketTool, eyedropperTool, selectionTool
             };
             currentTool = allTools.First(x => x.Type == paintTool);
             currentTool.Enter();
         }
-
         public void Init(IPaintManager thisPaintManager)
         {
             paintManager = thisPaintManager;

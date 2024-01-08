@@ -3,9 +3,9 @@ using UnityEngine.Rendering;
 using UnityEngine.Scripting;
 using XDPaint.Core;
 using XDPaint.Core.PaintModes;
-using XDPaint.Tools.Image.Base;
+using XDPaint.Tools.Images.Base;
 
-namespace XDPaint.Tools.Image
+namespace XDPaint.Tools.Images
 {
     [Serializable]
     public sealed class EraseTool : BasePaintTool<EraseToolSettings>

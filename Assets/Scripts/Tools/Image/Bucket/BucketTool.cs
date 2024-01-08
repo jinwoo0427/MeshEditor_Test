@@ -8,11 +8,11 @@ using UnityEngine.Rendering;
 using UnityEngine.Scripting;
 using XDPaint.Core;
 using XDPaint.Core.PaintObject.Data;
-using XDPaint.Tools.Image.Base;
+using XDPaint.Tools.Images.Base;
 using XDPaint.Utils;
 using Object = UnityEngine.Object;
 
-namespace XDPaint.Tools.Image
+namespace XDPaint.Tools.Images
 {
     [Serializable]
     public sealed class BucketTool : BasePaintTool<BucketToolSettings>
@@ -34,16 +34,6 @@ namespace XDPaint.Tools.Image
         public override bool AllowRender => false;
         public override bool ProcessingFinished => false;
         public override bool RequiredCombinedTempTexture => Settings.UsePattern;
-
-        #region Bucket Settings
-
-        [Obsolete("This property is obsolete, use Settings.Tolerance")] public float Tolerance
-        {
-            get => Settings.Tolerance;
-            set => Settings.Tolerance = value;
-        }
-        
-        #endregion
 
         private Texture2D texture;
         private Color32[] pixels;

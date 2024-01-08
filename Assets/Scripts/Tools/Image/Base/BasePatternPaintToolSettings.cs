@@ -2,7 +2,7 @@ using UnityEngine;
 using XDPaint.Core;
 using XDPaint.Core.PaintObject.Base;
 
-namespace XDPaint.Tools.Image.Base
+namespace XDPaint.Tools.Images.Base
 {
     public abstract class BasePatternPaintToolSettings : BasePaintToolSettings
     {

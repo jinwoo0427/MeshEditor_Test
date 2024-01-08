@@ -6,7 +6,7 @@ using XDPaint.Core.PaintModes;
 using XDPaint.Core.PaintObject.Data;
 using IDisposable = XDPaint.Core.IDisposable;
 
-namespace XDPaint.Tools.Image.Base
+namespace XDPaint.Tools.Images.Base
 {
     public interface IPaintTool : IDisposable
     {

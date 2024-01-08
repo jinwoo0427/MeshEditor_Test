@@ -1,8 +1,8 @@
 using System;
 using XDPaint.Core.PaintObject.Base;
-using XDPaint.Tools.Image.Base;
+using XDPaint.Tools.Images.Base;
 
-namespace XDPaint.Tools.Image
+namespace XDPaint.Tools.Images
 {
     [Serializable]
     public class BucketToolSettings : BasePatternPaintToolSettings

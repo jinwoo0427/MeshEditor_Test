@@ -8,8 +8,8 @@ using XDPaint.Controllers;
 using XDPaint.Core;
 using XDPaint.Demo.UI;
 using XDPaint.Tools;
-using XDPaint.Tools.Image;
-using XDPaint.Tools.Image.Base;
+using XDPaint.Tools.Images;
+using XDPaint.Tools.Images.Base;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 #endif
@@ -46,7 +46,8 @@ namespace XDPaint.Demo
             ColorPalette = 1,
             Brushes = 2,
             Bucket = 4,
-            Smoothing = 8
+            Selection = 8,
+            Smoothing = 16
         }
 
         [SerializeField] private PaintBoardManager paintBoardManager;
@@ -61,12 +62,14 @@ namespace XDPaint.Demo
         [SerializeField] private UIDoubleClick eraseToolDoubleClick;
         [SerializeField] private UIDoubleClick bucketToolDoubleClick;
         [SerializeField] private UIDoubleClick eyedropperToolDoubleClick;
+        [SerializeField] private UIDoubleClick selectionToolDoubleClick;
         [SerializeField] private RawImage brushPreview;
         [SerializeField] private RectTransform brushPreviewTransform;
         [SerializeField] private EventTrigger topPanel;
         [SerializeField] private EventTrigger colorPanel;
         [SerializeField] private EventTrigger brushesPanel;
         [SerializeField] private EventTrigger bucketPanel;
+        [SerializeField] private EventTrigger selectionPanel;
         [SerializeField] private Slider bucketSlider;
         [SerializeField] private EventTrigger lineSmoothingPanel;
         [SerializeField] private Slider lineSmoothingSlider;
@@ -89,7 +92,6 @@ namespace XDPaint.Demo
         [SerializeField] private EventTrigger allArea;
         [SerializeField] private EventTrigger uiLocker;
 
-
         [Header("Draw panel")]
 
         private EventTrigger.Entry hoverEnter;
@@ -104,6 +106,10 @@ namespace XDPaint.Demo
         private bool previousCameraMoverState;
         
         private const int TutorialShowCount = 5;
+
+
+        [Header("EditSelection")]
+        public DragAreaIndicator dragIndicator; // 드래그 영역을 나타내는 이미지
 
         void Awake()
         {
@@ -151,6 +157,7 @@ namespace XDPaint.Demo
             eraseToolDoubleClick.OnDoubleClick.AddListener(OpenErasePanel);
             bucketToolDoubleClick.OnDoubleClick.AddListener(OpenBucketPanel);
             eyedropperToolDoubleClick.OnDoubleClick.AddListener(ClosePanels);
+            selectionToolDoubleClick.OnDoubleClick.AddListener(ClosePanels);
             brushClick.onClick.AddListener(() => OpenColorPalette(brushClick.transform.position));
             topPanel.triggers.Add(hoverEnter);
             topPanel.triggers.Add(hoverExit);
@@ -160,6 +167,8 @@ namespace XDPaint.Demo
             brushesPanel.triggers.Add(hoverExit);
             bucketPanel.triggers.Add(hoverEnter);
             bucketPanel.triggers.Add(hoverExit);
+            selectionPanel.triggers.Add(hoverEnter);
+            selectionPanel.triggers.Add(hoverExit);
             bucketSlider.onValueChanged.AddListener(OnBucketSlider);
             lineSmoothingPanel.triggers.Add(hoverEnter);
             lineSmoothingPanel.triggers.Add(hoverExit);
@@ -238,6 +247,7 @@ namespace XDPaint.Demo
             eraseToolDoubleClick.OnDoubleClick.RemoveListener(OpenErasePanel);
             bucketToolDoubleClick.OnDoubleClick.RemoveListener(OpenBucketPanel);
             eyedropperToolDoubleClick.OnDoubleClick.RemoveListener(ClosePanels);
+            selectionToolDoubleClick.OnDoubleClick.RemoveListener(ClosePanels);
             brushClick.onClick.RemoveListener(() => OpenColorPalette(brushClick.transform.position));
             topPanel.triggers.Remove(hoverEnter);
             topPanel.triggers.Remove(hoverExit);
@@ -245,6 +255,8 @@ namespace XDPaint.Demo
             colorPanel.triggers.Remove(hoverExit);
             brushesPanel.triggers.Remove(hoverEnter);
             brushesPanel.triggers.Remove(hoverExit);
+            selectionPanel.triggers.Remove(hoverEnter);
+            selectionPanel.triggers.Remove(hoverExit);
             bucketPanel.triggers.Remove(hoverEnter);
             bucketPanel.triggers.Remove(hoverExit);
             bucketSlider.onValueChanged.RemoveListener(OnBucketSlider);
@@ -317,7 +329,7 @@ namespace XDPaint.Demo
             layersUI.OnLayersUpdated -= OnLayersUIUpdated;
             layersUI.OnLayersUpdated += OnLayersUIUpdated;
             layersUI.SetLayersController(paintManagerInstance.LayersController);
-            
+
 #if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
             PaintController.Instance.Brush.Preview = false;
 #endif
@@ -437,7 +449,10 @@ namespace XDPaint.Demo
             
             var bucketEnabled = (panelType & PanelType.Bucket) != 0;
             bucketPanel.gameObject.SetActive(bucketEnabled);
-            
+
+            var selectionEnabled = (panelType & PanelType.Selection) != 0;
+            selectionPanel.gameObject.SetActive(selectionEnabled);
+
         }
 
         private void UpdatePanels(PanelType panelType, Vector3 position)
@@ -469,6 +484,10 @@ namespace XDPaint.Demo
         private void OpenBucketPanel(Vector3 position)
         {
             UpdatePanels(PanelType.Bucket , position);
+        }
+        private void OpenSelectionPanel(Vector3 position)
+        {
+            UpdatePanels(PanelType.Selection, position);
         }
 
         private void ClosePanels(Vector3 position)

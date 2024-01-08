@@ -13,7 +13,7 @@ using XDPaint.Core.Materials;
 using XDPaint.Core.PaintModes;
 using XDPaint.Core.PaintObject.Base;
 using XDPaint.States;
-using XDPaint.Tools.Image.Base;
+using XDPaint.Tools.Images.Base;
 using XDPaint.Tools.Layers;
 using XDPaint.Tools;
 using XDPaint.Tools.Raycast;

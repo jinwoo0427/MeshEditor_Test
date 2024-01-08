@@ -9,7 +9,7 @@ using XDPaint.Core.Materials;
 using XDPaint.Core.PaintModes;
 using XDPaint.Core.PaintObject.Data;
 
-namespace XDPaint.Tools.Image.Base
+namespace XDPaint.Tools.Images.Base
 {
     [Serializable]
     public abstract class BasePaintTool<T> : IPaintTool where T : BasePaintToolSettings

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using XDPaint.Utils;
 
 namespace XDPaint.Tools

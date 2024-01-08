@@ -5,7 +5,7 @@ using UnityEngine.Rendering;
 using XDPaint.Core.Layers;
 using XDPaint.Core.Materials;
 using XDPaint.Core.PaintModes;
-using XDPaint.Tools.Image.Base;
+using XDPaint.Tools.Images.Base;
 using XDPaint.Tools.Raycast.Data;
 using XDPaint.Utils;
 

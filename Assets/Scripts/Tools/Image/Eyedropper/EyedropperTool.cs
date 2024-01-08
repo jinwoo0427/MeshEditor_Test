@@ -5,11 +5,11 @@ using UnityEngine.Scripting;
 using XDPaint.Core;
 using XDPaint.Core.Layers;
 using XDPaint.Core.PaintObject.Data;
-using XDPaint.Tools.Image.Base;
+using XDPaint.Tools.Images.Base;
 using XDPaint.Utils;
 using Object = UnityEngine.Object;
 
-namespace XDPaint.Tools.Image
+namespace XDPaint.Tools.Images
 {
     [Serializable]
     public sealed class EyedropperTool : BasePaintTool<EyedropperToolSettings>

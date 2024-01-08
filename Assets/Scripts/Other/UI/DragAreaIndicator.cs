@@ -1,10 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEngine.UI.GridLayoutGroup;
+using XDPaint.Controllers;
 
 public class DragAreaIndicator : MonoBehaviour
 {
-    public Image dragIndicator; // 드래그 영역을 나타내는 이미지
+    public RawImage dragIndicator; // 드래그 영역을 나타내는 이미지
     public RectTransform dragRectTransform;
     private RectTransform dragRect; // 드래그 중인 영역 저장
 
@@ -16,6 +16,9 @@ public class DragAreaIndicator : MonoBehaviour
 
     private Vector3 bottomLeft;
     private Vector3 topRight;
+    public Texture2D originalTexture;
+    public RawImage targetRenderer;
+
     void Start()
     {
         isDragging = false;
@@ -29,14 +32,17 @@ public class DragAreaIndicator : MonoBehaviour
         bottomLeft = corners[0];
         topRight = corners[2];
 
+        
+
     }
 
     void Update()
     {
-        HandleDragInput();
+        if(PaintController.Instance.GetCurPaintManager().Tool == XDPaint.Core.PaintTool.Selection)
+            HandleDragInput();
     }
 
-    void HandleDragInput()
+    public void HandleDragInput()
     {
         if (isDragging)
         {
@@ -47,14 +53,14 @@ public class DragAreaIndicator : MonoBehaviour
             StartDrag();
         }
 
-        if (Input.GetMouseButtonUp(0))
+        if (isDragging && Input.GetMouseButtonUp(0))
         {
             EndDrag();
         }
 
 
     }
-    bool IsMouseInDragArea()
+    public bool IsMouseInDragArea()
     {
         Vector2 mousePos = Input.mousePosition;
         Vector3[] corners = new Vector3[4];
@@ -63,16 +69,16 @@ public class DragAreaIndicator : MonoBehaviour
         // 마우스 포인터가 특정 영역 안에 있는지 확인
         return RectTransformUtility.RectangleContainsScreenPoint(dragArea, mousePos);
     }
-    void StartDrag()
+    public void StartDrag()
     {
         isDragging = true;
         dragStartPosition = Input.mousePosition;
         dragRect.anchoredPosition = dragStartPosition;
         dragRect.sizeDelta = Vector2.zero;
         dragIndicator.gameObject.SetActive(true);
-    }
 
-    void UpdateDrag()
+    }
+    public void UpdateDrag()
     {
         currentMousePosition = Input.mousePosition;
 
@@ -100,11 +106,46 @@ public class DragAreaIndicator : MonoBehaviour
         {
             dragRect.pivot = new Vector2(dragRect.pivot.x, 0);
         }
-    }
 
-    void EndDrag()
+    }
+    private void EditTexture()
+    {
+        // 드래그한 영역의 좌표 및 크기를 획득
+        Rect _dragRect = new Rect(
+            dragRect.anchoredPosition.x,
+            dragRect.anchoredPosition.y,
+            dragRect.sizeDelta.x,
+            dragRect.sizeDelta.y
+        );
+        Debug.Log(_dragRect);
+        RenderTexture tex  = PaintController.Instance.GetCurPaintManager().LayersController.ActiveLayer.RenderTexture ;
+        originalTexture = RenderTextureToTexture2D(tex);
+        Debug.Log(originalTexture.width + " : " +  originalTexture.height);
+        // 텍스쳐에서 드래그한 영역을 복사하여 새로운 텍스쳐 생성
+        Texture2D editedTexture = new Texture2D((int)_dragRect.width, (int)_dragRect.height);
+        Color[] pixels = originalTexture.GetPixels((int)_dragRect.x, (int)_dragRect.y, (int)_dragRect.width, (int)_dragRect.height);
+        editedTexture.SetPixels(pixels);
+        editedTexture.Apply();
+
+        // 새로운 텍스쳐를 대상 렌더러에 적용
+        targetRenderer.texture = editedTexture;
+    }
+    Texture2D RenderTextureToTexture2D(RenderTexture rt)
+    {
+        // 현재 활성 렌더 텍스처를 저장하고 새로운 RenderTexture로 설정
+        // 새로운 Texture2D 생성 및 ReadPixels로 픽셀 복사
+        Texture2D texture = new Texture2D(rt.width, rt.height);
+        texture.ReadPixels(new Rect(0, 0, rt.width, rt.height), 0, 0);
+        texture.Apply();
+
+        // 원래의 활성 렌더 텍스처를 복원
+
+        return texture;
+    }
+    public void EndDrag()
     {
         isDragging = false;
+        EditTexture();
         //dragIndicator.gameObject.SetActive(false);
     }
 }

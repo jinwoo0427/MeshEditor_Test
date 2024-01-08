@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.Scripting;
 using XDPaint.Core;
 using XDPaint.Core.PaintModes;
-using XDPaint.Tools.Image.Base;
+using XDPaint.Tools.Images.Base;
 
-namespace XDPaint.Tools.Image
+namespace XDPaint.Tools.Images
 {
     [Serializable]
     public sealed class BrushTool : BasePaintTool<BrushToolSettings>

@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using XDPaint.Core.PaintObject.Base;
 
-namespace XDPaint.Tools.Image.Base
+namespace XDPaint.Tools.Images.Base
 {
     public abstract class BasePaintToolSettings : INotifyPropertyChanged
     {
