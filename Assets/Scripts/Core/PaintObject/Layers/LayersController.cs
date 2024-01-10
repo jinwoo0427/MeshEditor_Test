@@ -199,7 +199,8 @@ namespace XDPaint.Core.Layers
             EnableStatesGrouping();
             var layer = new Layer(this);
             layer.Init(commandBufferBuilder, () => CanDisableLayer);
-            layer.Create(name, defaultWidth, defaultHeight, LayerRenderTextureFormat, filterMode);
+            //layer.Create(name, defaultWidth, defaultHeight, LayerRenderTextureFormat, filterMode);
+            layer.Create(name, 700, 700, LayerRenderTextureFormat, filterMode);
             InitLayer(layer);
             //CreateRawImage(layer.Name, layer.RenderTexture, false);
             layer.OnRenderPropertyChanged = OnLayerRenderPropertyChanged;

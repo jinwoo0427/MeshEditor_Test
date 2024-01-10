@@ -388,7 +388,10 @@ namespace XDPaint
                 Material.SetPreviewTexture(currentBrush.RenderTexture);
             }
         }
-
+        public IPaintData GetPaintData()
+        {
+            return paintData;
+        }
         public RenderTexture GetPaintTexture()
         {
             return layersController.ActiveLayer.RenderTexture;

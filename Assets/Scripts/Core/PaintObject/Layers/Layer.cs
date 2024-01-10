@@ -194,7 +194,7 @@ namespace XDPaint.Core.Layers
         {
             Name = layerName;
             sourceTexture = source;
-            renderTexture = RenderTextureFactory.CreateRenderTexture(sourceTexture.width, sourceTexture.height, 0, format, filterMode);
+            renderTexture = RenderTextureFactory.CreateRenderTexture(700, 700, 0, format, filterMode);
             renderTexture.name = layerName;
             renderTarget = new RenderTargetIdentifier(renderTexture);
             
