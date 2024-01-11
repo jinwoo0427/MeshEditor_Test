@@ -773,7 +773,7 @@ namespace XDPaint
             }
             var sourceTexture = layersContainer != null ? layersContainer.LayersData[0].SourceTexture : null;
             Material.Init(renderComponentsHelper, sourceTexture);
-            renderTextureHelper.Init(Material.SourceTexture.width, Material.SourceTexture.height, filterMode);
+            renderTextureHelper.Init(/*Material.SourceTexture.width, Material.SourceTexture.height,*/700,700, filterMode);
         }
 
         private void InitLayers()
@@ -781,7 +781,7 @@ namespace XDPaint
             layersMergeController = new LayersMergeController();
             layersController?.DoDispose();
             layersController = new LayersController(layersMergeController);
-            layersController.Init(Material.SourceTexture.width, Material.SourceTexture.height, DrawPanel);
+            layersController.Init(/*Material.SourceTexture.width, Material.SourceTexture.height*/700,700, DrawPanel);
             layersController.SetFilterMode(filterMode);
         }
 

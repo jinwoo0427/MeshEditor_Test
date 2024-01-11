@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using XDPaint.Controllers;
 using XDPaint.Core;
+using XDPaint.Core.Layers;
 using XDPaint.Tools.Images.Base;
 using static UnityEngine.GraphicsBuffer;
 
@@ -31,13 +32,7 @@ public class DragAreaIndicator : MonoBehaviour
     
     void Start()
     {
-        isDragMoving = false;
-        isDragging = false;
-        isDragComplete = false;
-        dragRect = dragRectTransform;
-        dragIndicator.gameObject.SetActive(false);
-        DragHandleObj.gameObject.SetActive(false);
-
+        Init();
         Vector3[] corners = new Vector3[4];
 
         dragArea.GetLocalCorners(corners);
@@ -46,6 +41,16 @@ public class DragAreaIndicator : MonoBehaviour
         topRight = corners[2];
 
         
+
+    }
+    void Init()
+    {
+        isDragMoving = false;
+        isDragging = false;
+        isDragComplete = false;
+        dragRect = dragRectTransform;
+        dragIndicator.gameObject.SetActive(false);
+        DragHandleObj.gameObject.SetActive(false);
 
     }
 
@@ -64,20 +69,52 @@ public class DragAreaIndicator : MonoBehaviour
         }
         else if (PaintController.Instance.GetCurPaintManager().Tool != XDPaint.Core.PaintTool.Selection)
         {
-            isDragging = false;
-            isDragComplete = false;
-            dragRect = dragRectTransform;
-            dragIndicator.gameObject.SetActive(false);
-            DragHandleObj.gameObject.SetActive(false);
+            Init();
         }
+
+    }
+    public void AddEditTexture()
+    {
+        Texture2D addTexture = dragIndicator.texture as Texture2D;
+
+        if (addTexture != null)
+        {
+            int newWidth = Mathf.RoundToInt(dragRect.sizeDelta.x);
+            int newHeight = Mathf.RoundToInt(dragRect.sizeDelta.y);
+
+            // 새로운 크기의 Texture2D 생성
+            Texture2D newTexture = new Texture2D(newWidth, newHeight);
+
+            // 기존 Texture2D의 픽셀 데이터를 복사
+            Color[] pixels = addTexture.GetPixels();
+
+            // 크기 조정에 맞게 픽셀 데이터를 복사
+            int copyWidth = Mathf.Min(newWidth, addTexture.width);
+            int copyHeight = Mathf.Min(newHeight, addTexture.height);
+
+            newTexture.SetPixels(0, 0, copyWidth, copyHeight, pixels);
+
+            // Apply를 호출하여 변경사항 적용
+            newTexture.Apply();
+
+            // 새로운 Texture2D를 레이어에 추가
+            PaintController.Instance.GetCurPaintManager().LayersController.AddLayerImage(newTexture, dragRect.rect);
+        }
+
 
     }
     public void DragMoveInput()
     {
+        if (!IsMouseInDragArea(dragRect) && Input.GetMouseButtonDown(0))
+        {
+            AddEditTexture();
+            Init();
+            return;
+        }
                 
         foreach( var h in DragHandles )
         {
-            if (h.IndragHanle)
+            if (h.IndragHandle)
             {
                 isDragMoving = false;
                 return;

@@ -154,40 +154,8 @@ namespace XDPaint.Core.Layers
                 rt.sizeDelta = new Vector2(700f, 700f);
             }
         }
-        public void AddImportImage(Texture texture)
-        {
-            //CombineTexturesFunction(ActiveLayer.RenderTexture, ActiveLayer.RenderTexture);
-           
-        }
-        public Texture2D CombineTexturesFunction(Texture2D baseTex, Texture2D overlayTex)
-        {
-            // 새로운 텍스처 생성
-            Texture2D combinedTexture = new Texture2D(baseTex.width, baseTex.height);
-
-            // 기본 텍스처를 새로운 텍스처에 복사
-            combinedTexture.SetPixels(baseTex.GetPixels());
-
-            // 합칠 텍스처를 새로운 텍스처에 덧씌우기
-            for (int x = 0; x < combinedTexture.width; x++)
-            {
-                for (int y = 0; y < combinedTexture.height; y++)
-                {
-                    Color baseColor = combinedTexture.GetPixel(x, y);
-                    Color overlayColor = overlayTex.GetPixel(x, y);
-
-                    // 여기에서 원하는 방식으로 두 색상을 합칩니다.
-                    // 예를 들면, 각 색상 채널을 더하거나 곱할 수 있습니다.
-                    Color finalColor = baseColor + overlayColor;
-
-                    combinedTexture.SetPixel(x, y, finalColor);
-                }
-            }
-
-            // 텍스처 적용
-            combinedTexture.Apply();
-
-            return combinedTexture;
-        }
+        
+        
         public ILayer AddNewLayer()
         {
             var layerName = "Layer " + (layers.Count + 1);
@@ -200,7 +168,7 @@ namespace XDPaint.Core.Layers
             var layer = new Layer(this);
             layer.Init(commandBufferBuilder, () => CanDisableLayer);
             //layer.Create(name, defaultWidth, defaultHeight, LayerRenderTextureFormat, filterMode);
-            layer.Create(name, 700, 700, LayerRenderTextureFormat, filterMode);
+            layer.Create(name, defaultWidth, defaultHeight, LayerRenderTextureFormat, filterMode);
             InitLayer(layer);
             //CreateRawImage(layer.Name, layer.RenderTexture, false);
             layer.OnRenderPropertyChanged = OnLayerRenderPropertyChanged;
@@ -220,7 +188,11 @@ namespace XDPaint.Core.Layers
             DisableStatesGrouping();
             return layer;
         }
-
+        public void AddLayerImage(Texture texture, Rect rect)
+        {
+            //CombineTexturesFunction(ActiveLayer.RenderTexture, ActiveLayer.RenderTexture);
+            (activeLayer as Layer).AddImage(texture, rect);
+        }
         public void AddLayerMask(ILayer layer, Texture source)
         {
             layer.AddMask(source, MaskRenderTextureFormat);

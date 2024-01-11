@@ -205,11 +205,45 @@ namespace XDPaint.Core.Layers
             OnPropertyChanged(this, null, renderTexture, maskSourceTexture, nameof(RenderTexture));
             OnRenderPropertyChanged?.Invoke(this);
         }
-        public void AddImage(Texture source)
+        public void AddImage(Texture source, Rect _dragRect)
         {
             commandBufferBuilder.Clear().SetRenderTarget(renderTarget).ClearRenderTarget(Color.clear).Execute();
+            Texture2D newTex =  CombineTexturesFunction(source as Texture2D, renderTexture.GetTexture2D());
+
+
+            Graphics.Blit(newTex, renderTexture);
+
             OnPropertyChanged(this, null, renderTexture, null, nameof(RenderTexture));
             OnRenderPropertyChanged?.Invoke(this);
+        }
+        public Texture2D CombineTexturesFunction(Texture2D baseTex, Texture2D overlayTex)
+        {
+            // 새로운 텍스처 생성
+            Texture2D combinedTexture = new Texture2D(baseTex.width, baseTex.height);
+
+            // 기본 텍스처를 새로운 텍스처에 복사
+            combinedTexture.SetPixels(baseTex.GetPixels());
+
+            // 합칠 텍스처를 새로운 텍스처에 덧씌우기
+            for (int x = 0; x < combinedTexture.width; x++)
+            {
+                for (int y = 0; y < combinedTexture.height; y++)
+                {
+                    Color baseColor = combinedTexture.GetPixel(x, y);
+                    Color overlayColor = overlayTex.GetPixel(x, y);
+
+                    // 여기에서 원하는 방식으로 두 색상을 합칩니다.
+                    // 예를 들면, 각 색상 채널을 더하거나 곱할 수 있습니다.
+                    Color finalColor = baseColor + overlayColor;
+
+                    combinedTexture.SetPixel(x, y, finalColor);
+                }
+            }
+
+            // 텍스처 적용
+            combinedTexture.Apply();
+
+            return combinedTexture;
         }
         public void Init(CommandBufferBuilder bufferBuilder, Func<bool> canDisableLayer)
         {
