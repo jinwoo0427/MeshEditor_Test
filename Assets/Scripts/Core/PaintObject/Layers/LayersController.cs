@@ -188,10 +188,10 @@ namespace XDPaint.Core.Layers
             DisableStatesGrouping();
             return layer;
         }
-        public void AddLayerImage(Texture texture, Rect rect)
+        public void AddLayerImage(Texture texture, Rect rect, Vector2 pos)
         {
             //CombineTexturesFunction(ActiveLayer.RenderTexture, ActiveLayer.RenderTexture);
-            (activeLayer as Layer).AddImage(texture, rect);
+            (activeLayer as Layer).AddImage(texture, rect, pos);
         }
         public void AddLayerMask(ILayer layer, Texture source)
         {

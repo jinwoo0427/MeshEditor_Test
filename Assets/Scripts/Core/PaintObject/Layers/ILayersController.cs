@@ -27,7 +27,7 @@ namespace XDPaint.Core.Layers
         ILayer AddNewLayer();
         ILayer AddNewLayer(string name);
         ILayer AddNewLayer(string name, Texture source, bool isImportImage = false);
-        void AddLayerImage(Texture source, Rect rect);
+        void AddLayerImage(Texture source, Rect rect, Vector2 pos);
         void AddLayerMask(ILayer layer, Texture source);
         void AddLayerMask(ILayer layer);
         void AddLayerMask(Texture source);

@@ -205,16 +205,55 @@ namespace XDPaint.Core.Layers
             OnPropertyChanged(this, null, renderTexture, maskSourceTexture, nameof(RenderTexture));
             OnRenderPropertyChanged?.Invoke(this);
         }
-        public void AddImage(Texture source, Rect _dragRect)
+        public void AddImage(Texture source, Rect _dragRect , Vector2 pos)
         {
-            commandBufferBuilder.Clear().SetRenderTarget(renderTarget).ClearRenderTarget(Color.clear).Execute();
-            Texture2D newTex =  CombineTexturesFunction(source as Texture2D, renderTexture.GetTexture2D());
+            //commandBufferBuilder.Clear().SetRenderTarget(renderTarget).ClearRenderTarget(Color.clear).Execute();
 
+            var oldValue = renderTexture;
+            Texture2D originalTexture = renderTexture.GetTexture2D();
 
-            Graphics.Blit(newTex, renderTexture);
+            Rect adjustedDragRect = AdjustRectWithinTextureBounds(_dragRect, originalTexture);
 
-            OnPropertyChanged(this, null, renderTexture, null, nameof(RenderTexture));
+            Debug.Log((int)pos.x - (int)adjustedDragRect.x + " : " +
+                 ((int)pos.y - (int)adjustedDragRect.y) + " : " +
+                (int)adjustedDragRect.width + " : " +
+                (int)adjustedDragRect.height);
+            Debug.Log(source.width + " : " + source.height);
+
+            Color[] addPixels = ((Texture2D)source).GetPixels(
+                0, 
+                0, 
+                (int)adjustedDragRect.width, 
+                (int)adjustedDragRect.height);
+
+            addPixels = ResizeArray(addPixels, Mathf.RoundToInt(adjustedDragRect.width) * Mathf.RoundToInt(adjustedDragRect.height));
+
+            originalTexture.SetPixels(
+                (int)pos.x - (int)adjustedDragRect.x, 
+                (int)pos.y - (int)adjustedDragRect.y,
+                (int)(adjustedDragRect.width),
+                (int)(adjustedDragRect.height), addPixels);
+
+            originalTexture.Apply();
+            Graphics.Blit(originalTexture, renderTexture);
+            OnPropertyChanged(this, oldValue, renderTexture, null, nameof(RenderTexture));
             OnRenderPropertyChanged?.Invoke(this);
+        }
+
+        private Rect AdjustRectWithinTextureBounds(Rect originalRect, Texture2D texture)
+        {
+            // Adjust the rect to fit within the bounds of the target texture
+            float maxX = Mathf.Min(originalRect.x + originalRect.width, texture.width);
+            float maxY = Mathf.Min(originalRect.y + originalRect.height, texture.height);
+            return new Rect(Mathf.Abs( originalRect.x ) , Mathf.Abs( originalRect.y ) , maxX - originalRect.x, maxY - originalRect.y);
+        }
+
+        private Color[] ResizeArray(Color[] array, int newSize)
+        {
+            Color[] newArray = new Color[newSize];
+            int length = Mathf.Min(array.Length, newSize);
+            System.Array.Copy(array, newArray, length);
+            return newArray;
         }
         public Texture2D CombineTexturesFunction(Texture2D baseTex, Texture2D overlayTex)
         {

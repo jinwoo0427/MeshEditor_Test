@@ -35,7 +35,21 @@ namespace XDPaint.Utils
             }
             return texture;
         }
-        
+        public static RenderTexture CreateRenderTexture(Texture sourceTexture, int width, int height, FilterMode filterMode = FilterMode.Point,  bool autoGenerateMips = false, bool useMipMap = false, bool create = true)
+        {
+            var texture = new RenderTexture(width, height, 0, RenderTextureFormat.ARGB32)
+            {
+                filterMode = filterMode,
+                autoGenerateMips = autoGenerateMips,
+                useMipMap = useMipMap,
+                anisoLevel = sourceTexture.anisoLevel
+            };
+            if (create && !texture.IsCreated())
+            {
+                texture.Create();
+            }
+            return texture;
+        }
         public static RenderTexture CreateRenderTexture(int width, int height, int depth = 0, 
             RenderTextureFormat format = RenderTextureFormat.ARGB32, FilterMode filterMode = FilterMode.Point, 
             TextureWrapMode wrapMode = TextureWrapMode.Clamp, bool autoGenerateMips = false, bool useMipMap = false, 

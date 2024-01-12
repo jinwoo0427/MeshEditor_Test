@@ -6,6 +6,7 @@ using XDPaint.Controllers;
 using XDPaint.Core;
 using XDPaint.Core.Layers;
 using XDPaint.Tools.Images.Base;
+using XDPaint.Utils;
 using static UnityEngine.GraphicsBuffer;
 
 public class DragAreaIndicator : MonoBehaviour
@@ -79,29 +80,72 @@ public class DragAreaIndicator : MonoBehaviour
 
         if (addTexture != null)
         {
-            int newWidth = Mathf.RoundToInt(dragRect.sizeDelta.x);
-            int newHeight = Mathf.RoundToInt(dragRect.sizeDelta.y);
+            int newWidth = (int)(dragRect.sizeDelta.x);
+            int newHeight =(int)(dragRect.sizeDelta.y);
 
-            // 새로운 크기의 Texture2D 생성
-            Texture2D newTexture = new Texture2D(newWidth, newHeight);
+            Texture2D tex =  ResizeTexture(addTexture, newWidth, newHeight);
 
-            // 기존 Texture2D의 픽셀 데이터를 복사
-            Color[] pixels = addTexture.GetPixels();
-
-            // 크기 조정에 맞게 픽셀 데이터를 복사
-            int copyWidth = Mathf.Min(newWidth, addTexture.width);
-            int copyHeight = Mathf.Min(newHeight, addTexture.height);
-
-            newTexture.SetPixels(0, 0, copyWidth, copyHeight, pixels);
-
-            // Apply를 호출하여 변경사항 적용
-            newTexture.Apply();
-
+            Vector2 dragPos = new Vector2(dragRect.anchoredPosition.x + 350, dragRect.anchoredPosition.y + 350);
             // 새로운 Texture2D를 레이어에 추가
-            PaintController.Instance.GetCurPaintManager().LayersController.AddLayerImage(newTexture, dragRect.rect);
+            PaintController.Instance.GetCurPaintManager().LayersController.AddLayerImage(tex, dragRect.rect, dragPos);
+        }
+    }
+    // 텍스처 크기 조절 및 픽셀 평균 색상 조정 함수
+    Texture2D ResizeTexture(Texture2D sourceTexture, int newWidth, int newHeight)
+    {
+        // 새로운 텍스처 생성
+        Texture2D newTexture = new Texture2D(newWidth, newHeight);
+
+        // 기존 텍스처의 픽셀 데이터 가져오기
+        Color[] sourcePixels = sourceTexture.GetPixels();
+
+        // 픽셀 크기 비율 계산
+        float xRatio = (float)sourceTexture.width / newWidth;
+        float yRatio = (float)sourceTexture.height / newHeight;
+
+        for (int y = 0; y < newHeight; y++)
+        {
+            for (int x = 0; x < newWidth; x++)
+            {
+                // 새로운 픽셀 위치 계산
+                int sourceX = Mathf.FloorToInt(x * xRatio);
+                int sourceY = Mathf.FloorToInt(y * yRatio);
+
+                // 주변 네 개의 픽셀의 평균 색상 계산
+                Color averageColor = AverageColor(sourcePixels, sourceX, sourceY, sourceTexture.width, sourceTexture.height);
+
+                // 새로운 텍스처에 픽셀 색상 설정
+                newTexture.SetPixel(x, y, averageColor);
+            }
         }
 
+        // Apply를 호출하여 변경사항 적용
+        newTexture.Apply();
 
+        return newTexture;
+    }
+
+    // 주변 네 개의 픽셀의 평균 색상 계산 함수
+    Color AverageColor(Color[] pixels, int x, int y, int textureWidth, int textureHeight)
+    {
+        Color sumColor = Color.clear;
+
+        for (int yOffset = -1; yOffset <= 1; yOffset++)
+        {
+            for (int xOffset = -1; xOffset <= 1; xOffset++)
+            {
+                int neighborX = Mathf.Clamp(x + xOffset, 0, textureWidth - 1);
+                int neighborY = Mathf.Clamp(y + yOffset, 0, textureHeight - 1);
+
+                int index = neighborY * textureWidth + neighborX;
+                sumColor += pixels[index];
+            }
+        }
+
+        // 중간 색상 계산
+        Color averageColor = sumColor / 9f;
+
+        return averageColor;
     }
     public void DragMoveInput()
     {
@@ -218,7 +262,7 @@ public class DragAreaIndicator : MonoBehaviour
 
         var curPM = PaintController.Instance.GetCurPaintManager();
         RenderTexture tex  = curPM.LayersController.ActiveLayer.RenderTexture ;
-        originalTexture = RenderTextureToTexture2D(tex);
+        originalTexture = tex.GetTexture2D();
 
         
 
@@ -226,6 +270,7 @@ public class DragAreaIndicator : MonoBehaviour
         Texture2D editedTexture = new Texture2D((int)_dragRect.width, (int)_dragRect.height);
         Color[] pixels = originalTexture.GetPixels((int)_dragRect.x, (int)_dragRect.y, (int)_dragRect.width, (int)_dragRect.height);
         editedTexture.SetPixels(pixels);
+        editedTexture.filterMode = FilterMode.Point;
         editedTexture.Apply();
 
 
@@ -235,14 +280,14 @@ public class DragAreaIndicator : MonoBehaviour
 
 
         // 드래그한 영역의 픽셀을 투명으로 채우기
-        //Color[] transparentPixels = new Color[(int)_dragRect.width * (int)_dragRect.height];
-        //for (int i = 0; i < transparentPixels.Length; i++)
-        //{
-        //    transparentPixels[i] = Color.clear; // 투명한 색상으로 채우기
-        //}
-        //originalTexture.SetPixels((int)_dragRect.x, (int)_dragRect.y, (int)_dragRect.width, (int)_dragRect.height, transparentPixels);
-        //originalTexture.Apply();
-        //Graphics.Blit(originalTexture, tex);
+        Color[] transparentPixels = new Color[(int)_dragRect.width * (int)_dragRect.height];
+        for (int i = 0; i < transparentPixels.Length; i++)
+        {
+            transparentPixels[i] = Color.clear; // 투명한 색상으로 채우기
+        }
+        originalTexture.SetPixels((int)_dragRect.x, (int)_dragRect.y, (int)_dragRect.width, (int)_dragRect.height, transparentPixels);
+        originalTexture.Apply();
+        Graphics.Blit(originalTexture, tex);
 
 
         var Data = PaintController.Instance.GetCurPaintManager().GetPaintData();
@@ -271,19 +316,19 @@ public class DragAreaIndicator : MonoBehaviour
 
         return new Rect(xMin, yMin, width, height);
     }
-    Texture2D RenderTextureToTexture2D(RenderTexture rt)
-    {
-        // 현재 활성 렌더 텍스처를 저장하고 새로운 RenderTexture로 설정
-        // 새로운 Texture2D 생성 및 ReadPixels로 픽셀 복사
-        RenderTexture.active = rt;
-        Texture2D texture = new Texture2D(rt.width, rt.height);
-        texture.ReadPixels(new Rect(0, 0, rt.width, rt.height), 0, 0);
-        texture.Apply();
+    //Texture2D RenderTextureToTexture2D(RenderTexture rt)
+    //{
+    //    // 현재 활성 렌더 텍스처를 저장하고 새로운 RenderTexture로 설정
+    //    // 새로운 Texture2D 생성 및 ReadPixels로 픽셀 복사
+    //    RenderTexture.active = rt;
+    //    Texture2D texture = new Texture2D(rt.width, rt.height);
+    //    texture.ReadPixels(new Rect(0, 0, rt.width, rt.height), 0, 0);
+    //    texture.Apply();
 
-        // 원래의 활성 렌더 텍스처를 복원
-        RenderTexture.active = null;
-        return texture;
-    }
+    //    // 원래의 활성 렌더 텍스처를 복원
+    //    RenderTexture.active = null;
+    //    return texture;
+    //}
     public void EndDrag()
     {
         isDragging = false;
