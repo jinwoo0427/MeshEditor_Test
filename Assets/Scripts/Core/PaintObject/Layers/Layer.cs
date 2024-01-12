@@ -214,11 +214,6 @@ namespace XDPaint.Core.Layers
 
             Rect adjustedDragRect = AdjustRectWithinTextureBounds(_dragRect, originalTexture);
 
-            Debug.Log((int)pos.x - (int)adjustedDragRect.x + " : " +
-                 ((int)pos.y - (int)adjustedDragRect.y) + " : " +
-                (int)adjustedDragRect.width + " : " +
-                (int)adjustedDragRect.height);
-            Debug.Log(source.width + " : " + source.height);
 
             Color[] addPixels = ((Texture2D)source).GetPixels(
                 0, 

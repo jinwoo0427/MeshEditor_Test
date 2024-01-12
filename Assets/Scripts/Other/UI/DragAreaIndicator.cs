@@ -29,6 +29,9 @@ public class DragAreaIndicator : MonoBehaviour
     private Vector3 bottomLeft;
     private Vector3 topRight;
     private Texture2D originalTexture;
+
+    public Texture2D expansionCursor;
+    public Texture2D moveCursor;
     
     
     void Start()
@@ -41,8 +44,7 @@ public class DragAreaIndicator : MonoBehaviour
         bottomLeft = corners[0];
         topRight = corners[2];
 
-        
-
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
     }
     void Init()
     {
@@ -60,12 +62,14 @@ public class DragAreaIndicator : MonoBehaviour
 
         if (PaintController.Instance.GetCurPaintManager().Tool == XDPaint.Core.PaintTool.Selection )
         {
-            if(isDragComplete == false)
+            if (isDragComplete == false)
+            {
                 HandleDragInput();
+
+            }
             else
             {
                 DragMoveInput();
-                
             }
         }
         else if (PaintController.Instance.GetCurPaintManager().Tool != XDPaint.Core.PaintTool.Selection)
@@ -73,6 +77,10 @@ public class DragAreaIndicator : MonoBehaviour
             Init();
         }
 
+    }
+    public void DeleteDragImage()
+    {
+        Init();
     }
     public void AddEditTexture()
     {
@@ -82,6 +90,9 @@ public class DragAreaIndicator : MonoBehaviour
         {
             int newWidth = (int)(dragRect.sizeDelta.x);
             int newHeight =(int)(dragRect.sizeDelta.y);
+
+            if (newWidth <= 0 || newHeight <= 0)
+                return;
 
             Texture2D tex =  ResizeTexture(addTexture, newWidth, newHeight);
 
@@ -149,14 +160,13 @@ public class DragAreaIndicator : MonoBehaviour
     }
     public void DragMoveInput()
     {
-        if (!IsMouseInDragArea(dragRect) && Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(KeyCode.Backspace) || Input.GetKeyDown(KeyCode.Delete))
         {
-            AddEditTexture();
-            Init();
+            DeleteDragImage();
             return;
         }
-                
-        foreach( var h in DragHandles )
+
+        foreach (var h in DragHandles)
         {
             if (h.IndragHandle)
             {
@@ -164,6 +174,15 @@ public class DragAreaIndicator : MonoBehaviour
                 return;
             }
         }
+
+        if (!IsMouseInDragArea(dragRect) && Input.GetMouseButtonDown(0))
+        {
+            AddEditTexture();
+            Init();
+            return;
+        }
+                
+        
         if (isDragMoving)
         {
 

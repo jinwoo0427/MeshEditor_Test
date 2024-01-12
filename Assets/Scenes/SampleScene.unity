@@ -406,6 +406,11 @@ PrefabInstance:
       propertyPath: sensitivity
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 479031882070917785, guid: aa20cc0f94b8e0948badfcafba3d4406,
+        type: 3}
+      propertyPath: customCursor
+      value: 
+      objectReference: {fileID: 2800000, guid: a24ee5e504a585345a4884725005882f, type: 3}
     - target: {fileID: 531463870107225674, guid: aa20cc0f94b8e0948badfcafba3d4406,
         type: 3}
       propertyPath: m_Name
@@ -421,6 +426,11 @@ PrefabInstance:
       propertyPath: sensitivity
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 666692027884940099, guid: aa20cc0f94b8e0948badfcafba3d4406,
+        type: 3}
+      propertyPath: customCursor
+      value: 
+      objectReference: {fileID: 2800000, guid: a24ee5e504a585345a4884725005882f, type: 3}
     - target: {fileID: 777487976008143660, guid: aa20cc0f94b8e0948badfcafba3d4406,
         type: 3}
       propertyPath: HandleType
@@ -431,6 +441,11 @@ PrefabInstance:
       propertyPath: sensitivity
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 777487976008143660, guid: aa20cc0f94b8e0948badfcafba3d4406,
+        type: 3}
+      propertyPath: customCursor
+      value: 
+      objectReference: {fileID: 2800000, guid: bad4f5f1f8a1c7d4984a4355f2bf8582, type: 3}
     - target: {fileID: 1143639236415179732, guid: aa20cc0f94b8e0948badfcafba3d4406,
         type: 3}
       propertyPath: HandleType
@@ -441,6 +456,16 @@ PrefabInstance:
       propertyPath: sensitivity
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1143639236415179732, guid: aa20cc0f94b8e0948badfcafba3d4406,
+        type: 3}
+      propertyPath: customCursor
+      value: 
+      objectReference: {fileID: 2800000, guid: 486dfc2328aa9e242940f5edcc48649d, type: 3}
+    - target: {fileID: 1236836054552318160, guid: aa20cc0f94b8e0948badfcafba3d4406,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1537401215725627964, guid: aa20cc0f94b8e0948badfcafba3d4406,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -470,6 +495,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMin.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2344349027014456277, guid: aa20cc0f94b8e0948badfcafba3d4406,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2344349027014456277, guid: aa20cc0f94b8e0948badfcafba3d4406,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2344349027014456277, guid: aa20cc0f94b8e0948badfcafba3d4406,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2344349027014456277, guid: aa20cc0f94b8e0948badfcafba3d4406,
+        type: 3}
+      propertyPath: m_Texture
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2344349027014456277, guid: aa20cc0f94b8e0948badfcafba3d4406,
+        type: 3}
+      propertyPath: m_Maskable
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2557027222575728479, guid: aa20cc0f94b8e0948badfcafba3d4406,
         type: 3}
@@ -651,6 +701,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: DrawBoard
       objectReference: {fileID: 0}
+    - target: {fileID: 3249228240006798605, guid: aa20cc0f94b8e0948badfcafba3d4406,
+        type: 3}
+      propertyPath: filterMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3249228240006798605, guid: aa20cc0f94b8e0948badfcafba3d4406,
+        type: 3}
+      propertyPath: material.defaultTextureWidth
+      value: 700
+      objectReference: {fileID: 0}
+    - target: {fileID: 3249228240006798605, guid: aa20cc0f94b8e0948badfcafba3d4406,
+        type: 3}
+      propertyPath: material.defaultTextureHeight
+      value: 700
+      objectReference: {fileID: 0}
     - target: {fileID: 3433322619292605633, guid: aa20cc0f94b8e0948badfcafba3d4406,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -675,6 +740,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3474036612901729026, guid: aa20cc0f94b8e0948badfcafba3d4406,
+        type: 3}
+      propertyPath: m_ScreenMatchMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3474036612901729026, guid: aa20cc0f94b8e0948badfcafba3d4406,
+        type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3992143890729594246, guid: aa20cc0f94b8e0948badfcafba3d4406,
         type: 3}
@@ -736,6 +811,11 @@ PrefabInstance:
       propertyPath: sensitivity
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 4757402776340890491, guid: aa20cc0f94b8e0948badfcafba3d4406,
+        type: 3}
+      propertyPath: customCursor
+      value: 
+      objectReference: {fileID: 2800000, guid: 486dfc2328aa9e242940f5edcc48649d, type: 3}
     - target: {fileID: 4769062452106116467, guid: aa20cc0f94b8e0948badfcafba3d4406,
         type: 3}
       propertyPath: m_Name
@@ -781,6 +861,11 @@ PrefabInstance:
       propertyPath: sensitivity
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 5838027364611284167, guid: aa20cc0f94b8e0948badfcafba3d4406,
+        type: 3}
+      propertyPath: customCursor
+      value: 
+      objectReference: {fileID: 2800000, guid: d50cee2168ffe384c9b188ee07d1279c, type: 3}
     - target: {fileID: 6004692316148980585, guid: aa20cc0f94b8e0948badfcafba3d4406,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -901,6 +986,11 @@ PrefabInstance:
       propertyPath: sensitivity
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 7973457603892005267, guid: aa20cc0f94b8e0948badfcafba3d4406,
+        type: 3}
+      propertyPath: customCursor
+      value: 
+      objectReference: {fileID: 2800000, guid: bad4f5f1f8a1c7d4984a4355f2bf8582, type: 3}
     - target: {fileID: 8709470978145546468, guid: aa20cc0f94b8e0948badfcafba3d4406,
         type: 3}
       propertyPath: HandleType
@@ -911,6 +1001,11 @@ PrefabInstance:
       propertyPath: sensitivity
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 8709470978145546468, guid: aa20cc0f94b8e0948badfcafba3d4406,
+        type: 3}
+      propertyPath: customCursor
+      value: 
+      objectReference: {fileID: 2800000, guid: 486dfc2328aa9e242940f5edcc48649d, type: 3}
     - target: {fileID: 8725943095041286568, guid: aa20cc0f94b8e0948badfcafba3d4406,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -3840,12 +3935,12 @@ PrefabInstance:
     - target: {fileID: 119067915543632371, guid: 779169a261e835649935d4305c3b19ef,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 500
+      value: 700
       objectReference: {fileID: 0}
     - target: {fileID: 119067915543632371, guid: 779169a261e835649935d4305c3b19ef,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 500
+      value: 700
       objectReference: {fileID: 0}
     - target: {fileID: 119067915543632371, guid: 779169a261e835649935d4305c3b19ef,
         type: 3}

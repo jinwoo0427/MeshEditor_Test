@@ -543,7 +543,7 @@ namespace XDPaint
                 renderTextureHelper = new RenderTextureHelper();
             }
             Material.Init(renderComponentsHelper, null);
-            renderTextureHelper.Init(Material.SourceTexture.width, Material.SourceTexture.height, filterMode);
+            renderTextureHelper.Init(/*Material.SourceTexture.width, Material.SourceTexture.height,*/700, 700, filterMode);
         }
 
         private void InitLayers()
