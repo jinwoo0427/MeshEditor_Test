@@ -1,5 +1,7 @@
 using GetampedPaint;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using static UnityEngine.Rendering.VirtualTexturing.Debugging;
 
 public class CameraController : MonoBehaviour
 {
@@ -18,15 +20,30 @@ public class CameraController : MonoBehaviour
     float _inputSpeed = 0.1f;
 
     public PaintManager texturePainter;
+    public RectTransform paintBoard;
 
     private void LateUpdate()
     {
+        // 마우스가 특정 UI 위에 있는지 확인
+        if (IsInMousePos(5f))
+            return;
+
         CameraZoom();
         CameraDrag();
         CameraRotate();
         CameraInput();
     }
+    private bool IsInMousePos(float padding)
+    {
+        Vector2 mousePos = Input.mousePosition;
+        Vector3[] corners = new Vector3[4];
+        paintBoard.GetWorldCorners(corners);
+        Rect rect = new Rect(corners[0].x - padding, corners[0].y - padding,
+                             corners[2].x - corners[0].x + 2 * padding,
+                             corners[2].y - corners[0].y + 2 * padding);
 
+        return rect.Contains(mousePos);
+    }
     void CameraRotate()
     {
         if (Input.GetMouseButton(1))

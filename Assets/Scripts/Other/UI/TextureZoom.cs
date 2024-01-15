@@ -19,7 +19,7 @@ public class TextureZoom : MonoBehaviour, IScrollHandler
     {
         if (rawImage == null)
         {
-            Debug.LogError("RawImage is not assigned to the script or is missing.");
+            Debug.LogError("집어넣기 까먹음");
             enabled = false;
             return;
         }
@@ -27,7 +27,7 @@ public class TextureZoom : MonoBehaviour, IScrollHandler
         rawImageRect = rawImage.GetComponent<RectTransform>();
         if (rawImageRect == null)
         {
-            Debug.LogError("RawImage does not have a RectTransform component.");
+            Debug.LogError("집어넣기 까먹음");
             enabled = false;
             return;
         }
@@ -38,7 +38,10 @@ public class TextureZoom : MonoBehaviour, IScrollHandler
 
     void Update()
     {
-        HandleDrag();
+        if (IsInMousePos(5f))
+        {
+            HandleDrag();
+        }
     }
 
     void HandleDrag()
@@ -70,6 +73,17 @@ public class TextureZoom : MonoBehaviour, IScrollHandler
             // 새로운 uvRect 적용
             rawImage.uvRect = uvRect;
         }
+    }
+    private bool IsInMousePos(float padding)
+    {
+        Vector2 mousePos = Input.mousePosition;
+        Vector3[] corners = new Vector3[4];
+        rawImageRect.GetWorldCorners(corners);
+        Rect rect = new Rect(corners[0].x - padding, corners[0].y - padding,
+                             corners[2].x - corners[0].x + 2 * padding,
+                             corners[2].y - corners[0].y + 2 * padding);
+
+        return rect.Contains(mousePos);
     }
     public void OnScroll(PointerEventData eventData)
     {
