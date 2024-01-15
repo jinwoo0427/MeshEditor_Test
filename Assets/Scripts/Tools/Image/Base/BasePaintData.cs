@@ -1,14 +1,14 @@
 using System.Collections;
 using UnityEngine;
-using XDPaint.Core;
-using XDPaint.Core.Layers;
-using XDPaint.Core.Materials;
-using XDPaint.Core.PaintModes;
-using XDPaint.Core.PaintObject.Base;
-using XDPaint.States;
-using XDPaint.Utils;
+using GetampedPaint.Core;
+using GetampedPaint.Core.Layers;
+using GetampedPaint.Core.Materials;
+using GetampedPaint.Core.PaintModes;
+using GetampedPaint.Core.PaintObject.Base;
+using GetampedPaint.States;
+using GetampedPaint.Utils;
 
-namespace XDPaint.Tools.Images.Base
+namespace GetampedPaint.Tools.Images.Base
 {
     public class BasePaintData : IPaintData
     {

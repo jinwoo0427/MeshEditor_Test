@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.UI;
 #endif
 
-namespace XDPaint.Utils
+namespace GetampedPaint.Utils
 {
     public class EventSystemHelper : MonoBehaviour
     {

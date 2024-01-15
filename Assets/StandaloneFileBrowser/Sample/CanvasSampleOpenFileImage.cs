@@ -8,8 +8,8 @@ using UnityEngine.EventSystems;
 using SFB;
 using UnityEngine.Networking;
 using static UnityEditor.Rendering.CameraUI;
-using XDPaint;
-using XDPaint.Controllers;
+using GetampedPaint;
+using GetampedPaint.Controllers;
 using Unity.VisualScripting;
 
 [RequireComponent(typeof(Button))]

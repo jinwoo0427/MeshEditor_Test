@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.Rendering;
-using XDPaint.Core;
+using GetampedPaint.Core;
 
-namespace XDPaint.Utils
+namespace GetampedPaint.Utils
 {
     public class CommandBufferBuilder
     {

@@ -1,6 +1,6 @@
-﻿using XDPaint.Controllers.InputData.Base;
+﻿using GetampedPaint.Controllers.InputData.Base;
 
-namespace XDPaint.Controllers.InputData
+namespace GetampedPaint.Controllers.InputData
 {
     public class InputDataDefault : BaseInputData
     {

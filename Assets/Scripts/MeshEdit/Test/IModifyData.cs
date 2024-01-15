@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using XDPaint.Core;
-using XDPaint.Core.Layers;
-using XDPaint.Core.Materials;
-using XDPaint.Core.PaintModes;
-using XDPaint.States;
-using XDPaint.Utils;
+using GetampedPaint.Core;
+using GetampedPaint.Core.Layers;
+using GetampedPaint.Core.Materials;
+using GetampedPaint.Core.PaintModes;
+using GetampedPaint.States;
+using GetampedPaint.Utils;
 
 public interface IModifyData : IDisposable
 {

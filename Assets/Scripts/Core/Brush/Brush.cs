@@ -1,11 +1,11 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.Rendering;
-using XDPaint.Core.PaintModes;
-using XDPaint.Tools;
-using XDPaint.Utils;
+using GetampedPaint.Core.PaintModes;
+using GetampedPaint.Tools;
+using GetampedPaint.Utils;
 
-namespace XDPaint.Core.Materials
+namespace GetampedPaint.Core.Materials
 {
     [Serializable]
     public class Brush : IBrush, IDisposable

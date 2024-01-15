@@ -1,7 +1,7 @@
 using System;
-using XDPaint.Tools.Images.Base;
+using GetampedPaint.Tools.Images.Base;
 
-namespace XDPaint.Tools.Images
+namespace GetampedPaint.Tools.Images
 {
     [Serializable]
     public class EraseToolSettings : BasePaintToolSettings

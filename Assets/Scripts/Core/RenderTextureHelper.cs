@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
-using XDPaint.Utils;
+using GetampedPaint.Utils;
 
-namespace XDPaint.Core
+namespace GetampedPaint.Core
 {
     public class RenderTextureHelper : IRenderTextureHelper
     {

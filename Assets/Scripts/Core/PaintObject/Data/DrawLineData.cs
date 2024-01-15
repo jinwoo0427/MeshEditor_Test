@@ -1,7 +1,7 @@
 using UnityEngine;
-using XDPaint.Core.PaintObject.Base;
+using GetampedPaint.Core.PaintObject.Base;
 
-namespace XDPaint.Core.PaintObject.Data
+namespace GetampedPaint.Core.PaintObject.Data
 {
     public class DrawLineData : BasePointerData
     {

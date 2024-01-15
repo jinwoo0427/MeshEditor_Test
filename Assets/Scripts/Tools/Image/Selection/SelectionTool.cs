@@ -1,13 +1,13 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Scripting;
-using XDPaint.Core;
-using XDPaint.Core.Layers;
-using XDPaint.Core.PaintObject.Data;
-using XDPaint.Tools.Images.Base;
+using GetampedPaint.Core;
+using GetampedPaint.Core.Layers;
+using GetampedPaint.Core.PaintObject.Data;
+using GetampedPaint.Tools.Images.Base;
 using System;
 
-namespace XDPaint.Tools.Images
+namespace GetampedPaint.Tools.Images
 {
     [Serializable]
     public class SelectionTool : BasePaintTool<SelectionToolSettings>

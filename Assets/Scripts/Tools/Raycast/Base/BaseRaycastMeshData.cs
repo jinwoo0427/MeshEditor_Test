@@ -2,13 +2,13 @@ using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Jobs;
 using UnityEngine;
-using XDPaint.Controllers;
-using XDPaint.Core;
-using XDPaint.Tools.Raycast.Data;
-using XDPaint.Utils;
+using GetampedPaint.Controllers;
+using GetampedPaint.Core;
+using GetampedPaint.Tools.Raycast.Data;
+using GetampedPaint.Utils;
 using Object = UnityEngine.Object;
 
-namespace XDPaint.Tools.Raycast.Base
+namespace GetampedPaint.Tools.Raycast.Base
 {
     public abstract class BaseRaycastMeshData : IRaycastMeshData
     {

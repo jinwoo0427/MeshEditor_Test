@@ -5,10 +5,10 @@ using System.Collections.Specialized;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-using XDPaint.States;
-using XDPaint.Utils;
+using GetampedPaint.States;
+using GetampedPaint.Utils;
 
-namespace XDPaint.Core.Layers
+namespace GetampedPaint.Core.Layers
 {
     [Serializable]
     public class LayersController : RecordControllerBase, ILayersController

@@ -2,7 +2,7 @@
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace XDPaint.Demo.UI
+namespace GetampedPaint.Demo.UI
 {
     public class UISliderDownHelper : MonoBehaviour, IPointerDownHandler
     {

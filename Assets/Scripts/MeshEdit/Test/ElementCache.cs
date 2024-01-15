@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using XDPaint.Tools.Raycast;
+using GetampedPaint.Tools.Raycast;
 
 [Serializable]
 public class ElementCache : ScriptableObject

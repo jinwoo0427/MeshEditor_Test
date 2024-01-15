@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using XDPaint.Controllers.InputData;
-using XDPaint.Controllers;
-using XDPaint;
-using XDPaint.Controllers.InputData.Base;
-using XDPaint.Tools.Raycast.Base;
-using XDPaint.Tools.Raycast.Data;
+using GetampedPaint.Controllers.InputData;
+using GetampedPaint.Controllers;
+using GetampedPaint;
+using GetampedPaint.Controllers.InputData.Base;
+using GetampedPaint.Tools.Raycast.Base;
+using GetampedPaint.Tools.Raycast.Data;
 
 public class InputDataMeshModify : BaseInputData
 {

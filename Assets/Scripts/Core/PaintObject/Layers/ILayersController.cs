@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using UnityEngine;
 
-namespace XDPaint.Core.Layers
+namespace GetampedPaint.Core.Layers
 {
     public interface ILayersController : IDisposable
     {

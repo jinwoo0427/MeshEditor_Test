@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace XDPaint.Core.Layers
+namespace GetampedPaint.Core.Layers
 {
     [Serializable]
     public class LayersMergeController

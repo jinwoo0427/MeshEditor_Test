@@ -1,6 +1,6 @@
 using UnityEngine.Scripting;
 
-namespace XDPaint.Core.PaintModes
+namespace GetampedPaint.Core.PaintModes
 {
     [Preserve]
     public class DefaultPaintMode : IPaintMode

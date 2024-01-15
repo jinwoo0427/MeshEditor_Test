@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using Object = UnityEngine.Object;
 
-namespace XDPaint.Utils
+namespace GetampedPaint.Utils
 {
     public static class ExtendedMethods
     {

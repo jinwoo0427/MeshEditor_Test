@@ -1,4 +1,4 @@
-namespace XDPaint.Core
+namespace GetampedPaint.Core
 {
     public interface IInitializable
     {

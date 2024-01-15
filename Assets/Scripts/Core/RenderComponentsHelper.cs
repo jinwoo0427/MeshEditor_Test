@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using XDPaint.Controllers;
-using XDPaint.Tools;
+using GetampedPaint.Controllers;
+using GetampedPaint.Tools;
 
-namespace XDPaint.Core
+namespace GetampedPaint.Core
 {
     [System.Serializable]
     public class RenderComponentsHelper : IRenderComponentsHelper

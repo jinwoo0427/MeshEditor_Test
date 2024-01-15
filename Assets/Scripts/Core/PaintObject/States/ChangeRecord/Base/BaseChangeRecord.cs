@@ -1,4 +1,4 @@
-namespace XDPaint.States
+namespace GetampedPaint.States
 {
     public abstract class BaseChangeRecord
     {

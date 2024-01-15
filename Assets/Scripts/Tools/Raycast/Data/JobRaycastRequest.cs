@@ -1,8 +1,8 @@
 using Unity.Collections;
 using Unity.Jobs;
-using XDPaint.Core;
+using GetampedPaint.Core;
 
-namespace XDPaint.Tools.Raycast.Data
+namespace GetampedPaint.Tools.Raycast.Data
 {
     public class JobRaycastRequest : IRaycastRequest
     {

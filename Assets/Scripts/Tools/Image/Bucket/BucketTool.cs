@@ -6,13 +6,13 @@ using System.Threading;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Scripting;
-using XDPaint.Core;
-using XDPaint.Core.PaintObject.Data;
-using XDPaint.Tools.Images.Base;
-using XDPaint.Utils;
+using GetampedPaint.Core;
+using GetampedPaint.Core.PaintObject.Data;
+using GetampedPaint.Tools.Images.Base;
+using GetampedPaint.Utils;
 using Object = UnityEngine.Object;
 
-namespace XDPaint.Tools.Images
+namespace GetampedPaint.Tools.Images
 {
     [Serializable]
     public sealed class BucketTool : BasePaintTool<BucketToolSettings>

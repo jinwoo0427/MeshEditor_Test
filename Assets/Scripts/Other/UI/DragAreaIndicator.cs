@@ -2,11 +2,11 @@ using RuntimeHandle;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using XDPaint.Controllers;
-using XDPaint.Core;
-using XDPaint.Core.Layers;
-using XDPaint.Tools.Images.Base;
-using XDPaint.Utils;
+using GetampedPaint.Controllers;
+using GetampedPaint.Core;
+using GetampedPaint.Core.Layers;
+using GetampedPaint.Tools.Images.Base;
+using GetampedPaint.Utils;
 using static UnityEngine.GraphicsBuffer;
 
 public class DragAreaIndicator : MonoBehaviour
@@ -60,7 +60,7 @@ public class DragAreaIndicator : MonoBehaviour
     void Update()
     {
 
-        if (PaintController.Instance.GetCurPaintManager().Tool == XDPaint.Core.PaintTool.Selection )
+        if (PaintController.Instance.GetCurPaintManager().Tool == GetampedPaint.Core.PaintTool.Selection )
         {
             if (isDragComplete == false)
             {
@@ -72,7 +72,7 @@ public class DragAreaIndicator : MonoBehaviour
                 DragMoveInput();
             }
         }
-        else if (PaintController.Instance.GetCurPaintManager().Tool != XDPaint.Core.PaintTool.Selection)
+        else if (PaintController.Instance.GetCurPaintManager().Tool != GetampedPaint.Core.PaintTool.Selection)
         {
             Init();
         }

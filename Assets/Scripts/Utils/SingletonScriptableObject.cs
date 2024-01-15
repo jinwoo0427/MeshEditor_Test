@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using XDPaint.States;
-using XDPaint.Tools;
+using GetampedPaint.States;
+using GetampedPaint.Tools;
 
-namespace XDPaint.Utils
+namespace GetampedPaint.Utils
 {
     public abstract class SingletonScriptableObject<T> : ScriptableObject where T : ScriptableObject
     {

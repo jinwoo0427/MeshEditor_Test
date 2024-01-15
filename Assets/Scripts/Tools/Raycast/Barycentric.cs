@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace XDPaint.Tools.Raycast
+namespace GetampedPaint.Tools.Raycast
 {
     //무게 중심
     public class Barycentric

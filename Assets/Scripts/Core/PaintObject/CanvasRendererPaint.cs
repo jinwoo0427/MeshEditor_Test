@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
-using XDPaint.Core.PaintObject.Base;
-using XDPaint.Tools.Raycast.Data;
+using GetampedPaint.Core.PaintObject.Base;
+using GetampedPaint.Tools.Raycast.Data;
 
-namespace XDPaint.Core.PaintObject
+namespace GetampedPaint.Core.PaintObject
 {
     public sealed class CanvasRendererPaint : BasePaintObject
     {

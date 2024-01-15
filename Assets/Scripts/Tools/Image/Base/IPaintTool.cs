@@ -1,12 +1,12 @@
 using UnityEngine;
 using UnityEngine.Rendering;
-using XDPaint.Core;
-using XDPaint.Core.Materials;
-using XDPaint.Core.PaintModes;
-using XDPaint.Core.PaintObject.Data;
-using IDisposable = XDPaint.Core.IDisposable;
+using GetampedPaint.Core;
+using GetampedPaint.Core.Materials;
+using GetampedPaint.Core.PaintModes;
+using GetampedPaint.Core.PaintObject.Data;
+using IDisposable = GetampedPaint.Core.IDisposable;
 
-namespace XDPaint.Tools.Images.Base
+namespace GetampedPaint.Tools.Images.Base
 {
     public interface IPaintTool : IDisposable
     {

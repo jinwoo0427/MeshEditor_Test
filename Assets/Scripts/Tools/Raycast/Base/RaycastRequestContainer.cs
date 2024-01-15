@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using XDPaint.Core;
-using XDPaint.Tools.Raycast.Data;
+using GetampedPaint.Core;
+using GetampedPaint.Tools.Raycast.Data;
 
-namespace XDPaint.Tools.Raycast.Base
+namespace GetampedPaint.Tools.Raycast.Base
 {
     public class RaycastRequestContainer : IDisposable
     {

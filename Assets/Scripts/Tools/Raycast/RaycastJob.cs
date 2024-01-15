@@ -1,13 +1,13 @@
 using Unity.Collections;
 using Unity.Jobs;
 using UnityEngine;
-using XDPaint.Tools.Raycast.Data;
-using XDPaint.Utils;
+using GetampedPaint.Tools.Raycast.Data;
+using GetampedPaint.Utils;
 #if BURST
 using Unity.Burst;
 #endif
 
-namespace XDPaint.Tools.Raycast
+namespace GetampedPaint.Tools.Raycast
 {
 #if BURST
     [BurstCompile]

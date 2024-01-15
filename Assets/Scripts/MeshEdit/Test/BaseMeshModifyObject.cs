@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using XDPaint.Core.Materials;
-using XDPaint.Core.PaintObject.Data;
-using XDPaint.Tools.Raycast;
-using XDPaint.Tools.Raycast.Data;
+using GetampedPaint.Core.Materials;
+using GetampedPaint.Core.PaintObject.Data;
+using GetampedPaint.Tools.Raycast;
+using GetampedPaint.Tools.Raycast.Data;
 
 [Serializable]
 public abstract class BaseMeshModifyObject : BaseMeshModifyObjectRenderer

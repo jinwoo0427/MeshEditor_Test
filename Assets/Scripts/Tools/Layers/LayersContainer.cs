@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace XDPaint.Tools.Layers
+namespace GetampedPaint.Tools.Layers
 {
     [CreateAssetMenu(fileName = "LayersContainer", menuName = "XDPaint/LayersContainer", order = 101)]
     public class LayersContainer : ScriptableObject

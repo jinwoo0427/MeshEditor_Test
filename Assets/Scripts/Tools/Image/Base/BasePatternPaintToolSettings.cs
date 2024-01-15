@@ -1,8 +1,8 @@
 using UnityEngine;
-using XDPaint.Core;
-using XDPaint.Core.PaintObject.Base;
+using GetampedPaint.Core;
+using GetampedPaint.Core.PaintObject.Base;
 
-namespace XDPaint.Tools.Images.Base
+namespace GetampedPaint.Tools.Images.Base
 {
     public abstract class BasePatternPaintToolSettings : BasePaintToolSettings
     {

@@ -1,10 +1,10 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
-using XDPaint.Controllers;
-using XDPaint.Core;
+using GetampedPaint.Controllers;
+using GetampedPaint.Core;
 
-namespace XDPaint.Demo.UI
+namespace GetampedPaint.Demo.UI
 {
     public class ToolToggle : MonoBehaviour
     {

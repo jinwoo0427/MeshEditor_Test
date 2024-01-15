@@ -2,14 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using XDPaint.Controllers.InputData;
-using XDPaint.Core;
-using XDPaint.Tools.Raycast;
-using XDPaint.Tools.Raycast.Base;
-using XDPaint.Tools.Raycast.Data;
-using XDPaint.Utils;
+using GetampedPaint.Controllers.InputData;
+using GetampedPaint.Core;
+using GetampedPaint.Tools.Raycast;
+using GetampedPaint.Tools.Raycast.Base;
+using GetampedPaint.Tools.Raycast.Data;
+using GetampedPaint.Utils;
 
-namespace XDPaint.Controllers
+namespace GetampedPaint.Controllers
 {
     public class RaycastController : Singleton<RaycastController>
     {

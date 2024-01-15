@@ -1,8 +1,8 @@
-﻿using XDPaint.Controllers.InputData.Base;
-using XDPaint.Core;
-using XDPaint.Tools;
+﻿using GetampedPaint.Controllers.InputData.Base;
+using GetampedPaint.Core;
+using GetampedPaint.Tools;
 
-namespace XDPaint.Controllers.InputData
+namespace GetampedPaint.Controllers.InputData
 {
     public class InputDataResolver
     {

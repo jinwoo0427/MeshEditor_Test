@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace XDPaint.Core.PaintObject.Base
+namespace GetampedPaint.Core.PaintObject.Base
 {
     [AttributeUsage(AttributeTargets.Property)]
     public sealed class PaintToolRangeAttribute : PropertyAttribute

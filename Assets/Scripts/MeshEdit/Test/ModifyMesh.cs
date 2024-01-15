@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
-using XDPaint.Tools.Raycast;
-using XDPaint.Tools.Triangles;
-using XDPaint.Utils;
+using GetampedPaint.Tools.Raycast;
+using GetampedPaint.Tools.Triangles;
+using GetampedPaint.Utils;
 
 [Serializable]
 public class ModifyMesh : ScriptableObject, ISerializationCallbackReceiver

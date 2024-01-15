@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using XDPaint.Controllers;
-using XDPaint.Core;
+using GetampedPaint.Controllers;
+using GetampedPaint.Core;
 
-namespace XDPaint.AdditionalComponents
+namespace GetampedPaint.AdditionalComponents
 {
     public class ColliderPainter : MonoBehaviour
     {

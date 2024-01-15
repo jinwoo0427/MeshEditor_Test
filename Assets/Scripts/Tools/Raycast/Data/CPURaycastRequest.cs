@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using XDPaint.Core;
+using GetampedPaint.Core;
 
-namespace XDPaint.Tools.Raycast.Data
+namespace GetampedPaint.Tools.Raycast.Data
 {
     public class CPURaycastRequest : IRaycastRequest
     {

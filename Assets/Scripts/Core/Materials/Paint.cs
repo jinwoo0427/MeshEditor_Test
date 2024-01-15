@@ -1,9 +1,9 @@
 ﻿using System;
 using UnityEngine;
-using XDPaint.Tools;
+using GetampedPaint.Tools;
 using Object = UnityEngine.Object;
 
-namespace XDPaint.Core.Materials
+namespace GetampedPaint.Core.Materials
 {
     [Serializable]
     public class Paint : IDisposable

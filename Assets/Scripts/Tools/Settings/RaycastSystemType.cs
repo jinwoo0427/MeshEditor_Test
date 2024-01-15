@@ -1,4 +1,4 @@
-namespace XDPaint.Tools
+namespace GetampedPaint.Tools
 {
     public enum RaycastSystemType
     {

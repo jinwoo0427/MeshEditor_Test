@@ -4,12 +4,12 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using XDPaint.Tools;
-using XDPaint.Tools.Raycast;
-using XDPaint.Tools.Raycast.Data;
-using IDisposable = XDPaint.Core.IDisposable;
+using GetampedPaint.Tools;
+using GetampedPaint.Tools.Raycast;
+using GetampedPaint.Tools.Raycast.Data;
+using IDisposable = GetampedPaint.Core.IDisposable;
 
-namespace XDPaint.Controllers.InputData.Base
+namespace GetampedPaint.Controllers.InputData.Base
 {
     public abstract class BaseInputData : IDisposable
     {

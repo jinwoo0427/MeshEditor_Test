@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using XDPaint.Utils;
+using GetampedPaint.Utils;
 
-namespace XDPaint.Tools
+namespace GetampedPaint.Tools
 {
     [CreateAssetMenu(fileName = "XDPaintSettings", menuName = "XDPaint/Settings", order = 102)]
     public class Settings : SingletonScriptableObject<Settings>

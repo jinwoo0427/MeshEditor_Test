@@ -1,6 +1,6 @@
 using System;
 
-namespace XDPaint.Core.PaintObject.Base
+namespace GetampedPaint.Core.PaintObject.Base
 {
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
     public class PaintToolConditionalAttribute : Attribute

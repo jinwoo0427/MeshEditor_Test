@@ -1,4 +1,4 @@
-namespace XDPaint.Controllers.InputData
+namespace GetampedPaint.Controllers.InputData
 {
     public enum InputActionType
     {

@@ -1,10 +1,10 @@
 using UnityEngine;
-using XDPaint.Core;
-using XDPaint.Tools.Raycast.Base;
-using XDPaint.Tools.Raycast.Data;
-using XDPaint.Utils;
+using GetampedPaint.Core;
+using GetampedPaint.Tools.Raycast.Base;
+using GetampedPaint.Tools.Raycast.Data;
+using GetampedPaint.Utils;
 
-namespace XDPaint.Tools.Raycast
+namespace GetampedPaint.Tools.Raycast
 {
     public class RaycastSkinnedMeshRendererData : BaseRaycastMeshData
     {

@@ -1,10 +1,10 @@
 using UnityEngine;
 using UnityEngine.Rendering;
-using XDPaint.Controllers;
-using XDPaint.Core;
-using XDPaint.Utils;
+using GetampedPaint.Controllers;
+using GetampedPaint.Core;
+using GetampedPaint.Utils;
 
-namespace XDPaint.Tools.Raycast
+namespace GetampedPaint.Tools.Raycast
 {
     public class DepthToWorldConverter : IDisposable
     {

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Specialized;
 
-namespace XDPaint.States
+namespace GetampedPaint.States
 {
 #if UNITY_EDITOR && XDP_DEBUG
     [System.Serializable]

@@ -2,10 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Specialized;
 using UnityEngine;
-using XDPaint.Core.Layers;
-using IDisposable = XDPaint.Core.IDisposable;
+using GetampedPaint.Core.Layers;
+using IDisposable = GetampedPaint.Core.IDisposable;
 
-namespace XDPaint.States
+namespace GetampedPaint.States
 {
     public interface IStatesController : IDisposable
     {

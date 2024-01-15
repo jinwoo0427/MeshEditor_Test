@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using UnityEngine;
-using XDPaint.Core.Layers;
+using GetampedPaint.Core.Layers;
 
-namespace XDPaint.States
+namespace GetampedPaint.States
 {
     [Serializable]
     public class StatesController : IStatesController
@@ -34,7 +34,7 @@ namespace XDPaint.States
         
         private ILayersController layersController;
         private List<BaseChangeRecord> currentGroup;
-        private int currentGroupIndex = -1;
+        [SerializeField] private int currentGroupIndex = -1;
         private int minUndoStatesCount;
         private bool isUndoRedo;
         private bool isGroupingEnabled;
@@ -69,6 +69,7 @@ namespace XDPaint.States
             
             currentGroupIndex = -1;
             minUndoStatesCount = 0;
+            Debug.Log("설마 실행이 되지 않겠지");
 #if UNITY_EDITOR && XDP_DEBUG
             texturesStates.Clear();
 #endif
@@ -216,6 +217,7 @@ namespace XDPaint.States
         {
             if (!isEnabled)
                 return;
+
 
             isUndoProcessing = true;
             var index = currentGroupIndex - 1;

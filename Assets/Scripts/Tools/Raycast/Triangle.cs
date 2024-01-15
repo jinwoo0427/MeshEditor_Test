@@ -1,8 +1,8 @@
 using System;
 using UnityEngine;
-using XDPaint.Tools.Raycast.Base;
+using GetampedPaint.Tools.Raycast.Base;
 
-namespace XDPaint.Tools.Raycast
+namespace GetampedPaint.Tools.Raycast
 {
     [Serializable]
     public class Triangle

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace XDPaint.Core
+namespace GetampedPaint.Core
 {
     public interface IRenderComponentsHelper
     {

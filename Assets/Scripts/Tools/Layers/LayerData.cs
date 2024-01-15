@@ -1,10 +1,10 @@
 using System;
 using UnityEngine;
-using XDPaint.Core;
-using XDPaint.Core.Layers;
-using XDPaint.Utils;
+using GetampedPaint.Core;
+using GetampedPaint.Core.Layers;
+using GetampedPaint.Utils;
 
-namespace XDPaint.Tools.Layers
+namespace GetampedPaint.Tools.Layers
 {
     [Serializable]
     public class LayerData

@@ -1,8 +1,8 @@
 using UnityEngine;
-using XDPaint.Core;
-using XDPaint.Tools.Raycast.Base;
+using GetampedPaint.Core;
+using GetampedPaint.Tools.Raycast.Base;
 
-namespace XDPaint.Tools.Raycast
+namespace GetampedPaint.Tools.Raycast
 {
     public class RaycastMeshRendererData : BaseRaycastMeshData
     {

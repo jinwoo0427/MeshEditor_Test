@@ -6,24 +6,24 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
-using XDPaint.Controllers;
-using XDPaint.Controllers.InputData;
-using XDPaint.Controllers.InputData.Base;
-using XDPaint.Core;
-using XDPaint.Core.Layers;
-using XDPaint.Core.Materials;
-using XDPaint.Core.PaintModes;
-using XDPaint.Core.PaintObject;
-using XDPaint.Core.PaintObject.Base;
-using XDPaint.States;
-using XDPaint.Tools;
-using XDPaint.Tools.Images.Base;
-using XDPaint.Tools.Layers;
-using XDPaint.Tools.Raycast;
-using XDPaint.Tools.Triangles;
-using XDPaint.Utils;
+using GetampedPaint.Controllers;
+using GetampedPaint.Controllers.InputData;
+using GetampedPaint.Controllers.InputData.Base;
+using GetampedPaint.Core;
+using GetampedPaint.Core.Layers;
+using GetampedPaint.Core.Materials;
+using GetampedPaint.Core.PaintModes;
+using GetampedPaint.Core.PaintObject;
+using GetampedPaint.Core.PaintObject.Base;
+using GetampedPaint.States;
+using GetampedPaint.Tools;
+using GetampedPaint.Tools.Images.Base;
+using GetampedPaint.Tools.Layers;
+using GetampedPaint.Tools.Raycast;
+using GetampedPaint.Tools.Triangles;
+using GetampedPaint.Utils;
 
-namespace XDPaint
+namespace GetampedPaint
 {
     public class PaintManager : MonoBehaviour, IPaintManager
     {
@@ -248,7 +248,14 @@ namespace XDPaint
         public void Init()
         {
             if (initialized)
-                DoDispose();
+            {
+                Render();
+
+                PaintBoard.texture = GetResultRenderTexture();
+                OnInitialized?.Invoke(this);
+                return;
+                //DoDispose();
+            }
             
             initialized = false;
             if (ObjectForPainting == null)
@@ -257,7 +264,7 @@ namespace XDPaint
                 return;
             }
 
-            RestoreSourceMaterialTexture();
+            //RestoreSourceMaterialTexture();
             
             if (renderComponentsHelper == null)
             {
@@ -324,8 +331,9 @@ namespace XDPaint
             
             //unregister PaintManager
             PaintController.Instance.UnRegisterPaintManager(this);
-            //restore source material and texture
-            RestoreSourceMaterialTexture();
+            // 원본 복원
+            //RestoreSourceMaterialTexture();
+
             //free tools resources
             toolsManager.OnToolChanged -= OnToolChanged;
             toolsManager.DoDispose();
@@ -353,7 +361,7 @@ namespace XDPaint
             }
             layersController.DoDispose();
             UnloadLayersContainer();
-            statesController?.DoDispose();
+            //statesController?.DoDispose();
             //destroy raycast data
             if (renderComponentsHelper.IsMesh())
             {

@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-namespace XDPaint.Demo.UI
+namespace GetampedPaint.Demo.UI
 {
     public class UIDoubleClick : MonoBehaviour, IPointerDownHandler
     {

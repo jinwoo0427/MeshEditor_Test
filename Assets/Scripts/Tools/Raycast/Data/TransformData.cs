@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace XDPaint.Tools.Raycast.Data
+namespace GetampedPaint.Tools.Raycast.Data
 {
     public struct TransformData
     {

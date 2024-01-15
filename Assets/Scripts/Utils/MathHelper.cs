@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using XDPaint.Tools.Raycast;
+using GetampedPaint.Tools.Raycast;
 
-namespace XDPaint.Utils
+namespace GetampedPaint.Utils
 {
     public static class MathHelper
     {

@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-namespace XDPaint.Core.Layers
+namespace GetampedPaint.Core.Layers
 {
     public interface ILayer : IDisposable
     {

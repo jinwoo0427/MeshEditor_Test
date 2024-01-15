@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
-using XDPaint.Controllers.InputData.Base;
-using XDPaint.Tools.Raycast.Base;
-using XDPaint.Tools.Raycast.Data;
+using GetampedPaint.Controllers.InputData.Base;
+using GetampedPaint.Tools.Raycast.Base;
+using GetampedPaint.Tools.Raycast.Data;
 
-namespace XDPaint.Controllers.InputData
+namespace GetampedPaint.Controllers.InputData
 {
     public class InputDataMesh : BaseInputData
     {

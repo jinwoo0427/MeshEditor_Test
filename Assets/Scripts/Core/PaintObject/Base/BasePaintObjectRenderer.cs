@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
-using XDPaint.Core.Layers;
-using XDPaint.Core.Materials;
-using XDPaint.Core.PaintModes;
-using XDPaint.Tools.Images.Base;
-using XDPaint.Tools.Raycast.Data;
-using XDPaint.Utils;
+using GetampedPaint.Core.Layers;
+using GetampedPaint.Core.Materials;
+using GetampedPaint.Core.PaintModes;
+using GetampedPaint.Tools.Images.Base;
+using GetampedPaint.Tools.Raycast.Data;
+using GetampedPaint.Utils;
 
-namespace XDPaint.Core.PaintObject.Base
+namespace GetampedPaint.Core.PaintObject.Base
 {
     public class BasePaintObjectRenderer : IDisposable
     {

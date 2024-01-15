@@ -1,8 +1,8 @@
 using System;
-using XDPaint.Core.PaintObject.Base;
-using XDPaint.Tools.Images.Base;
+using GetampedPaint.Core.PaintObject.Base;
+using GetampedPaint.Tools.Images.Base;
 
-namespace XDPaint.Tools.Images
+namespace GetampedPaint.Tools.Images
 {
     [Serializable]
     public class BucketToolSettings : BasePatternPaintToolSettings

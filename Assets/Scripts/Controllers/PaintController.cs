@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
-using XDPaint.Core;
-using XDPaint.Core.Materials;
-using XDPaint.Core.PaintModes;
-using XDPaint.Tools;
-using XDPaint.Utils;
+using GetampedPaint.Core;
+using GetampedPaint.Core.Materials;
+using GetampedPaint.Core.PaintModes;
+using GetampedPaint.Tools;
+using GetampedPaint.Utils;
 
-namespace XDPaint.Controllers
+namespace GetampedPaint.Controllers
 {
     public class PaintController : Singleton<PaintController>
     {   

@@ -1,8 +1,8 @@
 using System;
 using UnityEngine;
-using XDPaint.Core.PaintModes;
+using GetampedPaint.Core.PaintModes;
 
-namespace XDPaint.Core.Materials
+namespace GetampedPaint.Core.Materials
 {
     public interface IBrush
     {

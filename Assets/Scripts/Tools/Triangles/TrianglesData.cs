@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using XDPaint.Tools.Raycast;
+using GetampedPaint.Tools.Raycast;
 
-namespace XDPaint.Tools.Triangles
+namespace GetampedPaint.Tools.Triangles
 {
     public static class TrianglesData
     {

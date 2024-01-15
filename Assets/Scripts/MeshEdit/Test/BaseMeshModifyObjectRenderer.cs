@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using XDPaint.Core;
-using XDPaint.Core.PaintModes;
+using GetampedPaint.Core;
+using GetampedPaint.Core.PaintModes;
 
 public class BaseMeshModifyObjectRenderer : IDisposable
 {

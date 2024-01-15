@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using XDPaint.Core;
-using XDPaint.Core.PaintObject.Base;
+using GetampedPaint.Core;
+using GetampedPaint.Core.PaintObject.Base;
 public class BaseMeshModifyData 
 {
     public readonly LineData LineData;

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using XDPaint.Tools.Raycast.Data;
+using GetampedPaint.Tools.Raycast.Data;
 
-namespace XDPaint.Core.PaintObject.Base
+namespace GetampedPaint.Core.PaintObject.Base
 {
     public class LineData
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace XDPaint.States
+namespace GetampedPaint.States
 {
     [Serializable]
     public class RenderTextureChangeReference

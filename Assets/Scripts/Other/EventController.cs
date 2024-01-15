@@ -4,19 +4,21 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using XDPaint.Controllers;
-using XDPaint.Core;
-using XDPaint.Demo.UI;
-using XDPaint.Tools;
-using XDPaint.Tools.Images;
-using XDPaint.Tools.Images.Base;
+using GetampedPaint.Controllers;
+using GetampedPaint.Core;
+using GetampedPaint.Demo.UI;
+using GetampedPaint.Tools;
+using GetampedPaint.Tools.Images;
+using TMPro;
+using GetampedPaint.States;
+
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 #endif
 
-namespace XDPaint.Demo
+namespace GetampedPaint.Demo
 {
-    public class Demo : MonoBehaviour
+    public class EventController : MonoBehaviour
     {
         [Serializable]
         public class PaintManagersData
@@ -49,7 +51,6 @@ namespace XDPaint.Demo
             Selection = 8,
             Smoothing = 16
         }
-
         [SerializeField] private PaintBoardManager paintBoardManager;
         [SerializeField] private PaintManagersData[] paintManagers;
         [SerializeField] private Camera mainCamera;
@@ -91,6 +92,12 @@ namespace XDPaint.Demo
 
         [SerializeField] private EventTrigger allArea;
         [SerializeField] private EventTrigger uiLocker;
+
+        [Header("Bottom")]
+
+        [SerializeField] private TextMeshProUGUI paintNametext;
+        [SerializeField] private Button PreviousButton;
+        [SerializeField] private Button NextButton;
 
         [Header("Draw panel")]
 
@@ -134,6 +141,7 @@ namespace XDPaint.Demo
                 var active = i == 0;
                 manager.PaintManager.gameObject.SetActive(active);
             }
+            paintNametext.SetText(paintManagers[currentPaintManagerId].Text);
 
             PaintManager.OnInitialized += OnInitialized;
             PaintManager.OnInitialized += paintBoardManager.StartInit;
@@ -186,8 +194,11 @@ namespace XDPaint.Demo
             redoButton.onClick.AddListener(OnRedo);
             rightPanel.triggers.Add(hoverEnter);
             rightPanel.triggers.Add(hoverExit);
-            
-            
+
+            NextButton.onClick.AddListener(SwitchToNextPaintManager);
+            PreviousButton.onClick.AddListener(SwitchToPreviousPaintManager);
+
+
             onDown = new EventTrigger.Entry {eventID = EventTriggerType.PointerDown};
             onDown.callback.AddListener(ResetPlates);
             allArea.triggers.Add(onDown);
@@ -228,7 +239,7 @@ namespace XDPaint.Demo
             {
                 if (Mouse.current.rightButton.wasPressedThisFrame)
                 {
-                    OpenToolSettings(Mouse.current.position.ReadValue());
+                    //OpenToolSettings(Mouse.current.position.ReadValue());
                 }
             }
 #elif ENABLE_LEGACY_INPUT_MANAGER
@@ -272,6 +283,10 @@ namespace XDPaint.Demo
             rightPanel.triggers.Remove(hoverExit);
             onDown?.callback.RemoveListener(ResetPlates);
             allArea.triggers.Remove(onDown);
+
+            NextButton.onClick.RemoveListener(SwitchToNextPaintManager);
+            PreviousButton.onClick.RemoveListener(SwitchToPreviousPaintManager);
+
             foreach (var colorItem in colors)
             {
                 colorItem.Button.onClick.RemoveListener(delegate { ColorClick(colorItem.Image.color); });
@@ -578,12 +593,12 @@ namespace XDPaint.Demo
             }
         }
 
-        private void SwitchToNextPaintManager()
+        public void SwitchToNextPaintManager()
         {
             SwitchPaintManager(true);
         }
 
-        private void SwitchToPreviousPaintManager()
+        public void SwitchToPreviousPaintManager()
         {
             SwitchPaintManager(false);
         }
@@ -591,28 +606,32 @@ namespace XDPaint.Demo
         private void SwitchPaintManager(bool switchToNext)
         {
             PaintManager.gameObject.SetActive(false);
-            if (PaintManager.StatesController != null)
-            {
-                PaintManager.StatesController.OnUndoStatusChanged -= OnUndoStatusChanged;
-                PaintManager.StatesController.OnRedoStatusChanged -= OnRedoStatusChanged;
-            }
-            
-            if (PaintController.Instance.UseSharedSettings)
-            {
-                PaintController.Instance.Brush.OnColorChanged -= OnBrushColorChanged;
-            }
-            else
-            {
-                PaintManager.Brush.OnColorChanged -= OnBrushColorChanged;
-            }
-            
+            //if (PaintManager.StatesController != null)
+            //{
+            //    PaintManager.StatesController.OnUndoStatusChanged -= OnUndoStatusChanged;
+            //    PaintManager.StatesController.OnRedoStatusChanged -= OnRedoStatusChanged;
+            //}
+
+            //if (PaintController.Instance.UseSharedSettings)
+            //{
+            //    PaintController.Instance.Brush.OnColorChanged -= OnBrushColorChanged;
+            //}
+            //else
+            //{
+            //    PaintManager.Brush.OnColorChanged -= OnBrushColorChanged;
+            //}
+
+
             foreach (var layerUI in layersUI.LayerUI)
             {
                 layerUI.OpacityHelper.OnDown -= OnOpacityHelperDown;
                 layerUI.OpacityHelper.OnUp -= OnOpacityHelperUp;
             }
             layersUI.OnLayersUpdated -= OnLayersUIUpdated;
-            PaintManager.DoDispose();
+
+
+            //PaintManager.DoDispose(); 
+            //paintBoardManager.DoDispose();
             if (switchToNext)
             {
                 currentPaintManagerId = (currentPaintManagerId + 1) % paintManagers.Length;
@@ -627,10 +646,16 @@ namespace XDPaint.Demo
             }
 
             PaintController.Instance.SetCurPaintManager(PaintManager);
+            paintNametext.SetText(paintManagers[currentPaintManagerId].Text);
+
+            
+
             toolsToggles.First(x => x.Tool == PaintTool.Brush).Toggle.isOn = true;
             PaintManager.gameObject.SetActive(true);
             PaintManager.OnInitialized -= OnInitialized;
             PaintManager.OnInitialized += OnInitialized;
+            PaintManager.OnInitialized -= paintBoardManager.StartInit;
+            PaintManager.OnInitialized += paintBoardManager.StartInit;
             PaintManager.Init();
             if (PaintController.Instance.UseSharedSettings)
             {
@@ -642,6 +667,12 @@ namespace XDPaint.Demo
             }
 
             PaintManager.Brush.SetTexture(selectedBrushTexture);
+            undoButton.interactable = PaintManager.StatesController.CanUndo();
+            redoButton.interactable = PaintManager.StatesController.CanRedo();
+
+
+            //Debug.Log(PaintManager.StatesController.GetRedoActionsCount());
+
             UpdateButtons();
         }
 

@@ -5,8 +5,8 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEngine;
-using XDPaint.Core;
-using XDPaint.Tools.Raycast;
+using GetampedPaint.Core;
+using GetampedPaint.Tools.Raycast;
 
 namespace RuntimeHandle
 {

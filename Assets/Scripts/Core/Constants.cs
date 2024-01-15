@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace XDPaint.Core
+namespace GetampedPaint.Core
 {
     public static class Constants
     {

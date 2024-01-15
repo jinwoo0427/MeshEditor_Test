@@ -1,7 +1,7 @@
 using UnityEngine;
-using XDPaint.Utils;
+using GetampedPaint.Utils;
 
-namespace XDPaint.States
+namespace GetampedPaint.States
 {
     [CreateAssetMenu(fileName = "XDPaintStatesSettings", menuName = "XDPaint/States Settings", order = 103)]
     public class StatesSettings : SingletonScriptableObject<StatesSettings>

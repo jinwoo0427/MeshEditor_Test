@@ -1,10 +1,10 @@
 using System;
 using UnityEngine;
 using UnityEngine.Rendering;
-using XDPaint.States;
-using XDPaint.Utils;
+using GetampedPaint.States;
+using GetampedPaint.Utils;
 
-namespace XDPaint.Core.Layers
+namespace GetampedPaint.Core.Layers
 {
     [Serializable]
     public class Layer : RecordControllerBase, ILayer

@@ -1,9 +1,9 @@
 using System;
 using UnityEngine;
-using XDPaint.Utils;
-using IDisposable = XDPaint.Core.IDisposable;
+using GetampedPaint.Utils;
+using IDisposable = GetampedPaint.Core.IDisposable;
 
-namespace XDPaint.States
+namespace GetampedPaint.States
 {
 #if UNITY_EDITOR && XDP_DEBUG
     [Serializable]

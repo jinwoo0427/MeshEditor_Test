@@ -2,13 +2,13 @@
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-using XDPaint.Core;
-using XDPaint.Core.PaintObject.Data;
-using XDPaint.Tools.Images;
-using XDPaint.Tools.Images.Base;
-using IDisposable = XDPaint.Core.IDisposable;
+using GetampedPaint.Core;
+using GetampedPaint.Core.PaintObject.Data;
+using GetampedPaint.Tools.Images;
+using GetampedPaint.Tools.Images.Base;
+using IDisposable = GetampedPaint.Core.IDisposable;
 
-namespace XDPaint.Tools
+namespace GetampedPaint.Tools
 {
     [Serializable]
     public class ToolsManager : IDisposable

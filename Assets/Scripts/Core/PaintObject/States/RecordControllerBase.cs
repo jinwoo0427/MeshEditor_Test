@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-namespace XDPaint.States
+namespace GetampedPaint.States
 {
     public class RecordControllerBase : INotifyPropertyChanged
     {

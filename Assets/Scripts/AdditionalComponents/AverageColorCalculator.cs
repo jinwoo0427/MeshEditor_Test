@@ -2,11 +2,11 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering;
-using XDPaint.Core;
-using XDPaint.Tools;
-using XDPaint.Utils;
+using GetampedPaint.Core;
+using GetampedPaint.Tools;
+using GetampedPaint.Utils;
 
-namespace XDPaint.AdditionalComponents
+namespace GetampedPaint.AdditionalComponents
 {
     public class AverageColorCalculator : MonoBehaviour
     {

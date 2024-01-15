@@ -2,9 +2,9 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using XDPaint.Core.Layers;
+using GetampedPaint.Core.Layers;
 
-namespace XDPaint.Demo.UI
+namespace GetampedPaint.Demo.UI
 {
     public class LayerDragItem : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler, IPointerClickHandler
     {

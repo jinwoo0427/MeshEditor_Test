@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using UnityEngine;
-using XDPaint.Core.PaintObject.Base;
+using GetampedPaint.Core.PaintObject.Base;
 
-namespace XDPaint.Tools.Images.Base
+namespace GetampedPaint.Tools.Images.Base
 {
     public abstract class BasePaintToolSettings : INotifyPropertyChanged
     {

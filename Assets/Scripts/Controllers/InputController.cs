@@ -4,8 +4,8 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using XDPaint.Tools;
-using XDPaint.Utils;
+using GetampedPaint.Tools;
+using GetampedPaint.Utils;
 
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
@@ -14,7 +14,7 @@ using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 using TouchPhase = UnityEngine.InputSystem.TouchPhase;
 #endif
 
-namespace XDPaint.Controllers
+namespace GetampedPaint.Controllers
 {
     public class InputController : Singleton<InputController>
     {

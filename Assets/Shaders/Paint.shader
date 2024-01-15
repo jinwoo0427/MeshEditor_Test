@@ -169,7 +169,10 @@
             float4 frag (v2f i) : SV_Target
             {
                 float4 paintColor = tex2D(_MainTex, i.uv);
-                float4 brushColor = tex2D(_Brush, float2(i.uv.x * _BrushOffset.z - _BrushOffset.x + 0.5f, i.uv.y * _BrushOffset.w - _BrushOffset.y + 0.5f)) * _Color;
+                float4 brushColor = 
+                tex2D(_Brush, 
+                    float2(i.uv.x * _BrushOffset.z - _BrushOffset.x + 0.5f, 
+                        i.uv.y * _BrushOffset.w - _BrushOffset.y + 0.5f)) * _Color;
                 #ifdef TILE_ON
                 brushColor *= tex2D(_PatternTex, i.uvRotated - _PatternOffset);
                 #endif

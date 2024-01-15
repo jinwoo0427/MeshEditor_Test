@@ -2,10 +2,10 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using XDPaint.Core;
-using XDPaint.Core.Layers;
+using GetampedPaint.Core;
+using GetampedPaint.Core.Layers;
 
-namespace XDPaint.Demo.UI
+namespace GetampedPaint.Demo.UI
 {
     public class LayerUIItem : MonoBehaviour
     {

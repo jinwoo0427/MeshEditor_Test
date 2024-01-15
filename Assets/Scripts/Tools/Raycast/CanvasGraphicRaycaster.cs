@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
 
-namespace XDPaint.Tools.Raycast
+namespace GetampedPaint.Tools.Raycast
 {
     [RequireComponent(typeof(GraphicRaycaster))]
     public class CanvasGraphicRaycaster : MonoBehaviour

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using XDPaint.Utils;
+using GetampedPaint.Utils;
 
 public static class MeshRayCastUtils
 {

@@ -2,11 +2,11 @@
 using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.Scripting;
-using XDPaint.Core;
-using XDPaint.Core.PaintModes;
-using XDPaint.Tools.Images.Base;
+using GetampedPaint.Core;
+using GetampedPaint.Core.PaintModes;
+using GetampedPaint.Tools.Images.Base;
 
-namespace XDPaint.Tools.Images
+namespace GetampedPaint.Tools.Images
 {
     [Serializable]
     public sealed class BrushTool : BasePaintTool<BrushToolSettings>

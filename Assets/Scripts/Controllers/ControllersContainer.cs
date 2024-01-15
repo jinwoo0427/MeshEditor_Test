@@ -1,6 +1,6 @@
-﻿using XDPaint.Utils;
+﻿using GetampedPaint.Utils;
 
-namespace XDPaint.Controllers
+namespace GetampedPaint.Controllers
 {
     public class ControllersContainer : Singleton<ControllersContainer>
     {

@@ -1,4 +1,4 @@
-namespace XDPaint.Core.PaintObject.Base
+namespace GetampedPaint.Core.PaintObject.Base
 {
     public class BasePointerData
     {

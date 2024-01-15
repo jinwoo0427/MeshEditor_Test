@@ -1,4 +1,4 @@
-namespace XDPaint.Core.PaintModes
+namespace GetampedPaint.Core.PaintModes
 {
     public interface IPaintMode
     {

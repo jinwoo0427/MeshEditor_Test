@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
-using XDPaint.Core;
+using GetampedPaint.Core;
 
-namespace XDPaint.Tools.Raycast
+namespace GetampedPaint.Tools.Raycast
 {
     public class UVChannelData
     {

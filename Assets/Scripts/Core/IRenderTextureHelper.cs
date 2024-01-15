@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Rendering;
 
-namespace XDPaint.Core
+namespace GetampedPaint.Core
 {
     public interface IRenderTextureHelper : IDisposable
     {

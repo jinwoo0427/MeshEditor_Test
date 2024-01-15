@@ -4,9 +4,9 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using UnityEngine;
 using UnityEngine.UI;
-using XDPaint.Core.Layers;
+using GetampedPaint.Core.Layers;
 
-namespace XDPaint.Demo.UI
+namespace GetampedPaint.Demo.UI
 {
     public class LayersUIController : MonoBehaviour
     {

@@ -3,13 +3,13 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using UnityEngine;
 using UnityEngine.Rendering;
-using XDPaint.Core;
-using XDPaint.Core.Layers;
-using XDPaint.Core.Materials;
-using XDPaint.Core.PaintModes;
-using XDPaint.Core.PaintObject.Data;
+using GetampedPaint.Core;
+using GetampedPaint.Core.Layers;
+using GetampedPaint.Core.Materials;
+using GetampedPaint.Core.PaintModes;
+using GetampedPaint.Core.PaintObject.Data;
 
-namespace XDPaint.Tools.Images.Base
+namespace GetampedPaint.Tools.Images.Base
 {
     [Serializable]
     public abstract class BasePaintTool<T> : IPaintTool where T : BasePaintToolSettings
@@ -413,6 +413,7 @@ namespace XDPaint.Tools.Images.Base
                 Data.Material.SetTexture(Constants.PaintShader.PaintTexture, GetTexture(RenderTarget.CombinedTemp));
                 Data.CommandBuilder.Clear().LoadOrtho().SetRenderTarget(combined).DrawMesh(Data.QuadMesh, Data.Material, PaintPass.Preview).Execute();
                 Data.Material.SetTexture(Constants.PaintShader.PaintTexture, previousPaintTexture);
+                
             }
         }
 

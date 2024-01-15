@@ -1,7 +1,7 @@
 using UnityEngine;
-using XDPaint.Tools.Raycast.Data;
+using GetampedPaint.Tools.Raycast.Data;
 
-namespace XDPaint.Controllers.InputData
+namespace GetampedPaint.Controllers.InputData
 {
     public class InputData
     {

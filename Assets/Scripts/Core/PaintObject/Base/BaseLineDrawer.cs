@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using XDPaint.Controllers;
-using XDPaint.Tools;
-using XDPaint.Tools.Raycast.Data;
-using XDPaint.Utils;
+using GetampedPaint.Controllers;
+using GetampedPaint.Tools;
+using GetampedPaint.Tools.Raycast.Data;
+using GetampedPaint.Utils;
 using Random = UnityEngine.Random;
 
-namespace XDPaint.Core.PaintObject.Base
+namespace GetampedPaint.Core.PaintObject.Base
 {
     /// <summary>
     /// Performs lines drawing

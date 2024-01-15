@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using XDPaint.Controllers;
-using XDPaint.Core.Materials;
-using XDPaint.Core.PaintObject.Data;
-using XDPaint.States;
-using XDPaint.Tools.Raycast.Data;
-using XDPaint.Utils;
+using GetampedPaint.Controllers;
+using GetampedPaint.Core.Materials;
+using GetampedPaint.Core.PaintObject.Data;
+using GetampedPaint.States;
+using GetampedPaint.Tools.Raycast.Data;
+using GetampedPaint.Utils;
 using Debug = UnityEngine.Debug;
 
-namespace XDPaint.Core.PaintObject.Base
+namespace GetampedPaint.Core.PaintObject.Base
 {
     [Serializable]
     public abstract class BasePaintObject : BasePaintObjectRenderer
@@ -882,6 +882,7 @@ namespace XDPaint.Core.PaintObject.Base
                 if (paintObjectData.PaintPosition != null)
                 {
                     var previewVector = GetPreviewVector(fingerId);
+                    //Debug.Log("preview : " + previewVector);
                     PaintMaterial.SetPaintPreviewVector(previewVector);
                 }
                 else

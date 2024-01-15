@@ -1,10 +1,10 @@
 using UnityEngine;
-using XDPaint.Controllers;
-using XDPaint.Core.PaintObject.Base;
-using XDPaint.Tools.Raycast.Data;
-using XDPaint.Utils;
+using GetampedPaint.Controllers;
+using GetampedPaint.Core.PaintObject.Base;
+using GetampedPaint.Tools.Raycast.Data;
+using GetampedPaint.Utils;
 
-namespace XDPaint.Core.PaintObject
+namespace GetampedPaint.Core.PaintObject
 {
     public sealed class SkinnedMeshRendererPaint : BasePaintObject
     {

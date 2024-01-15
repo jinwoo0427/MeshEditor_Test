@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using XDPaint.Tools.Raycast.Base;
+using GetampedPaint.Tools.Raycast.Base;
 
-namespace XDPaint.Controllers.InputData
+namespace GetampedPaint.Controllers.InputData
 {
     public class InputRequest
     {

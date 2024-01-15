@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace XDPaint.Utils
+namespace GetampedPaint.Utils
 {
     public class MeshGenerator
     {
