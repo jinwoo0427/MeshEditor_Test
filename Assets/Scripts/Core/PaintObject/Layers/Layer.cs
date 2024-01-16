@@ -223,9 +223,35 @@ namespace GetampedPaint.Core.Layers
 
             addPixels = ResizeArray(addPixels, Mathf.RoundToInt(adjustedDragRect.width) * Mathf.RoundToInt(adjustedDragRect.height));
 
+
+            // GetPixels로 가져온 addPixels 중 투명한 부분은 원래 텍스처의 색으로 대체
+            Color[] originalPixels = originalTexture.GetPixels(
+                Mathf.Clamp((int)pos.x - (int)adjustedDragRect.x, 0, originalTexture.width - 1),
+                Mathf.Clamp((int)pos.y - (int)adjustedDragRect.y, 0, originalTexture.height - 1),
+                (int)adjustedDragRect.width,
+                (int)adjustedDragRect.height);
+
+            // 크기가 다르다면 작은 크기에 맞춰서 복사
+            int minPixelsLength = Mathf.Min(originalPixels.Length, addPixels.Length);
+
+            for (int i = 0; i < minPixelsLength; i++)
+            {
+                if (addPixels[i].a == 0f)
+                {
+                    // 투명한 픽셀은 원래 색상을 사용
+                    addPixels[i] = originalPixels[i];
+                }
+                else
+                {
+                    // 투명하지 않은 픽셀은 가중 평균 계산 (가중치는 alpha 값)
+                    float weight = addPixels[i].a;
+                    addPixels[i] = Color.Lerp(originalPixels[i], addPixels[i], weight);
+                }
+            }
+
             originalTexture.SetPixels(
-                (int)pos.x - (int)adjustedDragRect.x, 
-                (int)pos.y - (int)adjustedDragRect.y,
+                Mathf.Clamp((int)pos.x - (int)adjustedDragRect.x, 0, originalTexture.width - 1),
+                Mathf.Clamp((int)pos.y - (int)adjustedDragRect.y, 0, originalTexture.height - 1),
                 (int)(adjustedDragRect.width),
                 (int)(adjustedDragRect.height), addPixels);
 
@@ -237,7 +263,7 @@ namespace GetampedPaint.Core.Layers
 
         private Rect AdjustRectWithinTextureBounds(Rect originalRect, Texture2D texture)
         {
-            // Adjust the rect to fit within the bounds of the target texture
+            // 대상 텍스처의 경계 내에 맞도록 직사각형을 조정
             float maxX = Mathf.Min(originalRect.x + originalRect.width, texture.width);
             float maxY = Mathf.Min(originalRect.y + originalRect.height, texture.height);
             return new Rect(Mathf.Abs( originalRect.x ) , Mathf.Abs( originalRect.y ) , maxX - originalRect.x, maxY - originalRect.y);

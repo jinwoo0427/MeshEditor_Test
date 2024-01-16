@@ -25,6 +25,7 @@ public class DragAreaIndicator : MonoBehaviour
     private bool isDragMoving = false;
     private bool isDragging = false;
     private bool isDragComplete = false;
+    public bool isEnable = false;
 
     private Vector3 bottomLeft;
     private Vector3 topRight;
@@ -46,11 +47,12 @@ public class DragAreaIndicator : MonoBehaviour
 
         Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
     }
-    void Init()
+    public void Init()
     {
         isDragMoving = false;
         isDragging = false;
         isDragComplete = false;
+        isEnable = false;
         dragRect = dragRectTransform;
         dragIndicator.gameObject.SetActive(false);
         DragHandleObj.gameObject.SetActive(false);
@@ -84,6 +86,7 @@ public class DragAreaIndicator : MonoBehaviour
     }
     public void AddEditTexture()
     {
+        isEnable = false;
         Texture2D addTexture = dragIndicator.texture as Texture2D;
 
         if (addTexture != null)
@@ -140,6 +143,7 @@ public class DragAreaIndicator : MonoBehaviour
     Color AverageColor(Color[] pixels, int x, int y, int textureWidth, int textureHeight)
     {
         Color sumColor = Color.clear;
+        int count = 0;
 
         for (int yOffset = -1; yOffset <= 1; yOffset++)
         {
@@ -149,12 +153,18 @@ public class DragAreaIndicator : MonoBehaviour
                 int neighborY = Mathf.Clamp(y + yOffset, 0, textureHeight - 1);
 
                 int index = neighborY * textureWidth + neighborX;
-                sumColor += pixels[index];
+
+                // 해당 픽셀이 투명하지 않은 경우에만 계산에 포함
+                if (pixels[index].a > 0f)
+                {
+                    sumColor += pixels[index];
+                    count++;
+                }
             }
         }
 
         // 중간 색상 계산
-        Color averageColor = sumColor / 9f;
+        Color averageColor = count > 0 ? sumColor / count : Color.clear;
 
         return averageColor;
     }
@@ -247,11 +257,13 @@ public class DragAreaIndicator : MonoBehaviour
     }
     public void StartDrag()
     {
+        isEnable = true;
         isDragging = true;
         dragIndicator.texture = null;
         dragIndicator.color = new Color(0f, 0f, 0f, 0.4f);
-        dragStartPosition = Input.mousePosition;
+
         RectTransformUtility.ScreenPointToLocalPointInRectangle(dragArea, Input.mousePosition, null, out dragStartPosition);
+        
         dragRect.anchoredPosition = dragStartPosition;
         dragRect.sizeDelta = Vector2.zero;
         dragIndicator.gameObject.SetActive(true);
@@ -277,26 +289,20 @@ public class DragAreaIndicator : MonoBehaviour
     private void EditTexture()
     {
         // 드래그한 영역의 좌표 및 크기를 획득
-        Rect _dragRect = GetDragRect(dragStartPosition, currentMousePosition, dragArea);
+        Rect _dragRect = GetDragRect(dragStartPosition, currentMousePosition);
 
         var curPM = PaintController.Instance.GetCurPaintManager();
-        RenderTexture tex  = curPM.LayersController.ActiveLayer.RenderTexture ;
+        RenderTexture tex = curPM.LayersController.ActiveLayer.RenderTexture;
         originalTexture = tex.GetTexture2D();
 
-        
 
         // 텍스쳐에서 드래그한 영역을 복사하여 새로운 텍스쳐 생성
         Texture2D editedTexture = new Texture2D((int)_dragRect.width, (int)_dragRect.height);
         Color[] pixels = originalTexture.GetPixels((int)_dragRect.x, (int)_dragRect.y, (int)_dragRect.width, (int)_dragRect.height);
+
         editedTexture.SetPixels(pixels);
         editedTexture.filterMode = FilterMode.Point;
         editedTexture.Apply();
-
-
-        dragIndicator.color = Color.white;
-        // 새로운 텍스쳐를 대상 렌더러에 적용
-        dragIndicator.texture = editedTexture;
-
 
         // 드래그한 영역의 픽셀을 투명으로 채우기
         Color[] transparentPixels = new Color[(int)_dragRect.width * (int)_dragRect.height];
@@ -306,22 +312,32 @@ public class DragAreaIndicator : MonoBehaviour
         }
         originalTexture.SetPixels((int)_dragRect.x, (int)_dragRect.y, (int)_dragRect.width, (int)_dragRect.height, transparentPixels);
         originalTexture.Apply();
+
+        dragIndicator.color = Color.white;
+        dragIndicator.texture = editedTexture;
+
+
         Graphics.Blit(originalTexture, tex);
+        ApplyRender();
+    }
 
-
+    private void ApplyRender()
+    {
         var Data = PaintController.Instance.GetCurPaintManager().GetPaintData();
         Data.Material.SetTexture(Constants.PaintShader.PaintTexture, Data.LayersController.ActiveLayer.RenderTexture);
         Data.CommandBuilder.Clear().SetRenderTarget(Data.TexturesHelper.GetTarget(RenderTarget.ActiveLayerTemp)).ClearRenderTarget().
             DrawMesh(Data.QuadMesh, Data.Material, PaintPass.Paint, PaintPass.Erase).Execute();
         Data.Material.SetTexture(Constants.PaintShader.PaintTexture, Data.TexturesHelper.GetTexture(RenderTarget.ActiveLayerTemp));
     }
-    private Rect GetDragRect(Vector2 dragStartPosition, Vector2 currentMousePosition, RectTransform canvasRectTransform)
+
+    private Rect GetDragRect(Vector2 dragStartPosition, Vector2 currentMousePosition)
     {
         Vector2 localStartPos, localEndPos;
 
-        // 드래그 시작 지점과 현재 마우스 위치를 캔버스의 로컬 좌표로 변환
-        //RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRectTransform, dragStartPosition, null, out localStartPos);
-        //RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRectTransform, currentMousePosition, null, out localEndPos);
+        var rawImage = dragArea.GetComponent<RawImage>();
+        // RawImage의 UVRect를 고려하여 마우스 위치 계산
+        Vector2 uvStartPos = GetUVPosition(dragStartPosition, rawImage);
+        Vector2 uvEndPos = GetUVPosition(currentMousePosition, rawImage);
 
         localStartPos = dragStartPosition;
         localEndPos =currentMousePosition;
@@ -335,19 +351,19 @@ public class DragAreaIndicator : MonoBehaviour
 
         return new Rect(xMin, yMin, width, height);
     }
-    //Texture2D RenderTextureToTexture2D(RenderTexture rt)
-    //{
-    //    // 현재 활성 렌더 텍스처를 저장하고 새로운 RenderTexture로 설정
-    //    // 새로운 Texture2D 생성 및 ReadPixels로 픽셀 복사
-    //    RenderTexture.active = rt;
-    //    Texture2D texture = new Texture2D(rt.width, rt.height);
-    //    texture.ReadPixels(new Rect(0, 0, rt.width, rt.height), 0, 0);
-    //    texture.Apply();
+    private Vector2 GetUVPosition(Vector2 screenPosition, RawImage rawImage)
+    {
+        // RawImage의 RectTransform 크기 및 위치
+        Vector2 rawImageSize = new Vector2(rawImage.uvRect.width, rawImage.uvRect.height);
+        Vector2 rawImagePosition = rawImage.rectTransform.anchoredPosition;
+        Vector2 rawImagePivot = rawImage.rectTransform.pivot;
 
-    //    // 원래의 활성 렌더 텍스처를 복원
-    //    RenderTexture.active = null;
-    //    return texture;
-    //}
+        // UVRect를 고려하여 마우스 위치 계산
+        float mouseXPercentage = (screenPosition.x - rawImagePosition.x + rawImageSize.x * rawImagePivot.x) / rawImageSize.x;
+        float mouseYPercentage = (screenPosition.y - rawImagePosition.y + rawImageSize.y * rawImagePivot.y) / rawImageSize.y;
+
+        return new Vector2(mouseXPercentage, mouseYPercentage);
+    }
     public void EndDrag()
     {
         isDragging = false;

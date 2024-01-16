@@ -115,14 +115,12 @@ namespace GetampedPaint.Demo
         private const int TutorialShowCount = 5;
 
 
-        [Header("EditSelection")]
-        public DragAreaIndicator dragIndicator; // 드래그 영역을 나타내는 이미지
+        //[Header("EditSelection")]
+       // public DragAreaIndicator dragIndicator; // 드래그 영역을 나타내는 이미지
 
         void Awake()
         {
-#if XDP_DEBUG
-            Application.runInBackground = false;
-#endif
+
 #if !UNITY_WEBGL
             Application.targetFrameRate = 
                 Mathf.Clamp((int)Math.Round(Screen.currentResolution.refreshRateRatio.value), 30, (int)Math.Round(Screen.currentResolution.refreshRateRatio.value));

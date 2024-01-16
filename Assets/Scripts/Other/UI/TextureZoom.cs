@@ -15,6 +15,8 @@ public class TextureZoom : MonoBehaviour, IScrollHandler
     private Vector2 lastMousePos;
     private bool isDragging;
 
+    [SerializeField] private DragAreaIndicator dragAreaIndicator;
+
     void Start()
     {
         if (rawImage == null)
@@ -42,6 +44,11 @@ public class TextureZoom : MonoBehaviour, IScrollHandler
         {
             HandleDrag();
         }
+    }
+    public void InitPaintBoardUVRect()
+    {
+        Rect uvRect = new Rect(0f, 0f, 1f, 1f);
+        rawImage.uvRect = uvRect;
     }
 
     void HandleDrag()
@@ -87,6 +94,11 @@ public class TextureZoom : MonoBehaviour, IScrollHandler
     }
     public void OnScroll(PointerEventData eventData)
     {
+        if(dragAreaIndicator.isEnable)
+        {
+            dragAreaIndicator.AddEditTexture();
+            dragAreaIndicator.Init();
+        }    
         float scrollDelta = eventData.scrollDelta.y;
 
         // 마우스 위치 차이 계산
@@ -100,6 +112,7 @@ public class TextureZoom : MonoBehaviour, IScrollHandler
             // 새로운 uvRect의 크기 계산
             float targetWidth = Mathf.Clamp(uvRect.width - scrollDelta * zoomSpeed * uvRect.width, 0.1f, 1.0f);
             float targetHeight = Mathf.Clamp(uvRect.height - scrollDelta * zoomSpeed * uvRect.height, 0.1f, 1.0f);
+
 
             // 새로운 uvRect의 중심을 계산
             float targetX = Mathf.Clamp(uvRect.x + localMousePos.x * uvRect.width * scrollDelta * zoomSpeed, 0.0f, 1.0f - targetWidth);
