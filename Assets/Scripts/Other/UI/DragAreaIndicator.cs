@@ -18,6 +18,7 @@ public class DragAreaIndicator : MonoBehaviour
     public GameObject DragHandleObj;
     public List<DragHandle> DragHandles ;
 
+    private RawImage paintBoard; // 드래그 영역을 나타내는 이미지
     private RectTransform dragRect; // 드래그 중인 영역 저장
     private Vector2 dragStartPosition; // 드래그 시작 지점
     private Vector2 currentMousePosition; // 현재 마우스 위치
@@ -37,6 +38,8 @@ public class DragAreaIndicator : MonoBehaviour
     
     void Start()
     {
+        paintBoard = dragArea.GetComponent<RawImage>();
+
         Init();
         Vector3[] corners = new Vector3[4];
 
@@ -107,7 +110,6 @@ public class DragAreaIndicator : MonoBehaviour
     // 텍스처 크기 조절 및 픽셀 평균 색상 조정 함수
     Texture2D ResizeTexture(Texture2D sourceTexture, int newWidth, int newHeight)
     {
-        // 새로운 텍스처 생성
         Texture2D newTexture = new Texture2D(newWidth, newHeight);
 
         // 기존 텍스처의 픽셀 데이터 가져오기
@@ -132,8 +134,6 @@ public class DragAreaIndicator : MonoBehaviour
                 newTexture.SetPixel(x, y, averageColor);
             }
         }
-
-        // Apply를 호출하여 변경사항 적용
         newTexture.Apply();
 
         return newTexture;
@@ -230,9 +230,7 @@ public class DragAreaIndicator : MonoBehaviour
     }
     void DragMoving()
     {
-
-        Vector2 mousePos = Input.mousePosition;
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(dragArea, Input.mousePosition, null, out mousePos);
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(dragArea, Input.mousePosition, null, out Vector2 mousePos);
 
         Vector2 newAnchoredPosition = dragRect.anchoredPosition + mousePos - lastMousePosition;
 
@@ -271,8 +269,9 @@ public class DragAreaIndicator : MonoBehaviour
     }
     public void UpdateDrag()
     {
-        currentMousePosition = Input.mousePosition;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(dragArea, Input.mousePosition, null, out currentMousePosition);
+
+        //Debug.Log(dragStartPosition + " : " + currentMousePosition);
 
         currentMousePosition.x = Mathf.Clamp(currentMousePosition.x, bottomLeft.x, topRight.x);
         currentMousePosition.y = Mathf.Clamp(currentMousePosition.y, bottomLeft.y, topRight.y);
@@ -296,21 +295,44 @@ public class DragAreaIndicator : MonoBehaviour
         originalTexture = tex.GetTexture2D();
 
 
-        // 텍스쳐에서 드래그한 영역을 복사하여 새로운 텍스쳐 생성
-        Texture2D editedTexture = new Texture2D((int)_dragRect.width, (int)_dragRect.height);
-        Color[] pixels = originalTexture.GetPixels((int)_dragRect.x, (int)_dragRect.y, (int)_dragRect.width, (int)_dragRect.height);
+        // paintBoard.uvRect의 영역을 고려하여 적절한 위치 및 크기 계산
+        float uvX = paintBoard.uvRect.x;
+        float uvY = paintBoard.uvRect.y;
+        float uvWidth = paintBoard.uvRect.width;
+        float uvHeight = paintBoard.uvRect.height;
 
+        // 텍스처에서 드래그한 영역을 복사하여 새로운 텍스처 생성
+        Texture2D editedTexture = new Texture2D((int)(_dragRect.width * uvWidth), (int)(_dragRect.height * uvHeight));
+        Color[] pixels = originalTexture.GetPixels(
+            (int)(_dragRect.x + (uvX * originalTexture.width)),
+            (int)(_dragRect.y + (uvY * originalTexture.height)),
+            (int)(_dragRect.width * uvWidth),
+            (int)(_dragRect.height * uvHeight)
+        );
+        Debug.Log(_dragRect);
+        Debug.Log((int)_dragRect.x + (uvX * originalTexture.width));
+
+        Debug.Log($"editedTexture size: {editedTexture.width} x {editedTexture.height} = {editedTexture.GetPixels().Length}");
+        Debug.Log($"Pixels size: {pixels.Length}");
         editedTexture.SetPixels(pixels);
         editedTexture.filterMode = FilterMode.Point;
         editedTexture.Apply();
 
         // 드래그한 영역의 픽셀을 투명으로 채우기
-        Color[] transparentPixels = new Color[(int)_dragRect.width * (int)_dragRect.height];
+         Color[] transparentPixels = new Color[editedTexture.GetPixels().Length];
         for (int i = 0; i < transparentPixels.Length; i++)
         {
             transparentPixels[i] = Color.clear; // 투명한 색상으로 채우기
         }
-        originalTexture.SetPixels((int)_dragRect.x, (int)_dragRect.y, (int)_dragRect.width, (int)_dragRect.height, transparentPixels);
+
+        originalTexture.SetPixels(
+            (int)(_dragRect.x + (uvX * originalTexture.width)),
+            (int)(_dragRect.y + (uvY * originalTexture.height)),
+            (int)(_dragRect.width * uvWidth),
+            (int)(_dragRect.height * uvHeight),
+            transparentPixels
+        );
+
         originalTexture.Apply();
 
         dragIndicator.color = Color.white;
@@ -334,35 +356,17 @@ public class DragAreaIndicator : MonoBehaviour
     {
         Vector2 localStartPos, localEndPos;
 
-        var rawImage = dragArea.GetComponent<RawImage>();
-        // RawImage의 UVRect를 고려하여 마우스 위치 계산
-        Vector2 uvStartPos = GetUVPosition(dragStartPosition, rawImage);
-        Vector2 uvEndPos = GetUVPosition(currentMousePosition, rawImage);
-
         localStartPos = dragStartPosition;
         localEndPos =currentMousePosition;
-        localStartPos += new Vector2(350f, 350f);
-        localEndPos += new Vector2(350f, 350f);
+        localStartPos += new Vector2(dragArea.rect.width / 2, dragArea.rect.height / 2);
+        localEndPos += new Vector2(dragArea.rect.width / 2, dragArea.rect.height / 2);
         // 드래그한 영역의 Rect 계산
         float xMin = Mathf.Min(Mathf.RoundToInt( localStartPos.x), Mathf.RoundToInt(localEndPos.x));
         float yMin = Mathf.Min(Mathf.RoundToInt(localStartPos.y), Mathf.RoundToInt(localEndPos.y));
         float width = Mathf.Abs(localEndPos.x - localStartPos.x);
         float height = Mathf.Abs(localEndPos.y - localStartPos.y);
 
-        return new Rect(xMin, yMin, width, height);
-    }
-    private Vector2 GetUVPosition(Vector2 screenPosition, RawImage rawImage)
-    {
-        // RawImage의 RectTransform 크기 및 위치
-        Vector2 rawImageSize = new Vector2(rawImage.uvRect.width, rawImage.uvRect.height);
-        Vector2 rawImagePosition = rawImage.rectTransform.anchoredPosition;
-        Vector2 rawImagePivot = rawImage.rectTransform.pivot;
-
-        // UVRect를 고려하여 마우스 위치 계산
-        float mouseXPercentage = (screenPosition.x - rawImagePosition.x + rawImageSize.x * rawImagePivot.x) / rawImageSize.x;
-        float mouseYPercentage = (screenPosition.y - rawImagePosition.y + rawImageSize.y * rawImagePivot.y) / rawImageSize.y;
-
-        return new Vector2(mouseXPercentage, mouseYPercentage);
+        return new Rect(xMin, yMin, width , height );
     }
     public void EndDrag()
     {
