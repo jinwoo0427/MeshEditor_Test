@@ -230,7 +230,7 @@ namespace GetampedPaint.Core.Layers
                 Mathf.Clamp((int)adjustedDragRect.y, 0, originalTexture.height - 1),
                 (int)adjustedDragRect.width,
                 (int)adjustedDragRect.height);
-            Debug.Log(adjustedDragRect);
+            //Debug.Log(adjustedDragRect);
             // 크기가 다르다면 작은 크기에 맞춰서 복사
             int minPixelsLength = Mathf.Min(originalPixels.Length, addPixels.Length);
 

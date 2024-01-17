@@ -151,11 +151,11 @@ namespace GetampedPaint
         }
 
 
-        public bool HasTrianglesData => triangles != null && triangles.Length > 0;
+        public bool HasTrianglesData => Triangles != null && Triangles.Length > 0;
 
         public bool Initialized => initialized;
 
-        private Triangle[] triangles;
+        //private Triangle[] triangles;
         public Triangle[] Triangles => ModelPaintManager.Triangles;
 
         [SerializeField] private int subMesh;
@@ -196,6 +196,9 @@ namespace GetampedPaint
         private BaseInputData inputData;
         private LayersContainer loadedLayersContainer;
         private bool initialized = false;
+        [SerializeField] private LineRenderer lineRenderer;
+        [SerializeField] private GameObject lineContainer;
+        private List<LineRenderer> uvLines = new List<LineRenderer>();
 
         #endregion
 
@@ -261,6 +264,8 @@ namespace GetampedPaint
                 }
 
                 Render();
+                ShowUVLines();
+
                 return;
             }
                 //DoDispose();
@@ -321,6 +326,7 @@ namespace GetampedPaint
             SubscribeInputEvents(componentType);
             initialized = true;
             Render();
+            ShowUVLines();
 
             //PaintBoard.texture = GetResultRenderTexture();
             OnInitialized?.Invoke(ModelPaintManager);
@@ -534,6 +540,54 @@ namespace GetampedPaint
             }
         }
 
+        public void ShowUVLines()
+        {
+            if (HasTrianglesData == false)
+            {
+                return;
+            }
+
+            //Debug.Log(Triangles.Length);
+
+            foreach (var x in uvLines)
+            {
+                Destroy(x.gameObject);
+            }
+
+
+            uvLines.Clear();
+
+            Mesh mesh = ModelPaintManager.renderComponentsHelper.GetMesh(ModelPaintManager);
+            Vector2[] uv0 = mesh.uv;
+            Vector2[] triangle = new Vector2[3];
+            int tri = 0;
+            for (int i = 0; i < mesh.triangles.Length; i++)
+            {
+
+                if (tri >= 3)
+                {
+
+                    //CreateUVLine(Triangles[i].UV0, Triangles[i].UV1, Triangles[i].UV2);
+                    CreateUVLine(triangle[0], triangle[1], triangle[2]);
+
+                    tri = 0;
+                }
+                triangle[tri++] = uv0[mesh.triangles[i]];
+            }
+        }
+        private void CreateUVLine(Vector3 v1, Vector3 v2, Vector3 v3)
+        {
+            var line = Instantiate(lineRenderer, lineContainer.transform);
+
+            line.positionCount = 4;
+
+            line.SetPosition(0, v1);
+            line.SetPosition(1, v2);
+            line.SetPosition(2, v3);
+            line.SetPosition(3, v1);
+
+            uvLines.Add(line);
+        }
         public void InitBrush()
         {
             // 보통은 true일 예정

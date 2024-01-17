@@ -330,7 +330,7 @@ public class DragAreaIndicator : MonoBehaviour
             (int)(_dragRect.width * uvWidth),
             (int)(_dragRect.height * uvHeight)
         );
-        Debug.Log(_dragRect);
+        //Debug.Log(_dragRect);
 
         editedTexture.SetPixels(pixels);
         editedTexture.filterMode = FilterMode.Point;
