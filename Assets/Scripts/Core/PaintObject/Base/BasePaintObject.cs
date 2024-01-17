@@ -193,10 +193,10 @@ namespace GetampedPaint.Core.PaintObject.Base
                 Debug.LogError("ObjectForPainting has been destroyed!");
                 return;
             }
-            
+
             if (!ProcessInput || !ObjectTransform.gameObject.activeInHierarchy)
                 return;
-            
+
             if (!IsPainting)
             {
                 var paintObjectData = PaintObjectData[fingerId];
@@ -900,6 +900,7 @@ namespace GetampedPaint.Core.PaintObject.Base
         private Vector4 GetPreviewVector(int fingerId = 0)
         {
             var paintObjectData = PaintObjectData[fingerId];
+            //Debug.Log("PaintPosition : " + paintObjectData.PaintPosition.Value);
             var brushRatio = new Vector2(
                 PaintMaterial.SourceTexture.width / (float)Brush.RenderTexture.width,
                 PaintMaterial.SourceTexture.height / (float)Brush.RenderTexture.height) / Brush.Size / paintObjectData.Pressure;

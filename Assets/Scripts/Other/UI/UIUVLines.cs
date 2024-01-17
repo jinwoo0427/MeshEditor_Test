@@ -1,60 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI.Extensions;
 
 public class UIUVLines : MonoBehaviour
 {
-    private LineRenderer lineRenderer;
-    
-    public GameObject lineContainer;
-    public Mesh mesh;
-    private List<LineRenderer> uvLines = new List<LineRenderer>();
+    private UILineRenderer lineRenderer;
 
+    public Mesh mesh;
+    private Vector2 offset;
+    private List<Vector2> uvPoints = new List<Vector2>();
     void Start()
     {
-        
+        lineRenderer = GetComponent<UILineRenderer>();
+
     }
-    public void SetMesh(Mesh mesh)
+    public void SetMesh(Mesh mesh, Vector2 offsetPos)
     {
         this.mesh = mesh;
+        offset = offsetPos;
     }
 
     public void RenderLines()
     {
 
-        foreach (var x in uvLines)
-        {
-            Destroy(x.gameObject);
-        }
-
-
-        uvLines.Clear();
-
         Vector2[] uv0 = mesh.uv;
-        Vector2[] triangle = new Vector2[3];
-        int tri = 0;
+        List<Vector2> points = new List<Vector2>();
         for (int i = 0; i < mesh.triangles.Length; i++)
         {
-            if (tri >= 3)
-            {
-                CreateUVLine(triangle[0], triangle[1], triangle[2]);
-
-                tri = 0;
-            }
-            triangle[tri++] = uv0[mesh.triangles[i]];
+            Vector2 point = transform.InverseTransformDirection( uv0[(int)mesh.triangles[i]] );
+            point *= offset;
+            point -= new Vector2(offset.x / 2, offset.y / 2);
+            points.Add(point);
         }
+        lineRenderer.Points = null;
+        lineRenderer.Points = points.ToArray();
     }
-    private void CreateUVLine(Vector3 v1, Vector3 v2, Vector3 v3)
-    {
-        //var line = Instantiate(lineRenderer, lineContainer.transform);
 
-        //line.positionCount = 4;
-
-        //line.SetPosition(0, v1);
-        //line.SetPosition(1, v2);
-        //line.SetPosition(2, v3);
-        //line.SetPosition(3, v1);
-
-        //uvLines.Add(line);
-    }
 }

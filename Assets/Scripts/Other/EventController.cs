@@ -190,6 +190,8 @@ namespace GetampedPaint.Demo
             hardnessSlider.onValueChanged.AddListener(OnHardnessSlider);
             undoButton.onClick.AddListener(OnUndo);
             redoButton.onClick.AddListener(OnRedo);
+            InputController.Instance.UndoKey += OnUndo;
+            InputController.Instance.RedoKey += OnRedo;
             rightPanel.triggers.Add(hoverEnter);
             rightPanel.triggers.Add(hoverExit);
 
@@ -277,6 +279,8 @@ namespace GetampedPaint.Demo
             hardnessSlider.onValueChanged.RemoveListener(OnHardnessSlider);
             undoButton.onClick.RemoveListener(OnUndo);
             redoButton.onClick.RemoveListener(OnRedo);
+            InputController.Instance.UndoKey -= OnUndo;
+            InputController.Instance.RedoKey -= OnRedo;
             rightPanel.triggers.Remove(hoverEnter);
             rightPanel.triggers.Remove(hoverExit);
             onDown?.callback.RemoveListener(ResetPlates);

@@ -546,8 +546,8 @@ namespace GetampedPaint
             }
             Mesh mesh = ModelPaintManager.renderComponentsHelper.GetMesh(ModelPaintManager);
 
-            UVLines.SetMesh(mesh);
-
+            UVLines.SetMesh(mesh, PaintBoard.rectTransform.sizeDelta);
+            //UVLines.RenderLines();
         }
 
         public void InitBrush()

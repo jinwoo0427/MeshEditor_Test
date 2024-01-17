@@ -34,6 +34,8 @@ namespace GetampedPaint.Controllers
         public event Action<int, Vector3, float> OnMouseDown;
         public event Action<int, Vector3, float> OnMouseButton;
         public event Action<int, Vector3> OnMouseUp;
+        public event Action UndoKey;
+        public event Action RedoKey;
 
         public int MaxTouchesCount => maxTouchesCount;
         public IList<Canvas> Canvases => canvases;
@@ -41,30 +43,7 @@ namespace GetampedPaint.Controllers
 
         public GameObject[] IgnoreForRaycasts => ignoreForRaycasts;
 
-        private bool isVRMode;
         private bool[] isBegan;
-
-#if XDP_DEBUG
-        public void OnUpdateCustom()
-        {
-            OnUpdate?.Invoke();
-        }
-
-        public void OnMouseDownCustom(int fingerId, Vector2 screenPosition, float pressure = 1f)
-        {
-            OnMouseDown?.Invoke(fingerId, screenPosition, pressure);
-        }
-
-        public void OnMouseButtonCustom(int fingerId, Vector2 screenPosition, float pressure = 1f)
-        {
-            OnMouseButton?.Invoke(fingerId, screenPosition, pressure);
-        }
-
-        public void OnMouseUpCustom(int fingerId, Vector2 screenPosition)
-        {
-            OnMouseUp?.Invoke(fingerId, screenPosition);
-        }
-#endif
         
         void Start()
         {
@@ -82,9 +61,24 @@ namespace GetampedPaint.Controllers
         
         void Update()
         {
+            if (Keyboard.current != null)
+            {
+                // Control + Z
+                if (Keyboard.current.ctrlKey.isPressed && Keyboard.current.zKey.wasPressedThisFrame)
+                {
+                    UndoKey?.Invoke();
+                }
+
+                // Control + Shift + Z
+                if (Keyboard.current.ctrlKey.isPressed && Keyboard.current.shiftKey.isPressed && Keyboard.current.zKey.wasPressedThisFrame)
+                {
+                    RedoKey?.Invoke();
+                }
+            }
+            
             // Mouse
 #if ENABLE_INPUT_SYSTEM
-            
+
             if (Mouse.current != null)
             {
                 OnUpdate?.Invoke();
@@ -107,6 +101,7 @@ namespace GetampedPaint.Controllers
                 {
                     OnMouseUp?.Invoke(0, mousePosition);
                 }
+                
             }
             else
             {

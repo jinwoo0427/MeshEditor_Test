@@ -3,15 +3,11 @@ using Unity.Jobs;
 using UnityEngine;
 using GetampedPaint.Tools.Raycast.Data;
 using GetampedPaint.Utils;
-#if BURST
 using Unity.Burst;
-#endif
 
 namespace GetampedPaint.Tools.Raycast
 {
-#if BURST
     [BurstCompile]
-#endif
     public struct RaycastJob : IJobParallelFor
     {
         [ReadOnly] public NativeArray<TriangleData> Triangles;

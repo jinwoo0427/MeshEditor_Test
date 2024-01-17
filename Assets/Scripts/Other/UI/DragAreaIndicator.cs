@@ -28,6 +28,8 @@ public class DragAreaIndicator : MonoBehaviour
     private bool isDragComplete = false;
     public bool isEnable = false;
 
+    private Vector2 firstSize;
+
     private Vector3 bottomLeft;
     private Vector3 topRight;
     private Texture2D originalTexture;
@@ -114,7 +116,12 @@ public class DragAreaIndicator : MonoBehaviour
 
             if (newWidth <= 0 || newHeight <= 0)
                 return;
-            Texture2D tex = ResizeTexture(addTexture, newWidth, newHeight);
+            Texture2D tex;
+            if ((int)firstSize.x != (int)_dragRect.width || (int)firstSize.y != (int)_dragRect.height)
+                tex = ResizeTexture(addTexture, newWidth, newHeight);
+            else
+                tex = addTexture;
+
             // 드래그 크기 * 드래그 위치 비율 + 조정된 위치 = 실제 드래그 위치
             int dragX = (int)((originalTexture.width * uvWidth) * (_dragRect.x / originalTexture.width) + (uvX * originalTexture.width));
             int dragY = (int)((originalTexture.height * uvHeight) * (_dragRect.y / originalTexture.height) + (uvY * originalTexture.height));
@@ -307,11 +314,11 @@ public class DragAreaIndicator : MonoBehaviour
     {
         // 드래그한 영역의 좌표 및 크기를 획득
         Rect _dragRect = GetDragRect(dragStartPosition, currentMousePosition);
+        firstSize = new Vector2(_dragRect.width, _dragRect.height);
 
         var curPM = PaintController.Instance.GetCurPaintManager();
         RenderTexture tex = curPM.LayersController.ActiveLayer.RenderTexture;
         originalTexture = tex.GetTexture2D();
-
 
         // paintBoard.uvRect의 영역을 고려하여 적절한 위치 및 크기 계산
         float uvX = paintBoard.uvRect.x;

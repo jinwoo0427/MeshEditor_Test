@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using GetampedPaint.Core.PaintObject.Base;
 using GetampedPaint.Tools.Raycast.Data;
+using UnityEngine.UI;
 
 namespace GetampedPaint.Core.PaintObject
 {
@@ -10,6 +11,7 @@ namespace GetampedPaint.Core.PaintObject
         private RectTransform rectTransform;
         private Vector2 objectBoundsSize;
         private RenderMode renderMode;
+        private RawImage rawImage;
 
         public override bool CanSmoothLines => true;
 
@@ -21,6 +23,7 @@ namespace GetampedPaint.Core.PaintObject
             canvas = ObjectTransform.transform.GetComponentInParent<Canvas>();
 #endif
             ObjectTransform.TryGetComponent(out rectTransform);
+            ObjectTransform.TryGetComponent(out rawImage);
             UpdateObjectBounds();
         }
 
@@ -94,12 +97,33 @@ namespace GetampedPaint.Core.PaintObject
             paintObjectData.LocalPosition = clickLocalPosition / lossyScale;
             UpdateObjectBounds();
             clickLocalPosition += objectBoundsSize / 2f;
+            var rectWidth = (int)(PaintMaterial.SourceTexture.width * rawImage.uvRect.width);
+            var rectHeight = (int)(PaintMaterial.SourceTexture.height * rawImage.uvRect.height);
+
+            // Adjust UV coordinates based on rawImage.uvRect
+            var uvX = rawImage.uvRect.x;
+            var uvY = rawImage.uvRect.y;
+            var uvWidth = rawImage.uvRect.width;
+            var uvHeight = rawImage.uvRect.height;
+
+            int dragX = (int)((PaintMaterial.SourceTexture.width * uvWidth) * (clickLocalPosition.x / PaintMaterial.SourceTexture.width) + (uvX * PaintMaterial.SourceTexture.width));
+            int dragY = (int)((PaintMaterial.SourceTexture.height * uvHeight) * (clickLocalPosition.y / PaintMaterial.SourceTexture.height) + (uvY * PaintMaterial.SourceTexture.height));
+
             var ppi = new Vector2(
-                PaintMaterial.SourceTexture.width / objectBoundsSize.x / lossyScale.x,
-                PaintMaterial.SourceTexture.height / objectBoundsSize.y / lossyScale.y);
+                rectWidth / objectBoundsSize.x / lossyScale.x,
+                rectHeight / objectBoundsSize.y / lossyScale.y);
             paintObjectData.PaintPosition = new Vector2(
-                clickLocalPosition.x * lossyScale.x * ppi.x,
-                clickLocalPosition.y * lossyScale.y * ppi.y);
+                (dragX),
+                (dragY));
+
+            //var ppi = new Vector2(
+            //    rectWidth / objectBoundsSize.x / lossyScale.x,
+            //    rectHeight / objectBoundsSize.y / lossyScale.y);
+            //paintObjectData.PaintPosition = new Vector2(
+            //    clickLocalPosition.x * lossyScale.x * ppi.x,
+            //    clickLocalPosition.y * lossyScale.y * ppi.y);
+            //Debug.Log(ppi + " : " + paintObjectData.PaintPosition);
+
             if (usePostPaint)
             {
                 OnPostPaint(fingerId);

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
 using System.Linq;
-using RuntimeHandle;
+//using RuntimeHandle;
 
 namespace QuickEdit
 {
@@ -630,7 +630,7 @@ namespace QuickEdit
 			mr.sharedMaterial = mat;
 			mr.material.color = Color.red;
             MeshFilter mf = o.AddComponent<MeshFilter>();
-            mf.mesh = MeshUtils.CreateBox(.02f, .02f, 0.02f);
+			//mf.mesh = MeshUtils.CreateBox(.02f, .02f, 0.02f);
 			preObj = o;
         }
 		private class HoveringPreview

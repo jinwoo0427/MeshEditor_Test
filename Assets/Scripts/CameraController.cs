@@ -21,11 +21,12 @@ public class CameraController : MonoBehaviour
 
     public PaintManager texturePainter;
     public RectTransform paintBoard;
+    public RectTransform LayerUI;
 
     private void LateUpdate()
     {
         // 마우스가 특정 UI 위에 있는지 확인
-        if (IsInMousePos(5f))
+        if (IsInMousePos(paintBoard, 5f) || IsInMousePos(LayerUI, 5f))
             return;
 
         CameraZoom();
@@ -33,11 +34,11 @@ public class CameraController : MonoBehaviour
         CameraRotate();
         CameraInput();
     }
-    private bool IsInMousePos(float padding)
+    private bool IsInMousePos(RectTransform rectObj, float padding)
     {
         Vector2 mousePos = Input.mousePosition;
         Vector3[] corners = new Vector3[4];
-        paintBoard.GetWorldCorners(corners);
+        rectObj.GetWorldCorners(corners);
         Rect rect = new Rect(corners[0].x - padding, corners[0].y - padding,
                              corners[2].x - corners[0].x + 2 * padding,
                              corners[2].y - corners[0].y + 2 * padding);

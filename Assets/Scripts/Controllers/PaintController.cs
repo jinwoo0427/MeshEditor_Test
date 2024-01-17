@@ -169,7 +169,7 @@ namespace GetampedPaint.Controllers
                 }
                 brush.Init(mode);
                 initialized = true;
-#if !BURST
+#if !ENABLE_BURST_AOT
                 if (Settings.Instance.RaycastsMethod == RaycastSystemType.JobSystem)
                 {
                     Debug.LogWarning("The raycast method is set to JobSystem, but the Burst package is not installed. It is recommended " +
