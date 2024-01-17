@@ -94,17 +94,35 @@ public class DragAreaIndicator : MonoBehaviour
 
         if (addTexture != null)
         {
-            int newWidth = (int)(dragRect.sizeDelta.x);
-            int newHeight =(int)(dragRect.sizeDelta.y);
+            Vector3[] corners = new Vector3[4];
+            dragRect.GetWorldCorners(corners);
+
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(dragArea, corners[0], null, out Vector2 point1);
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(dragArea, corners[2], null, out Vector2 point2);
+
+            Rect _dragRect = GetDragRect(point1, point2);
+
+            // paintBoard.uvRect의 영역을 고려하여 텍스처 크기 계산
+            float uvWidth = paintBoard.uvRect.width;
+            float uvHeight = paintBoard.uvRect.height;
+            // paintBoard.uvRect의 영역을 고려하여 위치 계산
+            float uvX = paintBoard.uvRect.x;
+            float uvY = paintBoard.uvRect.y;
+
+            int newWidth = (int)(_dragRect.width * uvWidth);
+            int newHeight = (int)(_dragRect.height * uvHeight);
 
             if (newWidth <= 0 || newHeight <= 0)
                 return;
+            Texture2D tex = ResizeTexture(addTexture, newWidth, newHeight);
+            // 드래그 크기 * 드래그 위치 비율 + 조정된 위치 = 실제 드래그 위치
+            int dragX = (int)((originalTexture.width * uvWidth) * (_dragRect.x / originalTexture.width) + (uvX * originalTexture.width));
+            int dragY = (int)((originalTexture.height * uvHeight) * (_dragRect.y / originalTexture.height) + (uvY * originalTexture.height));
 
-            Texture2D tex =  ResizeTexture(addTexture, newWidth, newHeight);
-
-            Vector2 dragPos = new Vector2(dragRect.anchoredPosition.x + 350, dragRect.anchoredPosition.y + 350);
+            Rect adjustDragRect = new Rect(dragX, dragY, newWidth, newHeight);
+            Vector2 dragPos = new Vector2(dragX, dragY);
             // 새로운 Texture2D를 레이어에 추가
-            PaintController.Instance.GetCurPaintManager().LayersController.AddLayerImage(tex, dragRect.rect, dragPos);
+            PaintController.Instance.GetCurPaintManager().LayersController.AddLayerImage(tex, adjustDragRect, dragPos);
         }
     }
     // 텍스처 크기 조절 및 픽셀 평균 색상 조정 함수
@@ -301,19 +319,19 @@ public class DragAreaIndicator : MonoBehaviour
         float uvWidth = paintBoard.uvRect.width;
         float uvHeight = paintBoard.uvRect.height;
 
+        int dragX = (int)((originalTexture.width * uvWidth) * (_dragRect.x / originalTexture.width) + (uvX * originalTexture.width));
+        int dragY = (int)((originalTexture.height * uvHeight) * (_dragRect.y / originalTexture.height) + (uvY * originalTexture.height));
+
         // 텍스처에서 드래그한 영역을 복사하여 새로운 텍스처 생성
         Texture2D editedTexture = new Texture2D((int)(_dragRect.width * uvWidth), (int)(_dragRect.height * uvHeight));
         Color[] pixels = originalTexture.GetPixels(
-            (int)(_dragRect.x + (uvX * originalTexture.width)),
-            (int)(_dragRect.y + (uvY * originalTexture.height)),
+            dragX,
+            dragY,
             (int)(_dragRect.width * uvWidth),
             (int)(_dragRect.height * uvHeight)
         );
         Debug.Log(_dragRect);
-        Debug.Log((int)_dragRect.x + (uvX * originalTexture.width));
 
-        Debug.Log($"editedTexture size: {editedTexture.width} x {editedTexture.height} = {editedTexture.GetPixels().Length}");
-        Debug.Log($"Pixels size: {pixels.Length}");
         editedTexture.SetPixels(pixels);
         editedTexture.filterMode = FilterMode.Point;
         editedTexture.Apply();
@@ -326,8 +344,8 @@ public class DragAreaIndicator : MonoBehaviour
         }
 
         originalTexture.SetPixels(
-            (int)(_dragRect.x + (uvX * originalTexture.width)),
-            (int)(_dragRect.y + (uvY * originalTexture.height)),
+            dragX,
+            dragY,
             (int)(_dragRect.width * uvWidth),
             (int)(_dragRect.height * uvHeight),
             transparentPixels

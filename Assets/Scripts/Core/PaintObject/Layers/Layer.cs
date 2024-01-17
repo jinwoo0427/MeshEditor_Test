@@ -226,11 +226,11 @@ namespace GetampedPaint.Core.Layers
 
             // GetPixels로 가져온 addPixels 중 투명한 부분은 원래 텍스처의 색으로 대체
             Color[] originalPixels = originalTexture.GetPixels(
-                Mathf.Clamp((int)pos.x - (int)adjustedDragRect.x, 0, originalTexture.width - 1),
-                Mathf.Clamp((int)pos.y - (int)adjustedDragRect.y, 0, originalTexture.height - 1),
+                Mathf.Clamp((int)adjustedDragRect.x, 0, originalTexture.width - 1),
+                Mathf.Clamp((int)adjustedDragRect.y, 0, originalTexture.height - 1),
                 (int)adjustedDragRect.width,
                 (int)adjustedDragRect.height);
-
+            Debug.Log(adjustedDragRect);
             // 크기가 다르다면 작은 크기에 맞춰서 복사
             int minPixelsLength = Mathf.Min(originalPixels.Length, addPixels.Length);
 
@@ -250,8 +250,8 @@ namespace GetampedPaint.Core.Layers
             }
 
             originalTexture.SetPixels(
-                Mathf.Clamp((int)pos.x - (int)adjustedDragRect.x, 0, originalTexture.width - 1),
-                Mathf.Clamp((int)pos.y - (int)adjustedDragRect.y, 0, originalTexture.height - 1),
+                Mathf.Clamp((int)adjustedDragRect.x, 0, originalTexture.width - 1),
+                Mathf.Clamp((int)adjustedDragRect.y, 0, originalTexture.height - 1),
                 (int)(adjustedDragRect.width),
                 (int)(adjustedDragRect.height), addPixels);
 
