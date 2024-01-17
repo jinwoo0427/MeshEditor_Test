@@ -7,7 +7,7 @@ using GetampedPaint.Core;
 using GetampedPaint.Core.Layers;
 using GetampedPaint.Tools.Images.Base;
 using GetampedPaint.Utils;
-using static UnityEngine.GraphicsBuffer;
+
 
 public class DragAreaIndicator : MonoBehaviour
 {
