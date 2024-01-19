@@ -30,7 +30,7 @@ namespace GetampedPaint.Core.PaintObject
         protected override bool IsInBounds(Vector3 position)
         {
             Vector2 clickPosition = position;
-            var bounds = new Bounds(rectTransform.position, Vector2.Scale(rectTransform.rect.size, ObjectTransform.lossyScale));
+            var bounds = new Bounds(rectTransform.position, Vector2.Scale(rectTransform.rect.size, ObjectTransform.localScale));
             bounds.center = new Vector3(bounds.center.x, bounds.center.y, 0);
             if (renderMode == RenderMode.ScreenSpaceOverlay)
             {
@@ -59,7 +59,7 @@ namespace GetampedPaint.Core.PaintObject
             if (rectTransform != null)
             {
                 var rect = rectTransform.rect;
-                var lossyScale = rectTransform.lossyScale;
+                var lossyScale = rectTransform.localScale;
                 objectBoundsSize = new Vector2(rect.size.x * lossyScale.x, rect.size.y * lossyScale.y);
                 if (canvas != null)
                 {
@@ -92,7 +92,7 @@ namespace GetampedPaint.Core.PaintObject
             }
 
             var surfaceLocalClickPosition = ObjectTransform.InverseTransformPoint(clickPosition);
-            var lossyScale = ObjectTransform.lossyScale;
+            var lossyScale = ObjectTransform.localScale;
             var clickLocalPosition = new Vector2(surfaceLocalClickPosition.x * lossyScale.x, surfaceLocalClickPosition.y * lossyScale.y);
             paintObjectData.LocalPosition = clickLocalPosition / lossyScale;
             UpdateObjectBounds();
@@ -108,17 +108,13 @@ namespace GetampedPaint.Core.PaintObject
 
             int dragX = (int)((PaintMaterial.SourceTexture.width * uvWidth) * (clickLocalPosition.x / PaintMaterial.SourceTexture.width) + (uvX * PaintMaterial.SourceTexture.width));
             int dragY = (int)((PaintMaterial.SourceTexture.height * uvHeight) * (clickLocalPosition.y / PaintMaterial.SourceTexture.height) + (uvY * PaintMaterial.SourceTexture.height));
-
             var ppi = new Vector2(
                 rectWidth / objectBoundsSize.x / lossyScale.x,
                 rectHeight / objectBoundsSize.y / lossyScale.y);
             paintObjectData.PaintPosition = new Vector2(
                 (dragX),
                 (dragY));
-
-            //var ppi = new Vector2(
-            //    rectWidth / objectBoundsSize.x / lossyScale.x,
-            //    rectHeight / objectBoundsSize.y / lossyScale.y);
+            //Debug.Log(lossyScale);
             //paintObjectData.PaintPosition = new Vector2(
             //    clickLocalPosition.x * lossyScale.x * ppi.x,
             //    clickLocalPosition.y * lossyScale.y * ppi.y);

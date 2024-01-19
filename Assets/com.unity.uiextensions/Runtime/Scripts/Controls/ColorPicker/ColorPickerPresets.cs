@@ -42,7 +42,7 @@ namespace UnityEngine.UI.Extensions.ColorPicker
 		{
 			picker.onHSVChanged.AddListener(HSVChanged);
 			picker.onValueChanged.AddListener(ColorChanged);
-			picker.CurrentColor = Color.white;
+			//picker.CurrentColor = Color.white;
 			presetPrefab.SetActive(false);
 
 			presets.AddRange(predefinedPresets);

@@ -18,6 +18,7 @@ namespace GetampedPaint.Demo.UI
         [SerializeField] private Slider opacity;
         [SerializeField] private UIPointerHelper opacityHelper;
         [SerializeField] private LayerDragItem layerDragItem;
+        [SerializeField] private LayerDragItem layerSelect;
 
         private ILayer layer;
         private Action<ILayer> selectAction;
@@ -25,6 +26,7 @@ namespace GetampedPaint.Demo.UI
         private float defaultPreviewWidth;
 
         public LayerDragItem LayerDragItem => layerDragItem;
+        public LayerDragItem LayerSelect => layerSelect;
         public UIPointerHelper OpacityHelper => opacityHelper;
         public ILayer Layer => layer;
 

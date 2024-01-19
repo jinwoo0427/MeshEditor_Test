@@ -192,8 +192,8 @@ namespace UnityEngine.UI.Extensions
         {
             base.OnEnable();
             UpdateCachedReferences();
-            SetX(m_ValueX, false);
-            SetY(m_ValueY, false);
+            SetX(m_ValueX, true);
+            SetY(m_ValueY, true);
             // Update rects since they need to be initialized correctly.
             UpdateVisuals();
         }

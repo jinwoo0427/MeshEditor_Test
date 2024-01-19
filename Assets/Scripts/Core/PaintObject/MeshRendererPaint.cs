@@ -67,7 +67,10 @@ namespace GetampedPaint.Core.PaintObject
             var hasRaycast = uv != null;
             if (hasRaycast)
             {
-                paintObjectData.PaintPosition = new Vector2(PaintMaterial.SourceTexture.width * uv.Value.x, PaintMaterial.SourceTexture.height * uv.Value.y);
+                paintObjectData.PaintPosition = new Vector2(
+                    PaintMaterial.SourceTexture.width * uv.Value.x,
+                    PaintMaterial.SourceTexture.height * uv.Value.y);
+
                 paintObjectData.IsPaintingDone = true;
             }
 

@@ -194,7 +194,8 @@ namespace GetampedPaint.Core.Layers
         {
             Name = layerName;
             sourceTexture = source;
-            renderTexture = RenderTextureFactory.CreateRenderTexture(700, 700, 0, format, filterMode);
+            // 임시로 700, 700 크기로 정함
+            renderTexture = RenderTextureFactory.CreateRenderTexture(source.width, source.height, 0, format, filterMode);
             renderTexture.name = layerName;
             renderTarget = new RenderTargetIdentifier(renderTexture);
             
@@ -205,7 +206,7 @@ namespace GetampedPaint.Core.Layers
             OnPropertyChanged(this, null, renderTexture, maskSourceTexture, nameof(RenderTexture));
             OnRenderPropertyChanged?.Invoke(this);
         }
-        public void AddImage(Texture source, Rect _dragRect , Vector2 pos)
+        public void AddImage(Texture source, Rect _dragRect)
         {
             //commandBufferBuilder.Clear().SetRenderTarget(renderTarget).ClearRenderTarget(Color.clear).Execute();
 

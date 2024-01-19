@@ -76,7 +76,7 @@ namespace GetampedPaint
         public IStatesController StatesController => statesController;
         
         [SerializeField] private PaintMode paintModeType;
-        [SerializeField] private FilterMode filterMode = FilterMode.Bilinear;
+        [SerializeField] private FilterMode filterMode = FilterMode.Point;
         public FilterMode FilterMode
         {
             get => filterMode;
@@ -781,7 +781,8 @@ namespace GetampedPaint
             }
             var sourceTexture = layersContainer != null ? layersContainer.LayersData[0].SourceTexture : null;
             Material.Init(renderComponentsHelper, sourceTexture);
-            renderTextureHelper.Init(/*Material.SourceTexture.width, Material.SourceTexture.height,*/700,700, filterMode);
+            renderTextureHelper.Init(
+                Material.SourceTexture.width, Material.SourceTexture.height, /*700,700, */filterMode);
         }
 
         private void InitLayers()
@@ -789,7 +790,8 @@ namespace GetampedPaint
             layersMergeController = new LayersMergeController();
             layersController?.DoDispose();
             layersController = new LayersController(layersMergeController);
-            layersController.Init(/*Material.SourceTexture.width, Material.SourceTexture.height*/700,700, DrawPanel);
+            layersController.Init(
+                Material.SourceTexture.width, Material.SourceTexture.height/*700, 700*/, DrawPanel);
             layersController.SetFilterMode(filterMode);
         }
 

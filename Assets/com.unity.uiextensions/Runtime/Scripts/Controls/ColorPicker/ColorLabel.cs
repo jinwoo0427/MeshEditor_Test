@@ -26,7 +26,7 @@ namespace UnityEngine.UI.Extensions.ColorPicker
         private Text label;
         private void Awake()
         {
-     //       label = GetComponent<TMPro.TMP_Text>();
+        // label = GetComponent<TMPro.TMP_Text>();
             label = GetComponent<Text>();
             if (!label)
             {

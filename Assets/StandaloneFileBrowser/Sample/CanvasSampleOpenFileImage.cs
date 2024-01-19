@@ -11,6 +11,8 @@ using static UnityEditor.Rendering.CameraUI;
 using GetampedPaint;
 using GetampedPaint.Controllers;
 using Unity.VisualScripting;
+using UnityEngine.InputSystem;
+using GetampedPaint.Core.Layers;
 
 [RequireComponent(typeof(Button))]
 public class CanvasSampleOpenFileImage : MonoBehaviour, IPointerDownHandler {
@@ -44,7 +46,7 @@ public class CanvasSampleOpenFileImage : MonoBehaviour, IPointerDownHandler {
     }
 
     private void OnClick() {
-        var paths = StandaloneFileBrowser.OpenFilePanel("Title", "", "", false);
+        var paths = StandaloneFileBrowser.OpenFilePanel("OpenImage", "", "", false);
         if (paths.Length > 0) {
             StartCoroutine(OutputRoutine(new System.Uri(paths[0]).AbsoluteUri));
         }
@@ -55,6 +57,8 @@ public class CanvasSampleOpenFileImage : MonoBehaviour, IPointerDownHandler {
         //var loader = new WWW(url);
         //yield return loader;
         //output.texture = loader.texture;
+        Debug.Log(Mouse.current.leftButton.isPressed);
+
         using (UnityWebRequest www = UnityWebRequestTexture.GetTexture(url))
         {
             yield return www.SendWebRequest();
@@ -62,8 +66,24 @@ public class CanvasSampleOpenFileImage : MonoBehaviour, IPointerDownHandler {
             if (www.result == UnityWebRequest.Result.Success)
             {
                 Texture2D texture = DownloadHandlerTexture.GetContent(www);
-                
-                PaintController.Instance.GetCurPaintManager().LayersController.AddNewLayer("ImportImage", texture, true);
+
+                var layersController = (LayersController)PaintController.Instance.GetCurPaintManager().LayersController;
+
+                // 레이어 생성 제한 갯수가 넘어갈때
+                if (layersController.Layers.Count >= layersController.MaxLayersCount)
+                {
+                    Rect rect = new Rect(0, 0, texture.width, texture.height);
+                     layersController.AddLayerImage(texture, rect);
+                }
+                else
+                {
+                    if (texture.width > 512 || texture.height > 512)
+                    {
+                        layersController.AddNewLayer("ImportImage", texture, true);
+                    }
+                    layersController.AddNewLayer("ImportImage", texture, true);
+                }
+
 
                 output.texture = texture;
             }
@@ -72,6 +92,8 @@ public class CanvasSampleOpenFileImage : MonoBehaviour, IPointerDownHandler {
                 Debug.LogError("Failed to load image: " + www.error);
             }
         }
+
+        //Input.ResetInputAxes();
     }
 
 }

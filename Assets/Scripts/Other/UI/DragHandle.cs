@@ -58,7 +58,7 @@ public class DragHandle : MonoBehaviour
     }
     private void Update()
     {
-        if (IsInMousePos(10f))
+        if (IsInMousePos(5f, handle))
         {
             IndragHandle = true;
             if (Input.GetMouseButtonDown(0))
@@ -76,7 +76,8 @@ public class DragHandle : MonoBehaviour
 
         if (isResizing)
         {
-            ResizeHandle();
+            if(IsInMousePos(5f, dragArea))
+                ResizeHandle();
             
             if (Input.GetMouseButtonUp(0))
             {
@@ -85,11 +86,11 @@ public class DragHandle : MonoBehaviour
         }
     }
 
-    private bool IsInMousePos(float padding)
+    private bool IsInMousePos(float padding , RectTransform rectTransform)
     {
         Vector2 mousePos = Input.mousePosition;
         Vector3[] corners = new Vector3[4];
-        handle.GetWorldCorners(corners);
+        rectTransform.GetWorldCorners(corners);
         Rect rect = new Rect(corners[0].x - padding, corners[0].y - padding,
                              corners[2].x - corners[0].x + 2 * padding,
                              corners[2].y - corners[0].y + 2 * padding);
@@ -128,54 +129,37 @@ public class DragHandle : MonoBehaviour
                     BottomMove(offset);
                 break;
             case DragHandleType.LeftTop:
-                    LeftMove(offset);
-                    TopMove(offset);
+                dragRect.sizeDelta = new Vector2(initialDragRectSize.x - offset.x * 2f, initialDragRectSize.y + offset.y * 2f);
+                dragRect.anchoredPosition = initialDragRectPosition + new Vector2(offset.x, offset.y);
                 break;
             case DragHandleType.LeftBottom:
-                    LeftMove(offset);
-                    BottomMove(offset);
+                dragRect.sizeDelta = new Vector2(initialDragRectSize.x - offset.x * 2f, initialDragRectSize.y - offset.y * 2f);
+                dragRect.anchoredPosition = initialDragRectPosition + new Vector2(offset.x, offset.y);
                 break;
             case DragHandleType.RightTop:
-                    RightMove(offset);
-                    TopMove(offset);
+                dragRect.sizeDelta = new Vector2(initialDragRectSize.x + offset.x * 2f, initialDragRectSize.y + offset.y * 2f);
+                dragRect.anchoredPosition = initialDragRectPosition + new Vector2(offset.x, offset.y);
                 break;
             case DragHandleType.RightBottom:
-                    RightMove(offset);
-                    BottomMove(offset);
+                dragRect.sizeDelta = new Vector2(initialDragRectSize.x + offset.x * 2f, initialDragRectSize.y - offset.y * 2f);
+                dragRect.anchoredPosition = initialDragRectPosition + new Vector2(offset.x, offset.y);
                 break;
         }
-        //    case DragHandleType.LeftTop:
-        //        dragRect.sizeDelta = new Vector2(initialDragRectSize.x - offset.x * 2f, initialDragRectSize.y + offset.y * 2f);
-        //        dragRect.anchoredPosition = initialDragRectPosition + new Vector2(offset.x, offset.y);
-        //        break;
-        //    case DragHandleType.LeftBottom:
-        //        dragRect.sizeDelta = new Vector2(initialDragRectSize.x - offset.x * 2f, initialDragRectSize.y - offset.y * 2f);
-        //        dragRect.anchoredPosition = initialDragRectPosition + new Vector2(offset.x, offset.y);
-        //        break;
-        //    case DragHandleType.RightTop:
-        //        dragRect.sizeDelta = new Vector2(initialDragRectSize.x + offset.x * 2f, initialDragRectSize.y + offset.y * 2f);
-        //        dragRect.anchoredPosition = initialDragRectPosition + new Vector2(offset.x, offset.y);
-        //        break;
-        //    case DragHandleType.RightBottom:
-        //        dragRect.sizeDelta = new Vector2(initialDragRectSize.x + offset.x * 2f, initialDragRectSize.y - offset.y * 2f);
-        //        dragRect.anchoredPosition = initialDragRectPosition + new Vector2(offset.x, offset.y);
-        //        break;
+        Vector2 newDragRectSize = dragRect.sizeDelta;
 
-        //Vector2 newDragRectSize = dragRect.sizeDelta;
+        newDragRectSize.x = Mathf.Clamp(newDragRectSize.x, 0f, 700f - dragRect.anchoredPosition.x);
+        newDragRectSize.y = Mathf.Clamp(newDragRectSize.y, 0f, 700f - -dragRect.anchoredPosition.y);
 
-        //newDragRectSize.x = Mathf.Clamp(newDragRectSize.x, 0f, 700f - dragRect.anchoredPosition.x);
-        //newDragRectSize.y = Mathf.Clamp(newDragRectSize.y, 0f, 700f - -dragRect.anchoredPosition.y);
+        dragRect.sizeDelta = newDragRectSize;
 
-        //dragRect.sizeDelta = newDragRectSize;
+        Vector2 newAnchoredPosition = dragRect.anchoredPosition;
+        var wd = dragRect.rect.width / 2;
+        var ht = dragRect.rect.height / 2;
 
-        //Vector2 newAnchoredPosition = dragRect.anchoredPosition;
-        //var wd = dragRect.rect.width / 2;
-        //var ht = dragRect.rect.height / 2;
+        newAnchoredPosition.x = Mathf.Clamp(newAnchoredPosition.x, -350f + wd, 350f - wd);
+        newAnchoredPosition.y = Mathf.Clamp(newAnchoredPosition.y, -350f + ht, 350f - ht);
 
-        //newAnchoredPosition.x = Mathf.Clamp(newAnchoredPosition.x, -350f + wd, 350f - wd);
-        //newAnchoredPosition.y = Mathf.Clamp(newAnchoredPosition.y, -350f + ht, 350f - ht);
-
-        //dragRect.anchoredPosition = newAnchoredPosition;
+        dragRect.anchoredPosition = newAnchoredPosition;
 
         //if (Mathf.Abs(dragRect.anchoredPosition.x) + wd >= 350f ||
         //    Mathf.Abs(dragRect.anchoredPosition.y) + ht >= 350f)
@@ -184,9 +168,8 @@ public class DragHandle : MonoBehaviour
         //    dragRect.sizeDelta = tempSizeDelta;
         //}
 
-        
     }
-
+   
     private void BottomMove(Vector2 offset)
     {
         dragRect.sizeDelta = new Vector2(dragRect.sizeDelta.x, initialDragRectSize.y - offset.y * 2f);

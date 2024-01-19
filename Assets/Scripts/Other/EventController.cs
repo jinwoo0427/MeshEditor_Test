@@ -11,6 +11,10 @@ using GetampedPaint.Tools;
 using GetampedPaint.Tools.Images;
 using TMPro;
 using GetampedPaint.States;
+using UnityEngine.UI.Extensions.ColorPicker;
+using ColorPickerUtil;
+
+
 
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
@@ -87,7 +91,7 @@ namespace GetampedPaint.Demo
         [SerializeField] private Button redoButton;
         [SerializeField] private EventTrigger rightPanel;
 
-        [Header("Right panel")]
+        [Header("layer panel")]
         [SerializeField] private LayersUIController layersUI;
 
         [SerializeField] private EventTrigger allArea;
@@ -99,7 +103,8 @@ namespace GetampedPaint.Demo
         [SerializeField] private Button PreviousButton;
         [SerializeField] private Button NextButton;
 
-        [Header("Draw panel")]
+        [Header("")]
+        public ColorImage colorFill;
 
         private EventTrigger.Entry hoverEnter;
         private EventTrigger.Entry hoverExit;
@@ -111,7 +116,7 @@ namespace GetampedPaint.Demo
         private Vector3 defaultPalettePosition;
         private int currentPaintManagerId;
         private bool previousCameraMoverState;
-        
+        private ColorPickerControl colorPicker;
         private const int TutorialShowCount = 5;
 
 
@@ -151,6 +156,11 @@ namespace GetampedPaint.Demo
         private IEnumerator Start()
         {
             yield return null;
+
+            colorPicker = colorPanel.GetComponent<ColorPickerControl>();
+            colorPicker.gameObject.SetActive(true);
+            colorFill.Init();
+            colorPicker.gameObject.SetActive(false);
 
             defaultPalettePosition = toolSettingsPalette.position;
             hoverEnter = new EventTrigger.Entry {eventID = EventTriggerType.PointerEnter};
@@ -205,6 +215,9 @@ namespace GetampedPaint.Demo
             uiLocker.triggers.Add(onDown);
             uiLocker.transform.SetParent(colorPanel.transform.parent);
             uiLocker.transform.SetSiblingIndex(colorPanel.transform.GetSiblingIndex());
+
+            colorPicker?.onValueChanged?.AddListener(ColorClick);
+
 
             //colors
             foreach (var colorItem in colors)
@@ -288,6 +301,8 @@ namespace GetampedPaint.Demo
 
             NextButton.onClick.RemoveListener(SwitchToNextPaintManager);
             PreviousButton.onClick.RemoveListener(SwitchToPreviousPaintManager);
+
+            colorPicker?.onValueChanged?.RemoveListener(ColorClick);
 
             foreach (var colorItem in colors)
             {
@@ -382,6 +397,9 @@ namespace GetampedPaint.Demo
         private void OnBrushColorChanged(Color color)
         {
             opacitySlider.value = color.a;
+
+            colorPicker.CurrentColor = color;
+            //Debug.Log(color);
         }
 
         private void LoadPrefs()
@@ -400,6 +418,7 @@ namespace GetampedPaint.Demo
             //color
             ColorUtility.TryParseHtmlString("#" + PlayerPrefs.GetString("XDPaintDemoBrushColor", "#FFFFFF"), out var color);
             ColorClick(color);
+            colorPicker.CurrentColor = color;
             var brushTool = toolsToggles.First(x => x.Tool == PaintTool.Brush);
             brushTool.Toggle.isOn = true;
         }
@@ -730,7 +749,7 @@ namespace GetampedPaint.Demo
             }
         }
         
-        private void ColorClick(Color color)
+        public void ColorClick(Color color)
         {
             var brushColor = Color.white;
             if (PaintController.Instance.UseSharedSettings)
@@ -742,7 +761,7 @@ namespace GetampedPaint.Demo
                 brushColor = PaintManager.Brush.Color;
             }
             
-            brushColor = new Color(color.r, color.g, color.b, brushColor.a);
+            brushColor = new Color(color.r, color.g, color.b, color.a);
             if (PaintController.Instance.UseSharedSettings)
             {
                 PaintController.Instance.Brush.SetColor(brushColor);
@@ -752,19 +771,20 @@ namespace GetampedPaint.Demo
                 PaintManager.Brush.SetColor(brushColor);
             }
             
-            var selectedTool = PaintController.Instance.UseSharedSettings ? PaintController.Instance.Tool : PaintManager.Tool;
-            if (selectedTool != PaintTool.Brush && selectedTool != PaintTool.Bucket)
-            {
-                foreach (var toolToggle in toolsToggles)
-                {
-                    if (toolToggle.Tool == PaintTool.Brush)
-                    {
-                        toolToggle.Toggle.isOn = true;
-                        break;
-                    }
-                }
-            }
-            
+            //var selectedTool = PaintController.Instance.UseSharedSettings ? PaintController.Instance.Tool : PaintManager.Tool;
+            //if (selectedTool != PaintTool.Brush && selectedTool != PaintTool.Bucket)
+            //{
+            //    foreach (var toolToggle in toolsToggles)
+            //    {
+            //        if (toolToggle.Tool == PaintTool.Brush)
+            //        {
+            //            toolToggle.Toggle.isOn = true;
+            //            break;
+            //        }
+            //    }
+            //}
+
+
             var colorString = ColorUtility.ToHtmlStringRGB(brushColor);
             PlayerPrefs.SetString("XDPaintDemoBrushColor", colorString);
         }

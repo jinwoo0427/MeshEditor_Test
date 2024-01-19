@@ -38,6 +38,8 @@ namespace GetampedPaint.Core.Layers
         private int defaultWidth;
         private int defaultHeight;
 
+        public int MaxLayersCount = 10;
+
         private bool isMerging;
         public bool IsMerging => isMerging;
         
@@ -131,30 +133,6 @@ namespace GetampedPaint.Core.Layers
         {
             filterMode = mode;
         }
-        public void CreateRawImage(string name, Texture texture, bool isImportImage)
-        {
-
-            // RawImage의 크기를 이미지의 크기에 맞게 조절
-
-            GameObject rawImageObject = new GameObject(name);
-
-            rawImageObject.transform.SetParent(DrawPanel, false);
-            RawImage rawImage = rawImageObject.AddComponent<RawImage>();
-            rawImage.texture = texture;
-
-            // RawImage의 크기를 이미지의 크기에 맞게 조절
-            RectTransform rt = rawImageObject.GetComponent<RectTransform>();
-            if (isImportImage)
-            {
-                //rt.position = new Vector3(rt.position.x - 350f, rt.position.y, rt.position.z);
-                rt.sizeDelta = new Vector2(texture.width , texture.height );
-            }
-            else
-            {
-                rt.sizeDelta = new Vector2(700f, 700f);
-            }
-        }
-        
         
         public ILayer AddNewLayer()
         {
@@ -167,10 +145,8 @@ namespace GetampedPaint.Core.Layers
             EnableStatesGrouping();
             var layer = new Layer(this);
             layer.Init(commandBufferBuilder, () => CanDisableLayer);
-            //layer.Create(name, defaultWidth, defaultHeight, LayerRenderTextureFormat, filterMode);
             layer.Create(name, defaultWidth, defaultHeight, LayerRenderTextureFormat, filterMode);
             InitLayer(layer);
-            //CreateRawImage(layer.Name, layer.RenderTexture, false);
             layer.OnRenderPropertyChanged = OnLayerRenderPropertyChanged;
             DisableStatesGrouping();
             return layer;
@@ -183,15 +159,13 @@ namespace GetampedPaint.Core.Layers
             layer.Init(commandBufferBuilder, () => CanDisableLayer);
             layer.Create(name, sourceTexture, LayerRenderTextureFormat, filterMode);
             InitLayer(layer);
-            //CreateRawImage(layer.Name, layer.RenderTexture, isImportImage);
             layer.OnRenderPropertyChanged = OnLayerRenderPropertyChanged;
             DisableStatesGrouping();
             return layer;
         }
-        public void AddLayerImage(Texture texture, Rect rect, Vector2 pos)
+        public void AddLayerImage(Texture texture, Rect rect)
         {
-            //CombineTexturesFunction(ActiveLayer.RenderTexture, ActiveLayer.RenderTexture);
-            (activeLayer as Layer).AddImage(texture, rect, pos);
+            (activeLayer as Layer).AddImage(texture, rect);
         }
         public void AddLayerMask(ILayer layer, Texture source)
         {

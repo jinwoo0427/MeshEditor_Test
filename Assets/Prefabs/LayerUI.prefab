@@ -162,6 +162,7 @@ MonoBehaviour:
   opacity: {fileID: 3227571773286926001}
   opacityHelper: {fileID: 8294214251187061641}
   layerDragItem: {fileID: 2966453479127200922}
+  layerSelect: {fileID: 7844997041078232789}
 --- !u!1 &3227571771575841043
 GameObject:
   m_ObjectHideFlags: 0
@@ -1623,6 +1624,7 @@ GameObject:
   - component: {fileID: 3227571772848418866}
   - component: {fileID: 3227571772848418864}
   - component: {fileID: 3227571772848418865}
+  - component: {fileID: 7844997041078232789}
   m_Layer: 5
   m_Name: Preview
   m_TagString: Untagged
@@ -1671,7 +1673,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1684,6 +1686,19 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!114 &7844997041078232789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3227571772848418867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00c4210b290e24a0aab887a1f5bd2696, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dragTransform: {fileID: 3227571771572210212}
 --- !u!1 &3227571773013706768
 GameObject:
   m_ObjectHideFlags: 0

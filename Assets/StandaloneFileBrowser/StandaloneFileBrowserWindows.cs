@@ -5,6 +5,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using Ookii.Dialogs;
+using System.Diagnostics;
 
 namespace SFB {
     // For fullscreen support

@@ -382,7 +382,6 @@ namespace GetampedPaint.States
                 //현재 그룹 인덱스가 설정된 최대 허용 작업 수(UndoRedoMaxActionsCount)를 초과하는 경우 실행됩니다.
                 if (currentGroupIndex >= StatesSettings.Instance.UndoRedoMaxActionsCount)
                 {
-                    Debug.Log("flkdlkjdldls");
                     if (statesGroups.Count > 0)
                     {
                         //첫 번째 그룹의 각 상태에 대한 검사를 수행합니다.

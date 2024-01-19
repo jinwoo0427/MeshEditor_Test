@@ -12,9 +12,11 @@ namespace GetampedPaint.Demo.UI
     {
         public event Action OnLayersUpdated;
         
-        private const int MaxLayersCount = 10;
         private const float MovePlateDuration = 0.3f;
-        
+
+        [Tooltip("최대 레이어 생성 갯수")]
+        [SerializeField] private int MaxLayersCount = 10;
+
         [Header("Buttons")]
         [SerializeField] private Button addLayerButton;
         [SerializeField] private Button removeLayerButton;
@@ -38,6 +40,7 @@ namespace GetampedPaint.Demo.UI
         {
             // 레이어 생성 및 셋팅
             layersUI = new LayerUIItem[MaxLayersCount];
+            
             for (var i = 0; i < MaxLayersCount; i++)
             {
                 var layer = Instantiate(layerDefaultElement, verticalLayoutGroup.transform);
@@ -49,6 +52,8 @@ namespace GetampedPaint.Demo.UI
             {
                 layerUIItem.LayerDragItem.OnDragStarted = () => verticalLayoutGroup.enabled = false;
                 layerUIItem.LayerDragItem.OnDragEnded = (layer, order) => StartCoroutine(OnDragEnded(layer, order));
+                layerUIItem.LayerSelect.OnDragStarted = () => verticalLayoutGroup.enabled = false;
+                layerUIItem.LayerSelect.OnDragEnded = (layer, order) => StartCoroutine(OnDragEnded(layer, order));
             }
             layersPlateButton.onClick.AddListener(OnLayersPlateButtonClick);
         }
@@ -61,6 +66,7 @@ namespace GetampedPaint.Demo.UI
             foreach (var layerUI in layersUI)
             {
                 layerUI.LayerDragItem.RestoreSiblingIndex();
+                layerUI.LayerSelect.RestoreSiblingIndex();
             }
             UpdateLayersUI();
         }
@@ -112,6 +118,7 @@ namespace GetampedPaint.Demo.UI
             layersController.OnLayersCollectionChanged += OnLayersCollectionChanged;
             layersController.OnActiveLayerSwitched += OnActiveLayerSwitched;
             layersController.OnLayerChanged += OnLayerChanged;
+            (layersController as LayersController).MaxLayersCount = MaxLayersCount;
             UpdateLayersUI();
         }
 
@@ -124,13 +131,13 @@ namespace GetampedPaint.Demo.UI
         
         public void Show()
         {
-            var endPosition = new Vector2(0, layersTransform.anchoredPosition.y);
+            var endPosition = new Vector2(layersTransform.anchoredPosition.x , 60f);
             layersTransform.anchoredPosition = endPosition;
         }
         
         public void Hide()
         {
-            var endPosition = new Vector2(layersTransform.rect.width, layersTransform.anchoredPosition.y);
+            var endPosition = new Vector2(layersTransform.anchoredPosition.x, -layersTransform.rect.height/ 2);
             layersTransform.anchoredPosition = endPosition;
         }
 
@@ -216,9 +223,9 @@ namespace GetampedPaint.Demo.UI
         private IEnumerator AnimatePlateMoving()
         {
             isAnimating = true;
-            var isHidden = Math.Abs(layersTransform.anchoredPosition.x - layersTransform.rect.width *0.5f) < 0.01f;
+            var isHidden = Math.Abs(layersTransform.anchoredPosition.x - layersTransform.rect.width *2f) < 0.01f;
             var startPosition = layersTransform.anchoredPosition;
-            var endPosition = new Vector2(isHidden ? 0 : layersTransform.rect.width * 0.5f, layersTransform.anchoredPosition.y);
+            var endPosition = new Vector2(isHidden ? 50 : layersTransform.rect.width * 2f, layersTransform.anchoredPosition.y);
             var t = 0f;
             while (t <= 1f)
             {

@@ -114,6 +114,9 @@ public class DragAreaIndicator : MonoBehaviour
             int newWidth = (int)(_dragRect.width * uvWidth);
             int newHeight = (int)(_dragRect.height * uvHeight);
 
+            newWidth = (int)Mathf.Clamp(newWidth, 1f, originalTexture.width - 1);
+            newHeight = (int)Mathf.Clamp(newHeight, 1f, originalTexture.height - 1);
+
             if (newWidth <= 0 || newHeight <= 0)
                 return;
             Texture2D tex;
@@ -127,9 +130,12 @@ public class DragAreaIndicator : MonoBehaviour
             int dragY = (int)((originalTexture.height * uvHeight) * (_dragRect.y / originalTexture.height) + (uvY * originalTexture.height));
 
             Rect adjustDragRect = new Rect(dragX, dragY, newWidth, newHeight);
-            Vector2 dragPos = new Vector2(dragX, dragY);
+            //Debug.Log(tex.width + "x" + tex.height);
+            //Debug.Log(adjustDragRect.width + "x" + adjustDragRect.height);
+
+            
             // 새로운 Texture2D를 레이어에 추가
-            PaintController.Instance.GetCurPaintManager().LayersController.AddLayerImage(tex, adjustDragRect, dragPos);
+            PaintController.Instance.GetCurPaintManager().LayersController.AddLayerImage(tex, adjustDragRect);
         }
     }
     // 텍스처 크기 조절 및 픽셀 평균 색상 조정 함수
@@ -261,9 +267,9 @@ public class DragAreaIndicator : MonoBehaviour
 
         var wd = dragRect.rect.width / 2;
         var ht = dragRect.rect.height/ 2;
-
-        newAnchoredPosition.x = Mathf.Clamp(newAnchoredPosition.x,-350f + wd, 350f - wd); 
-        newAnchoredPosition.y = Mathf.Clamp(newAnchoredPosition.y, -350f + ht, 350f - ht); 
+        var size = dragArea.rect.width / 2;
+        newAnchoredPosition.x = Mathf.Clamp(newAnchoredPosition.x,-size + wd, size - wd); 
+        newAnchoredPosition.y = Mathf.Clamp(newAnchoredPosition.y, -size + ht, size - ht); 
 
         dragRect.anchoredPosition = newAnchoredPosition;
 
@@ -316,6 +322,13 @@ public class DragAreaIndicator : MonoBehaviour
         Rect _dragRect = GetDragRect(dragStartPosition, currentMousePosition);
         firstSize = new Vector2(_dragRect.width, _dragRect.height);
 
+        if (_dragRect.width <= 0f || _dragRect.height <= 0f)
+        {
+            isDragging = false;
+            DragHandleObj.gameObject.SetActive(false);
+            return;
+        }
+
         var curPM = PaintController.Instance.GetCurPaintManager();
         RenderTexture tex = curPM.LayersController.ActiveLayer.RenderTexture;
         originalTexture = tex.GetTexture2D();
@@ -342,6 +355,7 @@ public class DragAreaIndicator : MonoBehaviour
         editedTexture.SetPixels(pixels);
         editedTexture.filterMode = FilterMode.Point;
         editedTexture.Apply();
+
 
         // 드래그한 영역의 픽셀을 투명으로 채우기
          Color[] transparentPixels = new Color[editedTexture.GetPixels().Length];
@@ -397,10 +411,10 @@ public class DragAreaIndicator : MonoBehaviour
     {
         isDragging = false;
         isDragComplete = true;
-        EditTexture();
         DragHandleObj.gameObject.SetActive(true);
 
         DragHandles.ForEach(x => x.InitHandle(dragRect, bottomLeft, topRight, dragStartPosition, dragArea));
+        EditTexture();
         //dragIndicator.gameObject.SetActive(false);
     }
 }

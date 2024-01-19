@@ -9,9 +9,9 @@ public class ColorImage : MonoBehaviour
 {
     public ColorPickerControl picker;
 
-    private Image image;
+    public Image image;
 
-    private void Awake()
+    public void Init()
     {
         image = GetComponent<Image>();
         picker.onValueChanged.AddListener(ColorChanged);

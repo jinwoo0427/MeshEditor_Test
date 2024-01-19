@@ -27,7 +27,8 @@ namespace UnityEngine.UI.Extensions.ColorPicker
         {
             slider = GetComponent<BoxSlider>();
             image = GetComponent<RawImage>();
-
+            slider.OnValueChanged.AddListener(SliderChanged);
+            picker.onHSVChanged.AddListener(HSVChanged);
             RegenerateSVTexture();
         }
 
@@ -37,6 +38,7 @@ namespace UnityEngine.UI.Extensions.ColorPicker
             {
                 slider.OnValueChanged.AddListener(SliderChanged);
                 picker.onHSVChanged.AddListener(HSVChanged);
+                RegenerateSVTexture();
             }
         }
 
@@ -44,8 +46,8 @@ namespace UnityEngine.UI.Extensions.ColorPicker
         {
             if (picker != null)
             {
-                slider.OnValueChanged.RemoveListener(SliderChanged);
-                picker.onHSVChanged.RemoveListener(HSVChanged);
+                //slider.OnValueChanged.RemoveListener(SliderChanged);
+                //picker.onHSVChanged.RemoveListener(HSVChanged);
             }
         }
 

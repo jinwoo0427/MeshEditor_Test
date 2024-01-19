@@ -72,6 +72,9 @@ namespace GetampedPaint.Tools.Images
         {
             base.UpdatePress(pointerData);
             var brushOffset = GetPreviewVector(GetTexture(RenderTarget.ActiveLayer), pointerData.TexturePosition, pointerData.Pressure);
+            //Debug.Log(pointerData.TexturePosition);
+            brushOffset.x = Mathf.Clamp(brushOffset.x, 0f, 1f);
+            brushOffset.y = Mathf.Clamp(brushOffset.y, 0f, 1f);
             eyedropperMaterial.SetVector(Constants.EyedropperShader.BrushOffset, brushOffset);
             UpdateRenderTexture();
             Render();
@@ -104,10 +107,10 @@ namespace GetampedPaint.Tools.Images
             texture.Apply();
             RenderTexture.active = previousRenderTexture;
             var pixelColor = texture.GetPixel(0, 0);
-            if (!Settings.SampleAlpha)
-            {
-                pixelColor.a = Data.Brush.Color.a;
-            }
+            //if (!Settings.SampleAlpha)
+            //{
+            //    pixelColor.a = Data.Brush.Color.a;
+            //}
             Data.Brush.SetColor(pixelColor);
         }
 

@@ -695,7 +695,8 @@ namespace GetampedPaint.Core.PaintObject.Base
 
         public void SaveUndoTexture()
         {
-            ActiveLayer().SaveState();
+            if(Tool.Type != PaintTool.Eyedropper && Tool.Type != PaintTool.Selection)
+                ActiveLayer().SaveState();
         }
         
         /// <summary>

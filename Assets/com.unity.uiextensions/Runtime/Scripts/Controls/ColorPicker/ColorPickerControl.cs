@@ -87,9 +87,11 @@ namespace UnityEngine.UI.Extensions.ColorPicker
 			}
 		}
 
-		private void Start()
-		{
-			SendChangedEvent();
+        private void OnEnable()
+        {
+			//CurrentColor = Color.blue;
+			//Debug.Log(CurrentColor);
+            SendChangedEvent();
 		}
 
 		public float H
@@ -222,8 +224,8 @@ namespace UnityEngine.UI.Extensions.ColorPicker
 				SendChangedEvent();
 			}
 		}
-
-		private void RGBChanged()
+        
+        private void RGBChanged()
 		{
 			HsvColor color = HSVUtil.ConvertRgbToHsv(CurrentColor);
 

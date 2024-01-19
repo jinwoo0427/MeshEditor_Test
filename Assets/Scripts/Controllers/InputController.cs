@@ -91,9 +91,9 @@ namespace GetampedPaint.Controllers
                     OnMouseDown?.Invoke(0, mousePosition, 1f);
                     return;
                 }
-
                 if (Mouse.current.leftButton.isPressed)
                 {
+                    Debug.Log("?????");
                     OnMouseButton?.Invoke(0, mousePosition, 1f);
                 }
 
