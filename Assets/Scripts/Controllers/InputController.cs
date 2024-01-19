@@ -74,6 +74,7 @@ namespace GetampedPaint.Controllers
                 {
                     RedoKey?.Invoke();
                 }
+                
             }
             
             // Mouse

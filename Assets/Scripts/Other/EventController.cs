@@ -254,6 +254,13 @@ namespace GetampedPaint.Demo
                 {
                     //OpenToolSettings(Mouse.current.position.ReadValue());
                 }
+
+                // 에디터 모드 체인지
+                if (Keyboard.current.gKey.wasPressedThisFrame)
+                {
+                    Debug.Log("에디터 모드 체인징!!!");
+                }
+
             }
 #elif ENABLE_LEGACY_INPUT_MANAGER
             if (Input.GetMouseButtonDown(1))

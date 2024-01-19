@@ -57,7 +57,6 @@ public class CanvasSampleOpenFileImage : MonoBehaviour, IPointerDownHandler {
         //var loader = new WWW(url);
         //yield return loader;
         //output.texture = loader.texture;
-        Debug.Log(Mouse.current.leftButton.isPressed);
 
         using (UnityWebRequest www = UnityWebRequestTexture.GetTexture(url))
         {
@@ -79,9 +78,11 @@ public class CanvasSampleOpenFileImage : MonoBehaviour, IPointerDownHandler {
                 {
                     if (texture.width > 512 || texture.height > 512)
                     {
-                        layersController.AddNewLayer("ImportImage", texture, true);
+                        //layersController.AddNewLayer("ImportImage", texture, true);
                     }
-                    layersController.AddNewLayer("ImportImage", texture, true);
+                    layersController.AddNewLayer("ImportImage");
+                    Rect rect = new Rect(0, 0, texture.width, texture.height);
+                    layersController.AddLayerImage(texture, rect);
                 }
 
 
