@@ -30,7 +30,12 @@ namespace GetampedPaint.Demo
             public PaintManager PaintManager;
             public string Text;
         }
-        
+        [Serializable]
+        public class MeshModifyManagersData
+        {
+            public MeshModifyManager MeshModifyManager;
+            public string Text;
+        }
         [Serializable]
         public class ButtonPaintItem
         {
@@ -55,9 +60,20 @@ namespace GetampedPaint.Demo
             Selection = 8,
             Smoothing = 16
         }
+
+        public enum EditMode
+        {
+            None = 0,
+            Paint,
+            MeshModify,
+        }
+
         [SerializeField] private PaintBoardManager paintBoardManager;
+        [SerializeField] private Canvas[] canvas;
         [SerializeField] private PaintManagersData[] paintManagers;
+        [SerializeField] private MeshModifyManagersData[] meshModifyManagers;
         [SerializeField] private Camera mainCamera;
+        [SerializeField] private Camera modelViewCamera;
         [SerializeField] private bool loadPrefs = true;
         
         [Header("Top panel")]
@@ -78,6 +94,7 @@ namespace GetampedPaint.Demo
         [SerializeField] private Slider bucketSlider;
         [SerializeField] private EventTrigger lineSmoothingPanel;
         [SerializeField] private Slider lineSmoothingSlider;
+        [SerializeField] private ColorImage colorFill;
         [SerializeField] private ButtonPaintItem[] colors;
         [SerializeField] private TogglePaintItem[] brushes;
         [SerializeField] private RectTransform toolSettingsPalette;
@@ -103,18 +120,25 @@ namespace GetampedPaint.Demo
         [SerializeField] private Button PreviousButton;
         [SerializeField] private Button NextButton;
 
-        [Header("")]
-        public ColorImage colorFill;
+        [Header("Mesh Canvas Panel")]
+        [SerializeField] private EditMode editMode;
 
+        [SerializeField] private TextMeshProUGUI meshModifyNametext;
+        [SerializeField] private Button MeshPreviousButton;
+        [SerializeField] private Button MeshNextButton;
+
+        private bool isChangeMode = false;
         private EventTrigger.Entry hoverEnter;
         private EventTrigger.Entry hoverExit;
         private EventTrigger.Entry onDown;
         private PaintManager PaintManager => paintManagers[currentPaintManagerId].PaintManager;
+        private MeshModifyManager MeshModifyManager => meshModifyManagers[currentMeshModifyManagerId].MeshModifyManager;
         private Texture selectedBrushTexture;
         private Animator paintManagerAnimator;
         private PaintTool previousTool;
         private Vector3 defaultPalettePosition;
         private int currentPaintManagerId;
+        private int currentMeshModifyManagerId;
         private bool previousCameraMoverState;
         private ColorPickerControl colorPicker;
         private const int TutorialShowCount = 5;
@@ -151,6 +175,8 @@ namespace GetampedPaint.Demo
             PaintController.Instance.paintBoardManager = paintBoardManager;
             PaintController.Instance.SetCurPaintManager(PaintManager);
 
+            editMode = EditMode.Paint;
+            EnableStates();
         }
 
         private IEnumerator Start()
@@ -208,6 +234,8 @@ namespace GetampedPaint.Demo
             NextButton.onClick.AddListener(SwitchToNextPaintManager);
             PreviousButton.onClick.AddListener(SwitchToPreviousPaintManager);
 
+            MeshNextButton.onClick.AddListener(SwitchToNextMeshModifyManager);
+            MeshPreviousButton.onClick.AddListener(SwitchToPreviousMeshModifyManager);
 
             onDown = new EventTrigger.Entry {eventID = EventTriggerType.PointerDown};
             onDown.callback.AddListener(ResetPlates);
@@ -259,6 +287,7 @@ namespace GetampedPaint.Demo
                 if (Keyboard.current.gKey.wasPressedThisFrame)
                 {
                     Debug.Log("에디터 모드 체인징!!!");
+                    ChangeEditMode();
                 }
 
             }
@@ -323,21 +352,81 @@ namespace GetampedPaint.Demo
                 brushItem.Toggle.onValueChanged.RemoveListener(delegate(bool isOn) { BrushClick(isOn, brushItem, brushId); });
             }
         }
+        public void ChangeEditMode()
+        {
+            switch (editMode)
+            {
+                case EditMode.None:
+                    break;
+                case EditMode.Paint:
+                    editMode = EditMode.MeshModify;
+                    DisableStates();
+                    break;
+                case EditMode.MeshModify:
+                    editMode = EditMode.Paint;
+                    EnableStates();
+                    break;
+                default:
+                    break;
+            }
+        }
 
         public void DisableStates()
         {
-            if (PaintManager != null && PaintManager.StatesController != null && PaintManager.Initialized)
+            if (PaintManager != null )
             {
-                PaintManager.StatesController.Disable();
+                
+                paintBoardManager.enabled = false;
+                canvas[0].gameObject.SetActive(false);
+                canvas[1].gameObject.SetActive(true);
+                modelViewCamera.gameObject.SetActive(true);
+
+                foreach (var paintManager in paintManagers)
+                {
+                    paintManager.PaintManager.enabled = false;
+                    paintManager.PaintManager?.StatesController?.Disable();
+                }
+
+                foreach (var meshManager in meshModifyManagers)
+                {
+                    meshManager.MeshModifyManager.enabled = true;
+                }
+
+
+                OnInitializedMeshModify();
             }
         }
 
         public void EnableStates()
         {
-            if (PaintManager != null && PaintManager.StatesController != null && PaintManager.Initialized)
+            if (PaintManager != null )
             {
-                PaintManager.StatesController.Enable();
+                MeshModifyManager.gameObject.SetActive(false);
+                PaintManager.gameObject.SetActive(true);
+                paintBoardManager.enabled = true;
+                canvas[0].gameObject.SetActive(true);
+                canvas[1].gameObject.SetActive(false);
+                modelViewCamera.gameObject.SetActive(false);
+
+                foreach (var paintManager in paintManagers)
+                {
+                    paintManager.PaintManager.enabled = true;
+                    paintManager.PaintManager?.StatesController?.Enable();
+                }
+
+                foreach (var meshManager in meshModifyManagers)
+                {
+                    meshManager.MeshModifyManager.enabled = false;
+                }
             }
+        }
+
+        private void OnInitializedMeshModify()
+        {
+            currentMeshModifyManagerId = currentPaintManagerId;
+            meshModifyNametext.SetText(meshModifyManagers[currentMeshModifyManagerId].Text);
+            MeshModifyManager.gameObject.SetActive(true);
+
         }
 
         private void OnInitialized(PaintManager paintManagerInstance)
@@ -620,7 +709,37 @@ namespace GetampedPaint.Demo
                 PaintManager.Render();
             }
         }
+        public void SwitchToNextMeshModifyManager()
+        {
+            SwitchMeshModifyManager(true);
 
+        }
+        public void SwitchToPreviousMeshModifyManager()
+        {
+            SwitchMeshModifyManager(false);
+        }
+        private void SwitchMeshModifyManager(bool switchToNext)
+        {
+            
+
+            MeshModifyManager.gameObject.SetActive(false);
+
+            if (switchToNext)
+            {
+                currentMeshModifyManagerId = (currentMeshModifyManagerId + 1) % meshModifyManagers.Length;
+            }
+            else
+            {
+                currentMeshModifyManagerId--;
+                if (currentMeshModifyManagerId < 0)
+                {
+                    currentMeshModifyManagerId = meshModifyManagers.Length - 1;
+                }
+            }
+            meshModifyNametext.SetText(meshModifyManagers[currentMeshModifyManagerId].Text);
+            MeshModifyManager.gameObject.SetActive(true);
+
+        }
         public void SwitchToNextPaintManager()
         {
             SwitchPaintManager(true);
@@ -675,8 +794,6 @@ namespace GetampedPaint.Demo
 
             PaintController.Instance.SetCurPaintManager(PaintManager);
             paintNametext.SetText(paintManagers[currentPaintManagerId].Text);
-
-            
 
             toolsToggles.First(x => x.Tool == PaintTool.Brush).Toggle.isOn = true;
             PaintManager.gameObject.SetActive(true);

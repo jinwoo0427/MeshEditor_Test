@@ -121,7 +121,7 @@ public class MeshModifyManager : MonoBehaviour, IMeshModifyManager
             return;
         }
 
-
+        componentType = ObjectComponentType.MeshFilter;
         if (componentType == ObjectComponentType.Unknown)
         {
             Debug.LogError("Unknown component type!");

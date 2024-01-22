@@ -69,6 +69,7 @@ public abstract class BaseMeshModifyObject : BaseMeshModifyObjectRenderer
 
     public void OnMouseHover(int fingerId, Vector3 position, RaycastData raycast = null)
     {
+        Debug.Log("OnMouseHover");
         hovering.mode = elementMode;
         int hash = hovering.hashCode;
         bool wasValid = hovering.valid;

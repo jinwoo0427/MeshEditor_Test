@@ -1,4 +1,4 @@
-﻿Shader "Hidden/QuickEdit/VertexShader"
+﻿Shader "QuickEdit/VertexShader"
 {
 	Properties
 	{
@@ -77,8 +77,12 @@
 
 			half4 frag (v2f i) : COLOR
 			{
-				_WireColor *= i.color;
-				return tex2D(_MainTex, i.uv) * _WireColor;
+				// if (i.uv.x == 0.5 && i.uv.y == 0.5)
+				// {
+				//     return float4(1, 0, 0, 1); // 빨간색 반환
+				// }
+				//_WireColor *= i.color;
+				return _WireColor;
 			}
 
 			ENDCG

@@ -5,6 +5,7 @@ using static UnityEngine.Rendering.VirtualTexturing.Debugging;
 
 public class CameraController : MonoBehaviour
 {
+    public bool isMeshEdit = false;
     [SerializeField]
     float _zoomSpeed = 0.5f;
     [SerializeField]
@@ -22,12 +23,24 @@ public class CameraController : MonoBehaviour
     public PaintManager texturePainter;
     public RectTransform paintBoard;
     public RectTransform LayerUI;
+    public RectTransform PreviewUI;
 
     private void LateUpdate()
     {
         // 마우스가 특정 UI 위에 있는지 확인
-        if (IsInMousePos(paintBoard, 5f) || IsInMousePos(LayerUI, 5f))
-            return;
+        if (isMeshEdit)
+        {
+            if (!IsInMousePos(PreviewUI, 5f))
+                return;
+        }
+        else
+        {
+            if (IsInMousePos(paintBoard, 5f) || IsInMousePos(LayerUI, 5f))
+            {
+                //Debug.Log("dfjksdlfal;sfd");
+                return;
+            }
+        }
 
         CameraZoom();
         CameraDrag();

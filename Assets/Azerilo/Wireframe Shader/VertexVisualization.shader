@@ -1,72 +1,83 @@
-Shader "Custom/UVVisualization"
+Shader "MeshEdit/VertexVisualization"
 {
-    Properties
+	 Properties
     {
-        _Color ("Marker Color", Color) = (1, 1, 1, 1)
-        _Size ("Marker Size", Range(0.001, 0.1)) = 0.005
+        _PointSize ("Point Size", Range (0.1, 100)) = 1.0
     }
 
     SubShader
     {
         Tags
         {
-            "RenderType"="Opaque"
-            "Queue"="Overlay"
+            "Queue" = "Overlay"
         }
 
         Pass
         {
-            Name "UV_MARKER"
-            Blend SrcAlpha OneMinusSrcAlpha
-
-            Cull Off
-            ZWrite On  // Enable writing to the depth buffer
-            ZTest Always
-
-            ColorMask RGB
-
             CGPROGRAM
             #pragma vertex vert
-            #pragma exclude_renderers gles xbox360 ps3
+            #pragma exclude_renderers gles xbox360 xboxone ps4 switch
+            ENDCG
+
+            SetTexture[_CameraColorTexture]
+            {
+                combine primary
+            }
+        }
+    }
+
+    SubShader
+    {
+        Tags
+        {
+            "Queue" = "Overlay"
+        }
+
+        Pass
+        {
+            CGPROGRAM
+            #pragma vertex vert
+            #pragma exclude_renderers gles xbox360 xboxone ps4 switch
             #pragma fragment frag
+            #pragma multi_compile_instancing
 
             #include "UnityCG.cginc"
 
             struct appdata
             {
                 float4 vertex : POSITION;
-                float2 uv : TEXCOORD0;
             };
 
             struct v2f
             {
                 float4 pos : POSITION;
-                float2 uv : TEXCOORD0;
             };
 
-            fixed4 _Color;
-            float _Size;
+            uniform float _PointSize;
 
             v2f vert(appdata v)
             {
                 v2f o;
                 o.pos = UnityObjectToClipPos(v.vertex);
-                o.uv = v.uv;
+
+                // Calculate the point size in screen space
+                o.pos = ComputeGrabScreenPos(o.pos);
+                o.pos.xy /= o.pos.w;
+                o.pos.xy *= _PointSize * 0.005 * UNITY_MATRIX_P[0][0];
+
                 return o;
             }
 
             fixed4 frag(v2f i) : COLOR
             {
-                // Visualize UV as a cross marker
-                float pointSize = _Size / i.pos.w;
-                float2 cross = abs(i.pos.xy / i.pos.w);
-                float crossSize = max(cross.x, cross.y);
-                float alpha = 1.0 - saturate(crossSize - pointSize);
-                fixed4 col = _Color;
-                col.a *= alpha;
-                return col;
+                return fixed4(1, 1, 1, 1);
             }
             ENDCG
+
+            SetTexture[_CameraColorTexture]
+            {
+                combine primary
+            }
         }
     }
 }

@@ -69,7 +69,7 @@ namespace GetampedPaint.States
             
             currentGroupIndex = -1;
             minUndoStatesCount = 0;
-            Debug.Log("설마 실행이 되지 않겠지");
+            //Debug.Log("설마 실행이 되지 않겠지");
 #if UNITY_EDITOR && XDP_DEBUG
             texturesStates.Clear();
 #endif
@@ -519,10 +519,10 @@ namespace GetampedPaint.States
                             }
                         }
                     }
+
                     //최대 허용 작업 수를 초과하는 경우, 상태 그룹 목록에서 첫 번째 그룹을 제거합니다.
                     //혹은 그렇지 않은 경우, 현재 그룹 인덱스 이후의 모든 그룹을 제거합니다.
                     statesGroups = statesGroups.GetRange(1, statesGroups.Count - 1);
-
                 }
                 else if (statesGroups.Count > currentGroupIndex)
                 {

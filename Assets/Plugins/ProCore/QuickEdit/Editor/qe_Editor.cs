@@ -524,12 +524,12 @@ namespace QuickEdit
 				DestroyImmediate(selection.mesh.handlesRenderer.material);
 
 			selection.mesh.handlesRenderer.material = new Material(
-				Shader.Find( mode == ElementMode.Vertex ? "Hidden/QuickEdit/VertexShader" : "Hidden/QuickEdit/FaceShader") );
+				Shader.Find( mode == ElementMode.Vertex ? "QuickEdit/VertexShader" : "Hidden/QuickEdit/FaceShader") );
 
 			if(elementMode == ElementMode.Vertex)	
 				selection.mesh.handlesRenderer.material.SetFloat("_Scale", 3f);
 
-			selection.mesh.handlesRenderer.material.hideFlags = HideFlags.HideAndDontSave;
+			//selection.mesh.handlesRenderer.material.hideFlags = HideFlags.HideAndDontSave;
 
 			CacheIndicesForGraphics();
 			
