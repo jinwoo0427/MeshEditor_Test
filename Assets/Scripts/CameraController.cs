@@ -103,6 +103,8 @@ public class CameraController : MonoBehaviour
     float totalRun = 1.0f;
     private void CameraInput()
     {
+        if (!Input.GetMouseButton(1)) return;
+        
         Vector3 p_Velocity = new Vector3();
         if (Input.GetKey(KeyCode.E))
             p_Velocity += new Vector3(0, 1f, 0);

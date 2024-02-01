@@ -16,28 +16,6 @@ Shader "MeshEdit/VertexVisualization"
         {
             CGPROGRAM
             #pragma vertex vert
-            #pragma exclude_renderers gles xbox360 xboxone ps4 switch
-            ENDCG
-
-            SetTexture[_CameraColorTexture]
-            {
-                combine primary
-            }
-        }
-    }
-
-    SubShader
-    {
-        Tags
-        {
-            "Queue" = "Overlay"
-        }
-
-        Pass
-        {
-            CGPROGRAM
-            #pragma vertex vert
-            #pragma exclude_renderers gles xbox360 xboxone ps4 switch
             #pragma fragment frag
             #pragma multi_compile_instancing
 
@@ -52,7 +30,7 @@ Shader "MeshEdit/VertexVisualization"
             {
                 float4 pos : POSITION;
             };
-
+            
             uniform float _PointSize;
 
             v2f vert(appdata v)
@@ -60,7 +38,7 @@ Shader "MeshEdit/VertexVisualization"
                 v2f o;
                 o.pos = UnityObjectToClipPos(v.vertex);
 
-                // Calculate the point size in screen space
+                // 화면 공간의 포인트 크기 계산
                 o.pos = ComputeGrabScreenPos(o.pos);
                 o.pos.xy /= o.pos.w;
                 o.pos.xy *= _PointSize * 0.005 * UNITY_MATRIX_P[0][0];
@@ -73,11 +51,7 @@ Shader "MeshEdit/VertexVisualization"
                 return fixed4(1, 1, 1, 1);
             }
             ENDCG
-
-            SetTexture[_CameraColorTexture]
-            {
-                combine primary
-            }
+            
         }
     }
 }

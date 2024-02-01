@@ -289,7 +289,6 @@ namespace GetampedPaint.Demo
                     Debug.Log("에디터 모드 체인징!!!");
                     ChangeEditMode();
                 }
-
             }
 #elif ENABLE_LEGACY_INPUT_MANAGER
             if (Input.GetMouseButtonDown(1))

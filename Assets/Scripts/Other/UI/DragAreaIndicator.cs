@@ -11,17 +11,17 @@ using GetampedPaint.Utils;
 
 public class DragAreaIndicator : MonoBehaviour
 {
-    public RawImage dragIndicator; // µå·¡±× ¿µ¿ªÀ» ³ªÅ¸³»´Â ÀÌ¹ÌÁö
+    public RawImage dragIndicator; // ë“œë˜ê·¸ ì˜ì—­ì„ ë‚˜íƒ€ë‚´ëŠ” ì´ë¯¸ì§€
     public RectTransform dragRectTransform;
-    public RectTransform dragArea; // Æ¯Á¤ ¿µ¿ªÀ» ³ªÅ¸³»´Â RectTransform
+    public RectTransform dragArea; // íŠ¹ì • ì˜ì—­ì„ ë‚˜íƒ€ë‚´ëŠ” RectTransform
 
     public GameObject DragHandleObj;
     public List<DragHandle> DragHandles ;
 
-    private RawImage paintBoard; // µå·¡±× ¿µ¿ªÀ» ³ªÅ¸³»´Â ÀÌ¹ÌÁö
-    private RectTransform dragRect; // µå·¡±× ÁßÀÎ ¿µ¿ª ÀúÀå
-    private Vector2 dragStartPosition; // µå·¡±× ½ÃÀÛ ÁöÁ¡
-    private Vector2 currentMousePosition; // ÇöÀç ¸¶¿ì½º À§Ä¡
+    private RawImage paintBoard; // ë“œë˜ê·¸ ì˜ì—­ì„ ë‚˜íƒ€ë‚´ëŠ” ì´ë¯¸ì§€
+    private RectTransform dragRect; // ë“œë˜ê·¸ ì¤‘ì¸ ì˜ì—­ ì €ì¥
+    private Vector2 dragStartPosition; // ë“œë˜ê·¸ ì‹œì‘ ì§€ì 
+    private Vector2 currentMousePosition; // í˜„ì¬ ë§ˆìš°ìŠ¤ ìœ„ì¹˜
     private Vector2 lastMousePosition;
     private bool isDragMoving = false;
     private bool isDragging = false;
@@ -104,10 +104,10 @@ public class DragAreaIndicator : MonoBehaviour
 
             Rect _dragRect = GetDragRect(point1, point2);
 
-            // paintBoard.uvRectÀÇ ¿µ¿ªÀ» °í·ÁÇÏ¿© ÅØ½ºÃ³ Å©±â °è»ê
+            // paintBoard.uvRectì˜ ì˜ì—­ì„ ê³ ë ¤í•˜ì—¬ í…ìŠ¤ì²˜ í¬ê¸° ê³„ì‚°
             float uvWidth = paintBoard.uvRect.width;
             float uvHeight = paintBoard.uvRect.height;
-            // paintBoard.uvRectÀÇ ¿µ¿ªÀ» °í·ÁÇÏ¿© À§Ä¡ °è»ê
+            // paintBoard.uvRectì˜ ì˜ì—­ì„ ê³ ë ¤í•˜ì—¬ ìœ„ì¹˜ ê³„ì‚°
             float uvX = paintBoard.uvRect.x;
             float uvY = paintBoard.uvRect.y;
 
@@ -125,7 +125,7 @@ public class DragAreaIndicator : MonoBehaviour
             else
                 tex = addTexture;
 
-            // µå·¡±× Å©±â * µå·¡±× À§Ä¡ ºñÀ² + Á¶Á¤µÈ À§Ä¡ = ½ÇÁ¦ µå·¡±× À§Ä¡
+            // ë“œë˜ê·¸ í¬ê¸° * ë“œë˜ê·¸ ìœ„ì¹˜ ë¹„ìœ¨ + ì¡°ì •ëœ ìœ„ì¹˜ = ì‹¤ì œ ë“œë˜ê·¸ ìœ„ì¹˜
             int dragX = (int)((originalTexture.width * uvWidth) * (_dragRect.x / originalTexture.width) + (uvX * originalTexture.width));
             int dragY = (int)((originalTexture.height * uvHeight) * (_dragRect.y / originalTexture.height) + (uvY * originalTexture.height));
 
@@ -134,19 +134,19 @@ public class DragAreaIndicator : MonoBehaviour
             //Debug.Log(adjustDragRect.width + "x" + adjustDragRect.height);
 
             
-            // »õ·Î¿î Texture2D¸¦ ·¹ÀÌ¾î¿¡ Ãß°¡
+            // ìƒˆë¡œìš´ Texture2Dë¥¼ ë ˆì´ì–´ì— ì¶”ê°€
             PaintController.Instance.GetCurPaintManager().LayersController.AddLayerImage(tex, adjustDragRect);
         }
     }
-    // ÅØ½ºÃ³ Å©±â Á¶Àı ¹× ÇÈ¼¿ Æò±Õ »ö»ó Á¶Á¤ ÇÔ¼ö
+    // í…ìŠ¤ì²˜ í¬ê¸° ì¡°ì ˆ ë° í”½ì…€ í‰ê·  ìƒ‰ìƒ ì¡°ì • í•¨ìˆ˜
     Texture2D ResizeTexture(Texture2D sourceTexture, int newWidth, int newHeight)
     {
         Texture2D newTexture = new Texture2D(newWidth, newHeight);
 
-        // ±âÁ¸ ÅØ½ºÃ³ÀÇ ÇÈ¼¿ µ¥ÀÌÅÍ °¡Á®¿À±â
+        // ê¸°ì¡´ í…ìŠ¤ì²˜ì˜ í”½ì…€ ë°ì´í„° ê°€ì ¸ì˜¤ê¸°
         Color[] sourcePixels = sourceTexture.GetPixels();
 
-        // ÇÈ¼¿ Å©±â ºñÀ² °è»ê
+        // í”½ì…€ í¬ê¸° ë¹„ìœ¨ ê³„ì‚°
         float xRatio = (float)sourceTexture.width / newWidth;
         float yRatio = (float)sourceTexture.height / newHeight;
 
@@ -154,14 +154,14 @@ public class DragAreaIndicator : MonoBehaviour
         {
             for (int x = 0; x < newWidth; x++)
             {
-                // »õ·Î¿î ÇÈ¼¿ À§Ä¡ °è»ê
+                // ìƒˆë¡œìš´ í”½ì…€ ìœ„ì¹˜ ê³„ì‚°
                 int sourceX = Mathf.FloorToInt(x * xRatio);
                 int sourceY = Mathf.FloorToInt(y * yRatio);
 
-                // ÁÖº¯ ³× °³ÀÇ ÇÈ¼¿ÀÇ Æò±Õ »ö»ó °è»ê
+                // ì£¼ë³€ ë„¤ ê°œì˜ í”½ì…€ì˜ í‰ê·  ìƒ‰ìƒ ê³„ì‚°
                 Color averageColor = AverageColor(sourcePixels, sourceX, sourceY, sourceTexture.width, sourceTexture.height);
 
-                // »õ·Î¿î ÅØ½ºÃ³¿¡ ÇÈ¼¿ »ö»ó ¼³Á¤
+                // ìƒˆë¡œìš´ í…ìŠ¤ì²˜ì— í”½ì…€ ìƒ‰ìƒ ì„¤ì •
                 newTexture.SetPixel(x, y, averageColor);
             }
         }
@@ -170,7 +170,7 @@ public class DragAreaIndicator : MonoBehaviour
         return newTexture;
     }
 
-    // ÁÖº¯ ³× °³ÀÇ ÇÈ¼¿ÀÇ Æò±Õ »ö»ó °è»ê ÇÔ¼ö
+    // ì£¼ë³€ ë„¤ ê°œì˜ í”½ì…€ì˜ í‰ê·  ìƒ‰ìƒ ê³„ì‚° í•¨ìˆ˜
     Color AverageColor(Color[] pixels, int x, int y, int textureWidth, int textureHeight)
     {
         Color sumColor = Color.clear;
@@ -185,7 +185,7 @@ public class DragAreaIndicator : MonoBehaviour
 
                 int index = neighborY * textureWidth + neighborX;
 
-                // ÇØ´ç ÇÈ¼¿ÀÌ Åõ¸íÇÏÁö ¾ÊÀº °æ¿ì¿¡¸¸ °è»ê¿¡ Æ÷ÇÔ
+                // í•´ë‹¹ í”½ì…€ì´ íˆ¬ëª…í•˜ì§€ ì•Šì€ ê²½ìš°ì—ë§Œ ê³„ì‚°ì— í¬í•¨
                 if (pixels[index].a > 0f)
                 {
                     sumColor += pixels[index];
@@ -194,7 +194,7 @@ public class DragAreaIndicator : MonoBehaviour
             }
         }
 
-        // Áß°£ »ö»ó °è»ê
+        // ì¤‘ê°„ ìƒ‰ìƒ ê³„ì‚°
         Color averageColor = count > 0 ? sumColor / count : Color.clear;
 
         return averageColor;
@@ -281,7 +281,7 @@ public class DragAreaIndicator : MonoBehaviour
         Vector3[] corners = new Vector3[4];
         rect.GetWorldCorners(corners);
 
-        // ¸¶¿ì½º Æ÷ÀÎÅÍ°¡ Æ¯Á¤ ¿µ¿ª ¾È¿¡ ÀÖ´ÂÁö È®ÀÎ
+        // ë§ˆìš°ìŠ¤ í¬ì¸í„°ê°€ íŠ¹ì • ì˜ì—­ ì•ˆì— ìˆëŠ”ì§€ í™•ì¸
         return RectTransformUtility.RectangleContainsScreenPoint(rect, mousePos);
     }
     public void StartDrag()
@@ -309,7 +309,7 @@ public class DragAreaIndicator : MonoBehaviour
 
         Vector2 dragSize = currentMousePosition - dragStartPosition;
         dragRect.sizeDelta = new Vector2(Mathf.Abs(dragSize.x), Mathf.Abs(dragSize.y));
-        // µå·¡±× Å©±â°¡ À½¼öÀÎ °æ¿ì Ã³¸®
+        // ë“œë˜ê·¸ í¬ê¸°ê°€ ìŒìˆ˜ì¸ ê²½ìš° ì²˜ë¦¬
         float newX = dragStartPosition.x + dragSize.x / 2;
         float newY = dragStartPosition.y + dragSize.y / 2;
 
@@ -318,7 +318,7 @@ public class DragAreaIndicator : MonoBehaviour
     }
     private void EditTexture()
     {
-        // µå·¡±×ÇÑ ¿µ¿ªÀÇ ÁÂÇ¥ ¹× Å©±â¸¦ È¹µæ
+        // ë“œë˜ê·¸í•œ ì˜ì—­ì˜ ì¢Œí‘œ ë° í¬ê¸°ë¥¼ íšë“
         Rect _dragRect = GetDragRect(dragStartPosition, currentMousePosition);
         firstSize = new Vector2(_dragRect.width, _dragRect.height);
 
@@ -333,7 +333,7 @@ public class DragAreaIndicator : MonoBehaviour
         RenderTexture tex = curPM.LayersController.ActiveLayer.RenderTexture;
         originalTexture = tex.GetTexture2D();
 
-        // paintBoard.uvRectÀÇ ¿µ¿ªÀ» °í·ÁÇÏ¿© ÀûÀıÇÑ À§Ä¡ ¹× Å©±â °è»ê
+        // paintBoard.uvRectì˜ ì˜ì—­ì„ ê³ ë ¤í•˜ì—¬ ì ì ˆí•œ ìœ„ì¹˜ ë° í¬ê¸° ê³„ì‚°
         float uvX = paintBoard.uvRect.x;
         float uvY = paintBoard.uvRect.y;
         float uvWidth = paintBoard.uvRect.width;
@@ -342,7 +342,7 @@ public class DragAreaIndicator : MonoBehaviour
         int dragX = (int)((originalTexture.width * uvWidth) * (_dragRect.x / originalTexture.width) + (uvX * originalTexture.width));
         int dragY = (int)((originalTexture.height * uvHeight) * (_dragRect.y / originalTexture.height) + (uvY * originalTexture.height));
 
-        // ÅØ½ºÃ³¿¡¼­ µå·¡±×ÇÑ ¿µ¿ªÀ» º¹»çÇÏ¿© »õ·Î¿î ÅØ½ºÃ³ »ı¼º
+        // í…ìŠ¤ì²˜ì—ì„œ ë“œë˜ê·¸í•œ ì˜ì—­ì„ ë³µì‚¬í•˜ì—¬ ìƒˆë¡œìš´ í…ìŠ¤ì²˜ ìƒì„±
         Texture2D editedTexture = new Texture2D((int)(_dragRect.width * uvWidth), (int)(_dragRect.height * uvHeight));
         Color[] pixels = originalTexture.GetPixels(
             dragX,
@@ -357,11 +357,11 @@ public class DragAreaIndicator : MonoBehaviour
         editedTexture.Apply();
 
 
-        // µå·¡±×ÇÑ ¿µ¿ªÀÇ ÇÈ¼¿À» Åõ¸íÀ¸·Î Ã¤¿ì±â
+        // ë“œë˜ê·¸í•œ ì˜ì—­ì˜ í”½ì…€ì„ íˆ¬ëª…ìœ¼ë¡œ ì±„ìš°ê¸°
          Color[] transparentPixels = new Color[editedTexture.GetPixels().Length];
         for (int i = 0; i < transparentPixels.Length; i++)
         {
-            transparentPixels[i] = Color.clear; // Åõ¸íÇÑ »ö»óÀ¸·Î Ã¤¿ì±â
+            transparentPixels[i] = Color.clear; // íˆ¬ëª…í•œ ìƒ‰ìƒìœ¼ë¡œ ì±„ìš°ê¸°
         }
 
         originalTexture.SetPixels(
@@ -399,7 +399,7 @@ public class DragAreaIndicator : MonoBehaviour
         localEndPos =currentMousePosition;
         localStartPos += new Vector2(dragArea.rect.width / 2, dragArea.rect.height / 2);
         localEndPos += new Vector2(dragArea.rect.width / 2, dragArea.rect.height / 2);
-        // µå·¡±×ÇÑ ¿µ¿ªÀÇ Rect °è»ê
+        // ë“œë˜ê·¸í•œ ì˜ì—­ì˜ Rect ê³„ì‚°
         float xMin = Mathf.Min(Mathf.RoundToInt( localStartPos.x), Mathf.RoundToInt(localEndPos.x));
         float yMin = Mathf.Min(Mathf.RoundToInt(localStartPos.y), Mathf.RoundToInt(localEndPos.y));
         float width = Mathf.Abs(localEndPos.x - localStartPos.x);

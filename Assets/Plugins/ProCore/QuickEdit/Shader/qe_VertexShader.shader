@@ -54,7 +54,7 @@
 				o.pos.xyz *= .99;
 				o.pos = mul(UNITY_MATRIX_P, o.pos);
 
-				// convert vertex to screen space, add pixel-unit xy to vertex, then transform back to clip space.
+				// 정점을 화면 공간으로 변환하고 픽셀 단위 xy를 정점에 추가한 다음 다시 클립 공간으로 변환.
 				float4 clip = o.pos;
 
 				clip.xy /= clip.w;

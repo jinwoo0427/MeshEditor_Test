@@ -161,7 +161,6 @@ namespace GetampedPaint
             get => useSourceTextureAsBackground;
             set => useSourceTextureAsBackground = value;
         }
-
         
         public bool HasTrianglesData => triangles != null && triangles.Length > 0;
         

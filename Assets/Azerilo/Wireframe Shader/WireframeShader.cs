@@ -17,46 +17,46 @@ public class WireframeShader : MonoBehaviour
         {
 			Debug.LogError("The Wireframe Material field is empty. You must assign the wireframe material!");
 
-		}
+        }
 
         if ((GetComponent<MeshFilter>() != null) || (GetComponent<SkinnedMeshRenderer>() != null))        
-			hasMesh = true;
+	        hasMesh = true;
 
         if (hasMesh)
         {
-			bakedMesh = new Mesh();
-			wireframeObject = new GameObject("Wireframe");
-			wireframeObject.transform.SetParent(transform);
-			wireframeObject.transform.localPosition = Vector3.zero;
-			wireframeObject.transform.localScale = new Vector3(1, 1, 1);
-			wireframeObject.transform.localRotation = Quaternion.identity;
+	        bakedMesh = new Mesh();
+	        wireframeObject = new GameObject("Wireframe");
+	        wireframeObject.transform.SetParent(transform);
+	        wireframeObject.transform.localPosition = Vector3.zero;
+	        wireframeObject.transform.localScale = new Vector3(1, 1, 1);
+	        wireframeObject.transform.localRotation = Quaternion.identity;
 
-			var meshFilter = GetComponent<MeshFilter>();
+	        var meshFilter = GetComponent<MeshFilter>();
 
-			if (meshFilter == null)
-				isSkinned = true;
+	        if (meshFilter == null)
+		        isSkinned = true;
 
-			if (isSkinned)
-			{
-				var skinnedMeshRenderer = GetComponent<SkinnedMeshRenderer>();
-				bakedMesh = BakeMesh(skinnedMeshRenderer.sharedMesh);
-				var wireframeRenderer = wireframeObject.AddComponent<SkinnedMeshRenderer>();
-				wireframeRenderer.bones = skinnedMeshRenderer.bones;
-				wireframeRenderer.sharedMesh = bakedMesh;
-				wireframeRenderer.material = wireframeMaterial;
-			}
-			else
-			{				
-				bakedMesh = BakeMesh(meshFilter.sharedMesh);
-				wireframeObject.AddComponent<MeshRenderer>();
-				wireframeObject.AddComponent<MeshFilter>();
-				wireframeObject.GetComponent<MeshFilter>().sharedMesh = bakedMesh;
-				wireframeObject.GetComponent<MeshRenderer>().material = wireframeMaterial;
-			}
-		}
-		else
+	        if (isSkinned)
+	        {
+		        var skinnedMeshRenderer = GetComponent<SkinnedMeshRenderer>();
+		        bakedMesh = BakeMesh(skinnedMeshRenderer.sharedMesh);
+		        var wireframeRenderer = wireframeObject.AddComponent<SkinnedMeshRenderer>();
+		        wireframeRenderer.bones = skinnedMeshRenderer.bones;
+		        wireframeRenderer.sharedMesh = bakedMesh;
+		        wireframeRenderer.material = wireframeMaterial;
+	        }
+	        else
+	        {				
+		        bakedMesh = BakeMesh(meshFilter.sharedMesh);
+		        wireframeObject.AddComponent<MeshRenderer>();
+		        wireframeObject.AddComponent<MeshFilter>();
+		        wireframeObject.GetComponent<MeshFilter>().sharedMesh = bakedMesh;
+		        wireframeObject.GetComponent<MeshRenderer>().material = wireframeMaterial;
+	        }
+        }
+        else
         {
-			Debug.LogError(name + " does not have a mesh!");
+	        Debug.LogError(name + " does not have a mesh!");
         }
 	}
 

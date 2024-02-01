@@ -5,7 +5,8 @@ using UnityEngine;
 public class TestCode : MonoBehaviour
 {
     public Shader customShader; // 사용할 쉐이더를 Unity 에디터에서 설정
-    public Mesh mesh;
+    public Mesh   mesh;
+    
     void Start()
     {
         // 새로운 머테리얼 생성
