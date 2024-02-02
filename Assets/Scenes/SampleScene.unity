@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18171446, g: 0.2236794, b: 0.28597337, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4530,13 +4530,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 410087039}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalRotation: {x: 0.45451966, y: 0.12278718, z: 0.6963635, w: 0.5416761}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 18.747, y: 53.995, z: 113.859}
 --- !u!114 &410087042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9753,6 +9753,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6638649167991186952, guid: 2720977c928538c46b4ec5aa9149b7cf,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8606606687677028654, guid: 2720977c928538c46b4ec5aa9149b7cf,
         type: 3}
@@ -19602,6 +19607,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1563072049}
     m_Modifications:
+    - target: {fileID: 1296664596312662732, guid: 2720977c928538c46b4ec5aa9149b7cf,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ae707cbd8e7e0f8458759fac994f9986, type: 2}
     - target: {fileID: 1331983694933621403, guid: 2720977c928538c46b4ec5aa9149b7cf,
         type: 3}
       propertyPath: subMesh
@@ -19621,7 +19631,7 @@ PrefabInstance:
         type: 3}
       propertyPath: material.SourceMaterial
       value: 
-      objectReference: {fileID: 2100000, guid: 778266367b38b36459ce0074c8cc6f74, type: 2}
+      objectReference: {fileID: 2100000, guid: 1547c81e821bd194f89c2c3ec542ab6b, type: 2}
     - target: {fileID: 1331983694933621403, guid: 2720977c928538c46b4ec5aa9149b7cf,
         type: 3}
       propertyPath: material.SourceMaterial2
@@ -19634,8 +19644,13 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: db0801542043c954bad6c5d9467d69a5, type: 2}
     - target: {fileID: 1331983694933621403, guid: 2720977c928538c46b4ec5aa9149b7cf,
         type: 3}
+      propertyPath: material.shaderTextureName
+      value: _BaseMap
+      objectReference: {fileID: 0}
+    - target: {fileID: 1331983694933621403, guid: 2720977c928538c46b4ec5aa9149b7cf,
+        type: 3}
       propertyPath: material2.shaderTextureName
-      value: _BASE_COLOR_MAP
+      value: _BaseMap
       objectReference: {fileID: 0}
     - target: {fileID: 1331983694933621403, guid: 2720977c928538c46b4ec5aa9149b7cf,
         type: 3}
@@ -19684,8 +19699,18 @@ PrefabInstance:
       objectReference: {fileID: 413211878}
     - target: {fileID: 2238917186485466997, guid: 2720977c928538c46b4ec5aa9149b7cf,
         type: 3}
+      propertyPath: material.SourceMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: ae707cbd8e7e0f8458759fac994f9986, type: 2}
+    - target: {fileID: 2238917186485466997, guid: 2720977c928538c46b4ec5aa9149b7cf,
+        type: 3}
+      propertyPath: material.shaderTextureName
+      value: _BaseMap
+      objectReference: {fileID: 0}
+    - target: {fileID: 2238917186485466997, guid: 2720977c928538c46b4ec5aa9149b7cf,
+        type: 3}
       propertyPath: material2.shaderTextureName
-      value: _BASE_COLOR_MAP
+      value: _BaseMap
       objectReference: {fileID: 0}
     - target: {fileID: 2238917186485466997, guid: 2720977c928538c46b4ec5aa9149b7cf,
         type: 3}
@@ -19731,12 +19756,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 778266367b38b36459ce0074c8cc6f74, type: 2}
+      objectReference: {fileID: 2100000, guid: 1547c81e821bd194f89c2c3ec542ab6b, type: 2}
     - target: {fileID: 2791176743771203263, guid: 2720977c928538c46b4ec5aa9149b7cf,
         type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: db0801542043c954bad6c5d9467d69a5, type: 2}
+      objectReference: {fileID: 2100000, guid: dfc123da97fa52a43b3de184c33196e9, type: 2}
     - target: {fileID: 2791176743771203263, guid: 2720977c928538c46b4ec5aa9149b7cf,
         type: 3}
       propertyPath: m_Materials.Array.data[2]
@@ -19765,8 +19790,18 @@ PrefabInstance:
       objectReference: {fileID: 413211878}
     - target: {fileID: 5112017443446198314, guid: 2720977c928538c46b4ec5aa9149b7cf,
         type: 3}
+      propertyPath: material.SourceMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 2cf990a9db3e289498b123d143699075, type: 2}
+    - target: {fileID: 5112017443446198314, guid: 2720977c928538c46b4ec5aa9149b7cf,
+        type: 3}
+      propertyPath: material.shaderTextureName
+      value: _BaseMap
+      objectReference: {fileID: 0}
+    - target: {fileID: 5112017443446198314, guid: 2720977c928538c46b4ec5aa9149b7cf,
+        type: 3}
       propertyPath: material2.shaderTextureName
-      value: _BASE_COLOR_MAP
+      value: _BaseMap
       objectReference: {fileID: 0}
     - target: {fileID: 5112017443446198314, guid: 2720977c928538c46b4ec5aa9149b7cf,
         type: 3}
@@ -19829,7 +19864,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: fd1f26914ac011649b6f405ccd1b0985, type: 2}
+      objectReference: {fileID: 2100000, guid: 2cf990a9db3e289498b123d143699075, type: 2}
     - target: {fileID: 7838705180682746923, guid: 2720977c928538c46b4ec5aa9149b7cf,
         type: 3}
       propertyPath: m_Materials.Array.data[1]
