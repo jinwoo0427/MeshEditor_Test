@@ -210,12 +210,12 @@ public class MeshModifyManager : MonoBehaviour, IMeshModifyManager
 
     private void UpdateGraphics()
     {
-        throw new NotImplementedException();
+
     }
 
     private void CacheIndicesForGraphics()
     {
-        throw new NotImplementedException();
+
     }
 
 

@@ -219,7 +219,8 @@ namespace QuickEdit
 
 			Copy(clonedMesh, mesh);
 
-			clonedMesh.name = UniqueName( mesh.name );
+			clonedMesh.name = "TestNAme";
+			//clonedMesh.name = UniqueName( mesh.name );
 
 			return clonedMesh;
 		}
@@ -651,7 +652,7 @@ namespace QuickEdit
 			int vl = vertices.Length;
 			int sl = selected.Length;
 
-			Vector3[] v = new Vector3[vl + sl];
+            Vector3[] v = new Vector3[vl + sl];
 			System.Array.Copy(vertices, 0, v, 0, vl); //v배열에 카피
 			System.Array.Copy(selected, 0, v, vl, sl);
 
@@ -667,7 +668,8 @@ namespace QuickEdit
 
 			Vector3 up = Vector3.up;
 			Vector3 right = Vector3.right;
-			
+
+
 			for(int i = 0; i < vl; i++)
 			{
 				t_billboards[t+0] = v[i];//-up-right;
@@ -757,6 +759,7 @@ namespace QuickEdit
 			mesh.uv2 = t_uv2;
 			mesh.colors32 = t_col;
 			mesh.triangles = t_tris;
+			
 		}
 #endregion
 	}

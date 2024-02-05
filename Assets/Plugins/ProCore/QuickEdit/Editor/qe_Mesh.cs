@@ -143,6 +143,7 @@ namespace QuickEdit
 			qmesh.cloneMesh = qe_Mesh_Utility.Clone( InGameObject.GetComponent<MeshFilter>().sharedMesh );
 			Undo.RegisterCreatedObjectUndo(qmesh.cloneMesh, "Open Quick Edit");
 
+
 			Undo.RecordObject(qmesh, "Open Quick Edit");
 			qmesh.Apply();
 

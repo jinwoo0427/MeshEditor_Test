@@ -1,7 +1,4 @@
-﻿// #define XDPAINT_VR_ENABLE
-
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using GetampedPaint.Tools;
@@ -26,7 +23,6 @@ namespace GetampedPaint.Controllers
         [SerializeField] private bool blockRaycastsOnPress;
         [SerializeField] private GameObject[] ignoreForRaycasts;
         
-        [Header("VR Settings")]
         public Transform PenTransform;
 
         public event Action OnUpdate;
