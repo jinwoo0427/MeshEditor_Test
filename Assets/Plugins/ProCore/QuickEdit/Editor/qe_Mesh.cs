@@ -131,7 +131,7 @@ namespace QuickEdit
 		public static qe_Mesh Create(GameObject InGameObject)
 		{
 			qe_Mesh qmesh = ScriptableObject.CreateInstance<qe_Mesh>();
-			qmesh.hideFlags = HideFlags.DontSave;
+			//qmesh.hideFlags = HideFlags.DontSave;
 
 			qmesh.gameObject = InGameObject;
 			qmesh.transform = qmesh.gameObject.transform;
@@ -148,10 +148,10 @@ namespace QuickEdit
 			qmesh.Apply();
 
 			qmesh.handlesRenderer = (qe_HandleRenderer) Undo.AddComponent(InGameObject, typeof(qe_HandleRenderer));
-			qmesh.handlesRenderer.hideFlags = HideFlags.HideAndDontSave;
+			//qmesh.handlesRenderer.hideFlags = HideFlags.HideAndDontSave;
 
 			qmesh.handlesRenderer.mesh = new Mesh();
-			qmesh.handlesRenderer.mesh.hideFlags = HideFlags.HideAndDontSave;
+			//qmesh.handlesRenderer.mesh.hideFlags = HideFlags.HideAndDontSave;
 			qmesh.handlesRenderer.material = null;
 
 			qmesh.CacheElements();

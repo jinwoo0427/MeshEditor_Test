@@ -585,6 +585,7 @@ namespace QuickEdit
 
 				case ElementMode.Vertex:
 				{
+						Debug.Log("TestVertext");
 					qe_Mesh_Utility.MakeVertexSelectionMesh(
 						ref selection.mesh.handlesRenderer.mesh,
 						qeUtil.ValuesWithIndices(selection.mesh.vertices, unselectedIndices),

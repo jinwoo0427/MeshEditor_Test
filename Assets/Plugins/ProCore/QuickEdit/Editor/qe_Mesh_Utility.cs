@@ -759,8 +759,8 @@ namespace QuickEdit
 			mesh.uv2 = t_uv2;
 			mesh.colors32 = t_col;
 			mesh.triangles = t_tris;
-			
-		}
+
+        }
 #endregion
 	}
 }

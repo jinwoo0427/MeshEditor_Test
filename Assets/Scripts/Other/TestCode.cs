@@ -24,15 +24,16 @@ public class TestCode : MonoBehaviour
 
         clonedMesh.RecalculateBounds();
         mesh = clonedMesh;
-        transform.GetComponent<MeshFilter>().sharedMesh = clonedMesh;
+        //transform.GetComponent<MeshFilter>().sharedMesh = clonedMesh;
         material = newMaterial;
-        gameObject.GetComponent<MeshFilter>().sharedMesh = clonedMesh;
-
 
         //transform.GetComponent<MeshRenderer>().material = material;
 
         //CacheMeshValues();
-        MakeVertexSelectionMesh(ref mesh, mesh.vertices, mesh.vertices);
+        Vector3[] selectV = new Vector3[0];
+        //selectV[0] = mesh.vertices[0];
+        MakeVertexSelectionMesh(ref mesh, transform.GetComponent<MeshFilter>().mesh.vertices, selectV);
+        //transform.GetComponent<MeshFilter>().mesh = mesh;
         CacheMeshValues();
     }
     void OnDestroy()
@@ -41,20 +42,19 @@ public class TestCode : MonoBehaviour
     }
     void Update()
     {
-        // 게임뷰는 안보이게 하는 설정
-        //if( (Camera.current.gameObject.hideFlags & SceneCameraHideFlags) != SceneCameraHideFlags || Camera.current.name != "SceneCamera" )
-        //	return;
-        //Mesh msh = mesh;
-        //Material mat = material;
-        //if (mat == null || msh == null || !material.SetPass(0))
-        //{
-        //    Debug.Log("머가 문제니");
-        //    return;
-        //}
-       
 
-        //Graphics.DrawMeshNow(msh, transform.localToWorldMatrix);
+        Mesh msh = mesh;
+        Material mat = material;
+        if (mat == null || msh == null || !material.SetPass(0))
+        {
+            Debug.Log("머가 문제니");
+            return;
+        }
+
+
+        Graphics.DrawMeshNow(msh, transform.localToWorldMatrix);
     }
+    // 메쉬 카피 해주는 넘
     public static void Copy(Mesh destMesh, Mesh src)
     {
         destMesh.Clear();
@@ -73,6 +73,7 @@ public class TestCode : MonoBehaviour
         for (int i = 0; i < src.subMeshCount; i++)
             destMesh.SetIndices(src.GetIndices(i), src.GetTopology(i), i);
     }
+    // 메쉬의 로컬 버텍스 좌표들을 월드로 변환시켜주기
     public void CacheMeshValues()
     {
         Vector3[] v = mesh.vertices;
@@ -84,6 +85,7 @@ public class TestCode : MonoBehaviour
         for (int i = 0; i < vc; i++)
             verticesInWorldSpace[i] = matrix.MultiplyPoint3x4(v[i]);
     }
+    // 버텍스 점 메쉬들 생성해주는 곳
     public static void MakeVertexSelectionMesh(ref Mesh mesh, Vector3[] vertices, Vector3[] selected)
     {
         int vl = vertices.Length;

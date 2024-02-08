@@ -201,7 +201,6 @@ public class MeshModifyManager : MonoBehaviour, IMeshModifyManager
         if (modifyModeType == ElementMode.Vertex)
             selection.mesh.handlesRenderer.material.SetFloat("_Scale", 3f);
 
-        selection.mesh.handlesRenderer.material.hideFlags = HideFlags.HideAndDontSave;
 
         CacheIndicesForGraphics();
 
