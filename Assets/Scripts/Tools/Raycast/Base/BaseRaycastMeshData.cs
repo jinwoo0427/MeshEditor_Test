@@ -98,33 +98,41 @@ namespace GetampedPaint.Tools.Raycast.Base
         public IRaycastRequest RequestRaycast(ulong requestId, IPaintManager sender, Ray ray, int fingerId, 
             Vector3? prevScreenPosition, Vector3? screenPosition = null, bool useWorld = true, bool useCache = true, bool raycastAll = true)
         {
+            // 레이캐스트 결과를 저장할 리스트들을 초기화
             raycasts.Clear();
             raycastsDict.Clear();
             lineRaycastTriangles.Clear();
             lineRaycastTriangles.Capacity = LineRaycastTrianglesCapacity;
 
+            // 레이를 월드 좌표계로 변환
             var rayTransformed = new Ray(ray.origin, ray.direction);
             if (useWorld)
             {
+                // sender의 MeshBounds를 업데이트하고, 레이가 메시의 경계와 교차하는지 확인
                 UpdateMeshBounds(sender);
                 MeshWorldBounds.Expand(0.0001f);
                 var boundsIntersect = MeshWorldBounds.IntersectRay(ray);
                 if (!boundsIntersect || !IsBoundsInDepth(MeshWorldBounds, screenPosition))
                     return null;
 
+                // 화면 좌표를 월드 좌표로 변환
                 var origin = Transform.InverseTransformPoint(ray.origin);
                 var direction = Transform.InverseTransformVector(ray.direction);
                 rayTransformed = new Ray(origin, direction);
             }
 
+            // 레이캐스트 요청 객체를 초기화
             IRaycastRequest raycastRequest = null;
             var paintManager = sender;
             var paintManagerComponent = (PaintManager)sender;
             if (paintManagerComponent.gameObject.activeInHierarchy && paintManagerComponent.enabled)
             {
+                // 레이캐스트에 사용할 삼각형 리스트를 가져옴
                 var lineTriangles = RaycastController.Instance.GetLineTriangles(paintManagerComponent, fingerId);
                 var raycastAllTriangles = raycastAll || lineTriangles == null;
                 var triangles = raycastAllTriangles ? paintManagerComponent.Triangles : lineTriangles;
+
+                // 레이캐스트에 사용할 평면들의 위치와 법선을 계산
                 var cameraPos = PaintController.Instance.Camera.transform.position;
                 var distance = Vector3.Distance(cameraPos, transform.position);
                 var hit2 = PaintController.Instance.Camera.ScreenToWorldPoint(new Vector3(screenPosition.Value.x, screenPosition.Value.y, distance));
@@ -140,6 +148,7 @@ namespace GetampedPaint.Tools.Raycast.Base
 
                 if (Settings.Instance.RaycastsMethod == RaycastSystemType.JobSystem)
                 {
+                    // JobSystem을 사용하여 레이캐스트를 수행
                     var verticesData = trianglesSubMeshData[paintManager.SubMesh];
                     if (!IsTrianglesDataUpdated)
                     {
@@ -160,6 +169,7 @@ namespace GetampedPaint.Tools.Raycast.Base
                         }
                     }
 
+                    // NativeArray로 데이터를 복사
                     var trianglesData = new NativeArray<TriangleData>(verticesData.TrianglesData, Allocator.TempJob);
                     var data = new NativeArray<RaycastTriangleData>(verticesData.TrianglesData.Length, Allocator.TempJob);
                     var jobRay = raycastAll ? rayTransformed : ray;
@@ -178,6 +188,7 @@ namespace GetampedPaint.Tools.Raycast.Base
                         SkipPlaneIntersectsTriangle = skipPlaneIntersectsTriangle
                     };
 
+                    // Job을 스케쥴
                     var jobHandle = job.Schedule(verticesData.TrianglesData.Length, 32);
                     var request = new JobRaycastRequest
                     {

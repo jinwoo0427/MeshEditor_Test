@@ -389,7 +389,7 @@ namespace GetampedPaint.Controllers
             {
                 if (PaintController.Instance.Camera.orthographic)
                 {
-                    Debug.LogWarning("Camera is orthographic, 'useDepthTexture' flag will be ignored.");
+                    Debug.LogWarning("Camera모드가 orthographic임, 'useDepthTexture' flag가 무시될거임.");
                     return;
                 }
                 

@@ -139,7 +139,7 @@ namespace GetampedPaint.Core.PaintObject.Base
         protected abstract bool IsInBounds(Vector3 position, RaycastData raycast);
 
         #endregion
-
+        
         public void Init(IPaintManager paintManagerInstance, Camera camera, Transform objectTransform, Paint paint, 
             IRenderTextureHelper renderTextureHelper, IStatesController states)
         {

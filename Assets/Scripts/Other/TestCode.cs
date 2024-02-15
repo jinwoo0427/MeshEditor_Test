@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 //[ExecuteInEditMode]
 public class TestCode : MonoBehaviour
 {
@@ -36,10 +37,6 @@ public class TestCode : MonoBehaviour
         //transform.GetComponent<MeshFilter>().mesh = mesh;
         CacheMeshValues();
     }
-    void OnDestroy()
-    {
-        //if (mesh) DestroyImmediate(mesh);
-    }
     void Update()
     {
 
@@ -54,6 +51,7 @@ public class TestCode : MonoBehaviour
 
         Graphics.DrawMeshNow(msh, transform.localToWorldMatrix);
     }
+
     // 메쉬 카피 해주는 넘
     public static void Copy(Mesh destMesh, Mesh src)
     {
