@@ -4090,6 +4090,14 @@ MonoBehaviour:
   autoScale: 0
   autoScaleFactor: 1
   handleCamera: {fileID: 0}
+  _previousMousePosition: {x: 0, y: 0, z: 0}
+  _previousAxis: {fileID: 0}
+  _draggingHandle: {fileID: 0}
+  _previousType: 0
+  _previousAxes: 0
+  _positionHandle: {fileID: 0}
+  _rotationHandle: {fileID: 0}
+  _scaleHandle: {fileID: 0}
   target: {fileID: 0}
 --- !u!4 &868630070
 Transform:
