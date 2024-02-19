@@ -39,30 +39,7 @@ namespace GetampedPaint.Tools.Raycast
             uvChannel = uvChannelIndex;
         }
 
-        private static int MIN(int lhs, int rhs)
-        {
-            return lhs < rhs ? lhs : rhs;
-        }
-
-        private static int MAX(int lhs, int rhs)
-        {
-            return lhs > rhs ? lhs : rhs;
-        }
-
-        public override int GetHashCode()
-        {
-            int min = MIN(MIN(I0, I1), I2);
-            int max = MAX(MAX(I0, I1), I2);
-            int mid = (I0 != min && I0 != max) ? I0 : (I1 != min && I1 != max) ? I1 : I2;
-
-            // Calculate the hash code for the product. 
-            return min ^ mid ^ max;
-        }
-
-        public override string ToString()
-        {
-            return string.Format("[{0}, {1}, {2}]", I0, I1, I2);
-        }
+                       
 
         public Edge[] GetEdges()
         {

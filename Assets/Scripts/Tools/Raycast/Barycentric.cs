@@ -32,7 +32,7 @@ namespace GetampedPaint.Tools.Raycast
             v = (bLen * ac - ab * bc) / d;
             w = 1.0f - u - v;
         }
-        // 보간
+        // u, v, w의 가중치에 따라 선형 보간
         public Vector3 Interpolate(Vector3 v1, Vector3 v2, Vector3 v3)
         {
             return v1 * u + v2 * v + v3 * w;

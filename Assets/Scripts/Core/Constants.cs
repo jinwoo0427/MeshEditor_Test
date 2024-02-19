@@ -5,10 +5,7 @@ namespace GetampedPaint.Core
 {
     public static class Constants
     {
-        public static class Defines
-        {
-            public static readonly string[] VREnabled = { "XDPAINT_VR_ENABLE" };
-        }
+        
         
         public static class Color
         {
