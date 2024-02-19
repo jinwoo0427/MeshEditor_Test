@@ -134,7 +134,7 @@ public class ModifyMesh : ScriptableObject, ISerializationCallbackReceiver
         //qmesh.source = qe_Editor_Utility.GetMeshGUID(qmesh.originalMesh, ref qmesh.originalMeshGUID);
 
         // Copy mesh from InMesh.
-        qmesh.cloneMesh = MeshUtils.Clone(InGameObject.GetComponent<MeshFilter>().sharedMesh);
+        //qmesh.cloneMesh = MeshUtils.Clone(InGameObject.GetComponent<MeshFilter>().sharedMesh);
         Undo.RegisterCreatedObjectUndo(qmesh.cloneMesh, "Open Quick Edit");
 
         Undo.RecordObject(qmesh, "Open Quick Edit");
