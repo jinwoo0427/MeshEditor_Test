@@ -10,11 +10,7 @@ using GetampedPaint.Demo.UI;
 using GetampedPaint.Tools;
 using GetampedPaint.Tools.Images;
 using TMPro;
-using GetampedPaint.States;
 using UnityEngine.UI.Extensions.ColorPicker;
-using ColorPickerUtil;
-
-
 
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
