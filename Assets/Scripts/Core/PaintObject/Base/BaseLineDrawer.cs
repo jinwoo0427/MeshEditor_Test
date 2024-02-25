@@ -144,12 +144,6 @@ namespace GetampedPaint.Core.PaintObject.Base
         /// <summary>
         /// Creates line mesh
         /// </summary>
-        /// <param name="linePositions"></param>
-        /// <param name="renderOffset"></param>
-        /// <param name="brushTexture"></param>
-        /// <param name="brushSizeActual"></param>
-        /// <param name="brushSizes"></param>
-        /// <param name="randomizeAngle"></param>
         public void RenderLine(IList<Vector2> linePositions, Vector2 renderOffset, Texture brushTexture, float brushSizeActual, IList<float> brushSizes, bool randomizeAngle = false)
         {
             // 렌더링에 필요한 초기 변수 설정

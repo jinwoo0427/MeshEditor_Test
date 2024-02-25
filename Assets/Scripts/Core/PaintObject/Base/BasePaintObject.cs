@@ -781,6 +781,8 @@ namespace GetampedPaint.Core.PaintObject.Base
                         }
 
                         //Debug.Log("DrawLineTest");
+                        Debug.Log("DrawLine");
+
                         RenderLine(linePositions, RenderOffset, Brush.RenderTexture, Brush.Size, brushes, Tool.RandomizeLinesQuadsAngle);
                     }
                 }
