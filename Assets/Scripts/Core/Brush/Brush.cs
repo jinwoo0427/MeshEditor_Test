@@ -309,7 +309,8 @@ namespace GetampedPaint.Core.Materials
             offset.x -= offset.x % sourceTexel.x;
             offset.y -= offset.y % sourceTexel.y;
             
-            var texelSize = new Vector4(halfSize.x * renderTexel.x, halfSize.y * renderTexel.y, halfSize.x * renderTexel.x, halfSize.y * renderTexel.y);
+            var texelSize = new Vector4(halfSize.x * renderTexel.x, halfSize.y * renderTexel.y, 
+                                        halfSize.x * renderTexel.x, halfSize.y * renderTexel.y);
             var divX = texelSize.x % renderTexel.x;
             var divY = texelSize.y % renderTexel.y;
             texelSize.x += divX;
